@@ -1,5 +1,11 @@
 {
+  "main": "app.js",                                                                                    
+  "scripts": {
+    "start" : "node app.js"
+  },
   "dependencies": {
-    "express": "^5.1.0"
+    "cookie-parser": "^1.4.7",
+    "express": "^5.1.0",
+    "express-session": "^1.18.1"
   }
 }

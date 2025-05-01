@@ -1,0 +1,15 @@
+footer{
+    height: 200px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    background-color: #ffffff70;
+}
+footer > article, footer > p{
+    display: flex;
+    margin: 20px;
+    font-size: 12px;
+}
+footer > article{
+    margin-top: 30px;
+}

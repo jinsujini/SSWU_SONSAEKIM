@@ -1,0 +1,50 @@
+header{
+    display: flex;
+    height: 70px;
+    background-color: #fff;
+    width: calc(100% - 20px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+header > .menu > ul{
+    display: flex;
+    list-style: none;
+    gap: 30px;
+    font-size: 20px;
+    font-weight: bold;
+}
+header > .my{
+    background-color: #FFD700;
+    width: 140px;
+    height: 50px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+header > .my > p{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'NanumSquareRound';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*백그라운드 이미지 그라데이션 공통*/
+body{
+    padding: 0;
+    margin: 0;
+    background: linear-gradient(to bottom, #F7FFEB, #FFF4DC); 
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    font-family:'NanumSquareRound' ;
+}
+

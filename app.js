@@ -24,6 +24,7 @@ app.use(session({
 
 app.use((req, res, next) => {
     console.log('모든 요청에 다 실행됩니다.');
+    next();
 });
 
 app.get('/',(req,res)=>{
@@ -34,3 +35,9 @@ app.get('/',(req,res)=>{
 app.listen(app.get('port'),()=>{
     console.log(app.get('port'),'번 포트에서 대기 중');
 });
+
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
+const viewRouter = require('./routers/viewRouters');
+app.use('/', viewRouter);

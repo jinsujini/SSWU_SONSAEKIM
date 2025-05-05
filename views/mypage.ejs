@@ -1,6 +1,230 @@
 <%- include('layouts/header') %>
 
-<h2>마이페이지입니다 ∼</h2>
+    <div class="center">
+        <div class="title">
+            <strong>username</strong> 님의 스터디룸
+            <a href="/">로그아웃</a>
+        </div>
+        <!-- 학습 메모 -->
+        <div class="sc1">
+            <div class="left">
+                <div class="mid_title">학습메모</div>
+                <div class="study_memo">
+                    <h3>모음/자음</h3>
+                    <div class="memo_list">
+                        <div class="item">
+                            <img src="/" alt="학습 이미지" />
+                            <p>1</p>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="study_memo">
+                    <h3>단어/문장</h3>
+                    <div class="memo_list">
+                        <div class="item">
+                            <img src="/" alt="학습 이미지" />
+                            <p>1</p>
+                        </div>
+                        <div class="item">
+                            <img src="/" alt="학습 이미지" />
+                            <p>1</p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <!-- 학습 통계 -->
+
+                <div class="mid_title">학습통계</div>
+                <div class="study_stats level">
+                    <p>현재 학습 단계 : 1단계</p>
+                    <div class="inner">
+                        <img src="\assets\hand_icon\white_hand.png" alt="">
+                        <p>다음 단계까지 <br /> 앞으로 <strong>10</strong> 단어</p>
+                    </div>
+                </div>
+                <div class="study_stats calendar">
+
+                    <p>나의 잔디</p>
+
+                    <div class="grid">
+                        <% for(let i=0; i < 28; i++) { %>
+                            <div class="day <%= i < 10 ? 'checked' : '' %>"></div>
+                            <% } %>
+                    </div>
+                    <div class="count">
+                        <p><strong>전체 출석</strong><br /><br />10일</p>
+                        <p><strong>연속 출석</strong><br /><br />4일</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- 정보변경하는 부분 -->
+        <div class="sc2">
+            <div class="mid_title">내 정보</div>
+            <form class="wrap" action="/updateProfile" method="POST">
+                <div>
+                    <p>이름</p>
+                    <input type="text" id="nameInput" name="name" disabled value="이름" />
+                    <button type="button" id="nameBtn" onclick="toggleNameEdit()">변경</button>
+                </div>
+
+                <div>
+                    <p>이메일</p>
+                    <input type="email" name="email" disabled value="이메일일걸" />
+                    <button type="button" onclick="openEmailModal()">변경</button>
+                </div>
+
+                <div>
+                    <p>비밀번호</p>
+                    <button type="button" onclick="openPasswordModal()">변경</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 이메일 변경 모달 -->
+    <div id="emailModal" class="modal" onclick="closeEmailModal()">
+        <div class="modal-content">
+            <h3>이메일 변경</h3>
+
+            <form id="emailForm" action="/updateEmail" method="POST" onsubmit="return validateEmailCode()">
+                <label>변경할 이메일</label>
+                <div class="input-row">
+                    <input type="email" id="newEmail" name="newEmail" required />
+                    <button type="button" class="sub-btn" onclick="sendVerificationCode()">인증번호 발송</button>
+                </div>
+
+                <label>인증번호</label>
+                <div class="input-row">
+                    <input type="text" id="verificationCode" name="verificationCode" required disabled />
+                    <button type="button" class="sub-btn" onclick="verifyCode()">인증하기</button>
+                </div>
+
+                <p id="emailError" class="error-message" style="display: none;">* 인증에 실패했습니다.</p>
+                <p id="emailSuccess" class="success-message" style="display: none;">* 인증에 성공했습니다.</p>
+
+                <button type="submit" class="submit-btn">변경하기</button>
+            </form>
+        </div>
+    </div>
 
 
-<%- include('layouts/footer') %>
+    <!-- 비밀번호 변경 모달 -->
+    <div id="passwordModal" class="modal" onclick="closePasswordModal()">
+        <div class="modal-content">
+            <span class="close"></span>
+            <h3>비밀번호 변경</h3>
+            <form id="passwordForm" action="/updatePassword" method="POST" onsubmit="return validatePassword()">
+                <label for="currentPassword">현재 비밀번호</label>
+                <input type="password" id="currentPassword" name="currentPassword" required />
+
+                <label for="newPassword">새로운 비밀번호</label>
+                <input type="password" id="newPassword" name="newPassword" required />
+
+                <label for="confirmPassword">비밀번호 확인</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required />
+
+                <p id="errorMessage" class="error-message" style="display: none;">* 비밀번호가 일치하지 않습니다.</p>
+
+                <button type="submit" class="submit-btn">변경하기</button>
+            </form>
+        </div>
+    </div>
+
+
+
+
+    <%- include('layouts/footer') %>
+
+
+        <script>
+            // 비밀번호 모달 조작
+            function openPasswordModal() {
+                document.getElementById("passwordModal").style.display = "block";
+            }
+
+            function closePasswordModal() {
+                document.getElementById("passwordModal").style.display = "none";
+             
+            }
+
+            function validatePassword() {
+                const newPw = document.getElementById("newPassword").value;
+                const confirmPw = document.getElementById("confirmPassword").value;
+                const errorMessage = document.getElementById("errorMessage");
+
+                if (newPw !== confirmPw) {
+                    errorMessage.style.display = "block";
+                    return false;
+                }
+
+                errorMessage.style.display = "none";
+                return true;
+            }
+            window.onclick = function (event) {
+                const modal = document.getElementById("passwordModal");
+                if (event.target == modal) {
+                    closePasswordModal();
+                }
+            }
+
+            //이메일 변경 모달 조작
+            function openEmailModal() {
+                document.getElementById("emailModal").style.display = "block";
+            }
+
+            function closeEmailModal() {
+                document.getElementById("emailModal").style.display = "none";
+            }
+
+            //추후 수정해야하는 부분, 인증 확인 로직 추가
+            function sendVerificationCode() {
+                document.getElementById("verificationCode").disabled = false;
+                alert("인증번호가 전송되었습니다.");
+            }
+
+            function verifyCode() {
+                const code = document.getElementById("verificationCode").value;
+
+                if (code === "123456") {
+                    document.getElementById("emailSuccess").style.display = "block";
+                    document.getElementById("emailError").style.display = "none";
+                } else {
+                    document.getElementById("emailError").style.display = "block";
+                    document.getElementById("emailSuccess").style.display = "none";
+                }
+            }
+
+            function validateEmailCode() {
+                const successMsg = document.getElementById("emailSuccess").style.display;
+                if (successMsg !== "block") {
+                    alert("인증을 먼저 완료해주세요 ∼");
+                    return false;
+                }
+                return true;
+            }
+            // 이름 변경 버튼 조작
+            let isEditingName = false;
+
+            function toggleNameEdit() {
+                const nameInput = document.getElementById("nameInput");
+                const nameBtn = document.getElementById("nameBtn");
+
+                if (!isEditingName) {
+                    nameInput.disabled = false;
+                    nameInput.focus();
+                    nameBtn.textContent = "저장";
+                    isEditingName = true;
+                } else {
+                    nameBtn.setAttribute("type", "submit");
+                    nameBtn.click(); 
+                    
+                }
+                
+            }
+        </script>

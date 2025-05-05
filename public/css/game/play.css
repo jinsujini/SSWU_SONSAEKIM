@@ -1,0 +1,133 @@
+
+.game-container {
+    position: relative;
+    width: 100%;
+    height: 980px;
+    overflow: hidden;
+  }
+  
+  .life-box {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: #DFDED0;
+    padding: 0px 10px;
+    border-radius: 50px;
+  }
+  
+  .life-box img {
+    height: 80px;
+    margin: 0 5px;
+  }
+  
+  .falling-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .falling-img {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    animation: fall 3s linear forwards;
+  }
+  
+  @keyframes fall {
+    0% {
+      top: -100px;
+      opacity: 1;
+    }
+    90% {
+      opacity: 1;
+    }
+    100% {
+      top: 750px;
+      opacity: 0;
+    }
+  }
+  
+  .score-box {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    font-size: 50px;
+    border: 1px solid #000;
+    width:200px;
+   
+    padding:10px;
+    text-align:center;
+
+  }
+
+  
+  .score-text {
+    font-size: 34px;
+    color: #444;
+    font-weight: 400;
+  }
+  
+  .score {
+    font-size: 54px;
+    font-weight: bold;
+    color: #000;
+  }
+  
+  
+  .input-box {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    color: #F1F1F1;
+  }
+  
+  .input-box input {
+    width: 400px;
+    height: 70px;
+    border-radius: 20px;
+    border: none;
+    font-size: 18px;
+    text-align: center;
+  }
+  
+  .input-box button {
+    height: 70px;
+    width:100px;
+    background-color: #fff091;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size:25px;
+    box-shadow: 3px 3px 0 #ccc;
+  }
+  
+  .ranking-box {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+    line-height: 1.6;
+    box-shadow: 3px 3px 0 #ccc;
+    border: 1px solid #000;
+  }
+  
+  .ranking-header {
+    text-align: right;
+    font-weight: bold;
+    font-size: 40px;
+  }
+  
+  .ranking-list {
+    text-align: left;
+    margin-top: 5px;
+    font-size: 25px;
+  }
+  

@@ -1,0 +1,44 @@
+<%- include('header') %>
+
+<div class="quiz_wrong_container">
+  <h2>오답 확인</h2>
+
+  <div class="quiz_box">
+
+    <!-- 학습메모 버튼 -->
+    <form action="/quiz/bookmark" method="POST" class="bookmark_form">
+      <input type="hidden" name="questionId" value="<%= question.id %>">
+      <button type="submit" class="bookmark_btn"></button> <!-- 이미지로 바꿔야됨 아직,,-->
+    </form>
+
+    <!-- 퀴즈 -->
+    <div class="quiz_content">
+      <img src="<%= question.imageUrl %>" alt="수어 이미지" class="quiz_image" />
+      <div class="quiz_text">
+        <p class="quiz_title"><%= question.title %></p>
+
+        <div class="quiz-options">
+          <% question.options.forEach((option, index) => { 
+               const isCorrect = (index === question.correctIndex);
+               const isWrong = (index === question.userAnswerIndex && index !== question.correctIndex);
+          %>
+            <button class="quiz_btn 
+              <%= isCorrect ? 'correct' : '' %> 
+              <%= isWrong ? 'wrong' : '' %>">
+              <%= index + 1 %>. <%= option %>
+            </button>
+          <% }) %>
+        </div>
+      </div>
+    </div>
+
+    <!-- 페이지 이동 버튼 -->
+    <div class="nav_buttons">
+      <a href="" class="nav-btn">◀</a>
+      <a href="" class="nav-btn">▶</a>
+    </div>
+
+  </div>
+</div>
+
+<%- include('footer', { script: '<script src="/js/quiz-wrong.js"></script>' }) %>

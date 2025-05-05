@@ -1,0 +1,43 @@
+<%- include('../layouts/header') %>
+<link rel="stylesheet" href="/css/game/play.css">
+
+<section class="game-container">
+
+  <!-- 생명 표시 -->
+  <div class="life-box">
+    <img src="/assets/hand.svg" alt="life" />
+    <img src="/assets/hand.svg" alt="life" />
+    <img src="/assets/hand.svg" alt="life" />
+  </div>
+
+  <!-- 떨어지는 이미지 -->
+  <div class="falling-container">
+    <img src="/assets/sign1.svg" class="falling-img" />
+  </div>
+
+  <!-- 점수 -->
+  <div class="score-box"><span class="score-text">점수</span> <span class="score">160</span></div>
+
+  <!-- 입력창 -->
+  <div class="input-box">
+    <input type="text" id="user-input" />
+    <button id="submit-btn">입력</button>
+  </div>
+
+  <!-- 순위 -->
+  <div class="ranking-box">
+    <div class="ranking-header">
+      <span class="ranking-text">#순위</span>
+    </div>
+    <div class="ranking-list">
+      1등 최수진 ···· 260점<br />
+      2등 박시현 ···· 223점<br />
+      3등 전민선 ···· 178점
+    </div>
+  </div>
+  
+
+</section>
+
+<script src="/js/game/play.js"></script>
+

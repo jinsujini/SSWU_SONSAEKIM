@@ -1,0 +1,7 @@
+<%- include('layouts/header') %>
+<form action="/auth/verify" method="POST">
+    <p>이메일로 발송된 인증 코드를 입력하세요</p>
+    <input type="text" name="code" required>
+    <button type="submit">확인</button>
+  </form>
+<%- include('layouts/footer') %>

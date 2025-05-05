@@ -41,3 +41,8 @@ app.set('views', path.join(__dirname, 'views'));
 
 const viewRouter = require('./routers/viewRouters');
 app.use('/', viewRouter);
+
+
+//auth 연결
+const authRouter = require('./routers/auth');
+app.use('/auth', authRouter);

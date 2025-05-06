@@ -41,3 +41,6 @@ app.set('views', path.join(__dirname, 'views'));
 
 const viewRouter = require('./routers/viewRouters');
 app.use('/', viewRouter);
+
+const quizRouter = require('./routers/quizRouter');
+app.use('/quiz', quizRouter);

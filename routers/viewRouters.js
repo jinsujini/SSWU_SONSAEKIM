@@ -5,4 +5,11 @@ router.get('/mypage', (req, res) => {
     res.render('mypage'); 
 });
 
+router.get('/game', (req, res) => {
+    res.render('game/start');
+});
+
+router.get('/game/play', (req, res) => {
+    res.render('game/play');
+});
 module.exports = router;

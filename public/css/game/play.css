@@ -1,10 +1,10 @@
 
 .game-container {
-    position: relative;
-    width: 100%;
-    height: 980px;
-    overflow: hidden;
-  }
+  position: relative;
+  width: 100%;
+  height: 90vh;;
+  overflow: hidden;
+}
   
   .life-box {
     position: absolute;
@@ -130,4 +130,61 @@
     margin-top: 5px;
     font-size: 25px;
   }
-  
+  /* 전체 블러 및 배경 어둡게 */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(6px);
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 모달 창 */
+.modal-content {
+  background-color: white;
+  padding: 30px 50px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  text-align: center;
+  border: 1px solid #000;
+}
+
+.modal-content h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.modal-content p {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.modal-buttons button {
+  padding: 10px 20px;
+  background-color: #FFF091;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 #ccc;
+  transition: transform 0.1s;
+}
+
+.modal-buttons button:hover {
+  transform: scale(1.05);
+}
+/*
+#gameOverModal {
+  display: none;
+}*/

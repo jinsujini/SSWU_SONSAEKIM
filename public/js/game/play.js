@@ -5,3 +5,16 @@ const inputBox = document.querySelector('#user-input');
 falling.addEventListener('animationiteration', () => {
   falling.remove(); 
 });
+
+function showGameOver(score) {
+  document.getElementById('final-score').innerText = score;
+  document.getElementById('gameOverModal').style.display = 'flex';
+}
+
+function restartGame() {
+  location.reload();
+}
+
+function goToStart() {
+  window.location.href = '/game'; 
+}

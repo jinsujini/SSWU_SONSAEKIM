@@ -2,6 +2,16 @@
 <link rel="stylesheet" href="/css/game/play.css">
 
 <section class="game-container">
+  <div class="overlay" id="gameOverModal">
+    <div class="modal-content">
+      <h2>게임 오버</h2>
+      <p>결과: <span id="final-score">160</span>점</p>
+      <div class="modal-buttons">
+        <button onclick="restartGame()">다시하기</button>
+        <button onclick="goToStart()">처음으로</button>
+      </div>
+    </div>
+  </div>
 
   <!-- 생명 표시 -->
   <div class="life-box">

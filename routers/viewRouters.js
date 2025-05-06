@@ -25,4 +25,11 @@ router.get('/study/imitate/consonant/result', (req, res) => {
     res.render('consonantResult'); 
 });
 
+router.get('/game', (req, res) => {
+    res.render('game/start');
+});
+
+router.get('/game/play', (req, res) => {
+    res.render('game/play');
+});
 module.exports = router;

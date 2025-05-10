@@ -25,6 +25,10 @@ router.get('/study/imitate/consonant/result', (req, res) => {
     res.render('consonantResult'); 
 });
 
+router.get('/study/imitate/vowel/wrong', (req, res) => {
+    res.render('quiz/imitateWrong'); 
+});
+
 router.get('/game', (req, res) => {
     res.render('game/start');
 });

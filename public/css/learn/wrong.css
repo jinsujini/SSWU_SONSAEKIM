@@ -82,7 +82,7 @@
     position: absolute;
     bottom : 0;
     right: 0;
-    margin: 20px;
+    margin: 10px;
 
 }
 
@@ -90,7 +90,12 @@
     border: none;
     background: none;
     cursor: pointer;
-    margin: 3px;
+    margin: 2px;
+}
+
+.nav-btn img {
+    width: 20px;
+    height: auto;
 }
 
 .yellow {

@@ -5,6 +5,10 @@ router.get('/mypage', (req, res) => {
     res.render('mypage'); 
 });
 
+router.get('/learn', (req, res) => {
+    res.render('quiz/learn', { userName: '손새김'}); 
+});
+
 router.get('/study/imitate', (req, res) => {
     res.render('imitate'); 
 });

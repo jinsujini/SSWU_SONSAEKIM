@@ -1,4 +1,4 @@
-<%- include('../layouts/header') %>
+<!-- <%- include('../layouts/header') %>
 
 <div class="learn_container">
   <h2><%= userName %>님 오늘도 손으로 새기며 배워봐요!</h2>
@@ -7,6 +7,21 @@
     <a href="/quizMenu" class="learn_btn">퀴즈풀기</a>
     <a href="" class="learn_btn">따라하기</a>
   </div>
-</div>
+</div> -->
 
-<%- include('../layouts/header', { script: '' }) %>
+
+<%- include('../layouts/header') %>
+
+<link rel="stylesheet" href="/css/imitate.css">
+
+<div class="imitate-container">
+    <div class="imitate-wrapper">
+        <div class="imitate-label">
+          <img src="/assets/hand_icon/white_hand.png" class="imitate-icon">
+  <span><%= userName %>님 오늘도 손으로 새기며 배워봐요!</span>
+        </div>
+<div class="imitate-box">
+        <a href="/quiz/select" class="imitate-btn">퀴즈풀기</a>
+        <a href="/study/imitate" class="imitate-btn">따라하기</a>
+    </div>
+</div>

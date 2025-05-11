@@ -1,6 +1,6 @@
 <%- include('../layouts/header') %>
 
-<div class="quiz_container">
+<!-- <div class="quiz_container">
   <h2>퀴즈풀기</h2>
     <div class="quiz_box">
         <div class="quiz_options">
@@ -9,6 +9,16 @@
             <button class="quiz_btn">오답 확인</button>
         </div>
     </div>
-</div>
+</div> -->
 
-<%- include('../layouts/footer', { script: '' }) %>
+<link rel="stylesheet" href="/css/imitate.css">
+
+<div class="imitate-container">
+    <div class="imitate-wrapper">
+        <div class="imitate-label">퀴즈풀기</div>
+<div class="imitate-box">
+        <a href="/quiz/start/phoneme" class="imitate-btn">모음/자음 퀴즈</a>
+        <a href="/study/imitate/consonant" class="imitate-btn">단어/표현 퀴즈</a>
+        <a href="/quiz/wrong" class="imitate-btn">오답 확인</a>
+    </div>
+</div>

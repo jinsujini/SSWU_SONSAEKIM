@@ -42,3 +42,5 @@ pids
 .next/
 .nuxt/
 .svelte-kit/
+
+/lib/db.js

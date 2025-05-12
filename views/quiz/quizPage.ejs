@@ -1,0 +1,47 @@
+<%- include('../layouts/header') %>
+<link rel="stylesheet" href="/css/learn/learnFrame.css">
+<link rel="stylesheet" href="/css/learn/quiz.css">
+
+<div class="learn-container">
+    <div class="learn-wrapper">
+        <div id="label">
+            <p>모음/자음 퀴즈</p>
+        </div>
+        <div class="learn-box">
+
+        <!-- 학습메모 버튼 -->
+        <!--<form action="" method="POST" class="bookmark_form">
+            <input type="hidden" name="questionId" value="">-->
+            <button type="submit" id="bookmark-btn">
+            <img id="btn-img" src="/assets/empty_bookmark.svg" alt="북마크" />
+            </button> 
+        <!--</form>-->
+
+        <!-- 퀴즈 내용 -->
+        <div class="learn-content">
+            <img src="" alt="수어 이미지" class="quiz-image" />
+            <div class="quiz-text">
+            <p>1. 이 수어의 의미로 옳은 선택지를 고르시오</p>
+            <div class="quiz-options">
+                <div class="quiz-row">
+                <button class="quiz-btn yellow">1. 폭탄</button>
+                <button class="quiz-btn yellow">2. 열기구</button>
+                </div>
+                <div class="quiz-row">
+                <button class="quiz-btn yellow">3. 빵</button>
+                <button class="quiz-btn yellow">4. 뻥튀기</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="/js/quiz/bookmark.js"></script>
+
+</main>
+</body>
+
+</html>

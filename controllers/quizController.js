@@ -2,8 +2,8 @@ exports.showQuizSelect = (req, res) => {
     res.render('quiz/quizMenu');
   };
   
-exports.showQuizPhoneme = (req, res) => {
-  res.render('quiz/quizPhoneme');
+exports.showQuiz = (req, res) => {
+  res.render('quiz/quizPage');
 };
 
 exports.showResult = (req, res) => {

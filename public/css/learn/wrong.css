@@ -28,6 +28,9 @@
     cursor: default;
 }
 
+.learn-box {
+    border-radius: 0 0  20px 20px;
+}
 .nav-buttons {
     border: none;
     background: none;
@@ -49,10 +52,6 @@
 .nav-btn img {
     width: 20px;
     height: auto;
-}
-
-.yellow {
-    background-color: #FFF091;
 }
 
 .green {

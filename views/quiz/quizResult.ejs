@@ -1,17 +1,31 @@
 <%- include('../layouts/header') %>
+<link rel="stylesheet" href="/css/learn/learnFrame.css">
+<link rel="stylesheet" href="/css/result.css">
 
-<div class="quiz_result_container">
-  <h2>모음/자음 퀴즈 결과</h2>
+<div class="learn-container">
+    <div class="learn-wrapper">
+        <div id="label">
+            <p>모음/자음 퀴즈 결과</p>
+        </div>
+        <div class="learn-box">
+            <div class="result-content">
+              <div class="result-box">5</div>
+              <div class="result-total">/ 10</div>
+          
+              <div class="result-buttons">
+                <a href="" class="result-button">오답 확인</a>
+                <a href="" class="result-button">돌아가기</a>
+              </div>
+            </div>
+          </div>
 
-  <div class="result_card">
-    <span class="score_box"><%= score %></span>
-    <span class="score_total">/ <%= total %></span>
-
-    <div class="result_buttons">
-      <a href="" class="result_btn">오답 확인</a>
-      <a href="" class="result_btn">돌아가기</a>
+        </div>
     </div>
-  </div>
 </div>
 
-<%- include('../layouts/footer', { script: '' }) %>
+<script src="/js/quiz/bookmark.js"></script>
+
+</main>
+</body>
+
+</html>

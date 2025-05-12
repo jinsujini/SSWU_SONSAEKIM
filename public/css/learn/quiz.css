@@ -62,3 +62,13 @@
     font-weight: bold;
     cursor: pointer;
 }
+
+.green {
+    background-color: #22964A;
+    color: white;
+}
+
+.red {
+    background-color: #CA3131;
+    color: white;
+}

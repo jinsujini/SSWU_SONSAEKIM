@@ -9,7 +9,7 @@
         </div>
         <div class="learn-box">
             <div class="result-content">
-              <div class="result-box">5</div>
+              <div class="result-box" id="score-box">0</div>
               <div class="result-total">/ 10</div>
           
               <div class="result-buttons">
@@ -24,6 +24,12 @@
 </div>
 
 <script src="/js/quiz/bookmark.js"></script>
+<script>
+  const score = localStorage.getItem('score');
+  if (score !== null) {
+    document.getElementById('score-box').textContent = score;
+  }
+</script>
 
 </main>
 </body>

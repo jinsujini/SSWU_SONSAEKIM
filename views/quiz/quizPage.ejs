@@ -21,15 +21,15 @@
         <div class="learn-content">
             <img src="" alt="수어 이미지" class="quiz-image" />
             <div class="quiz-text">
-            <p>1. 이 수어의 의미로 옳은 선택지를 고르시오</p>
+            <p></p>
             <div class="quiz-options">
                 <div class="quiz-row">
-                <button class="quiz-btn yellow">1. 폭탄</button>
-                <button class="quiz-btn yellow">2. 열기구</button>
+                <button class="quiz-btn yellow"></button>
+                <button class="quiz-btn yellow"></button>
                 </div>
                 <div class="quiz-row">
-                <button class="quiz-btn yellow">3. 빵</button>
-                <button class="quiz-btn yellow">4. 뻥튀기</button>
+                <button class="quiz-btn yellow"></button>
+                <button class="quiz-btn yellow"></button>
                 </div>
             </div>
             </div>
@@ -40,6 +40,10 @@
 </div>
 
 <script src="/js/quiz/bookmark.js"></script>
+<script>
+    const quizList = <%- JSON.stringify(quizList) %>;
+</script>
+<script src="/js/quiz/renderQuiz.js"></script>
 
 </main>
 </body>

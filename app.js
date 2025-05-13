@@ -27,10 +27,6 @@ app.use((req, res, next) => {
     next();
 });
 
-app.get('/',(req,res)=>{
-    res.send('Hello, Express');
-});
-
 
 app.listen(app.get('port'),()=>{
     console.log(app.get('port'),'번 포트에서 대기 중');
@@ -48,3 +44,8 @@ app.use('/quiz', quizRouter);
 //auth 연결
 const authRouter = require('./routers/auth');
 app.use('/auth', authRouter);
+
+//home.ejs 연결
+app.get('/', (req, res) => {
+    res.render('home');
+  });

@@ -45,6 +45,9 @@ app.use('/', viewRouter);
 const quizRouter = require('./routers/quizRouter');
 app.use('/quiz', quizRouter);
 
+const gameRouter = require('./routers/gameRouter');
+app.use('/game', gameRouter);
+
 //auth 연결
 const authRouter = require('./routers/auth');
 app.use('/auth', authRouter);

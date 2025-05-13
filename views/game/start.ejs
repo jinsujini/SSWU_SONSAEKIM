@@ -9,9 +9,13 @@
     <h2 class="modal-title">순위</h2>
 
     <div class="ranking-list">
-      <p>1등 최수진 260점</p>
-      <p>2등 박시현 223점</p>
-      <p>3등 전민선 178점</p>
+      <% if (top3.length === 0) { %>
+        <p>아직 등록된 기록이 없습니다.</p>
+      <% } else { %>
+        <% top3.forEach((record, index) => { %>
+          <p><%= index + 1 %>등 사용자 <%= record.user_id %> <%= record.score %>점</p>
+        <% }) %>
+      <% } %>
     </div>
   </div>
 </div>

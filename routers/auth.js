@@ -1,9 +1,9 @@
-require('dotenv').config(); 
+require('dotenv').config();
 const express = require('express');
 const router = express.Router();
-const db = require('../lib/db');
 const redisClient = require('../configs/redis');
 const { generateRandomNumber, sendEmail } = require('../lib/email.helper');
+const User = require('../models/User'); 
 
 router.get('/verify', (req, res) => {
   const { email } = req.query;
@@ -13,7 +13,6 @@ router.get('/verify', (req, res) => {
 router.get('/register', (req, res) => {
   res.render('register');
 });
-
 
 router.post('/register-temp', async (req, res) => {
   const { name, email, password, password2 } = req.body;
@@ -26,7 +25,7 @@ router.post('/register-temp', async (req, res) => {
     return res.send("비밀번호가 일치하지 않습니다.");
   }
 
-  db.query('SELECT * FROM users WHERE email = ?', [email], async (err, results) => {
+  User.findByEmail(email, async (err, results) => {
     if (err) throw err;
     if (results.length > 0) {
       return res.send("이미 존재하는 이메일입니다.");
@@ -36,15 +35,11 @@ router.post('/register-temp', async (req, res) => {
     const tempUserData = JSON.stringify({ name, email, password });
 
     await redisClient.set(`${email}:authCode`, code, { EX: 180 });
-    await redisClient.set(`${email}:tempUser`, tempUserData, { EX: 180 });     
+    await redisClient.set(`${email}:tempUser`, tempUserData, { EX: 180 });
 
     await sendEmail(email, code);
     res.redirect(`/auth/verify?email=${encodeURIComponent(email)}`);
   });
-});
-
-router.get('/verify', (req, res) => {
-  res.render('verify');
 });
 
 router.post('/verify', async (req, res) => {
@@ -60,16 +55,12 @@ router.post('/verify', async (req, res) => {
 
   if (userCode === savedCode) {
     const { name, password } = tempUser;
-    db.query(
-      'INSERT INTO users (email, name, password) VALUES (?, ?, ?)',
-      [email, name, password],
-      (err) => {
-        if (err) throw err;
-        redisClient.del(`${email}:authCode`);
-        redisClient.del(`${email}:tempUser`);
-        res.redirect('/auth/welcome');
-      }
-    );
+    User.create(email, name, password, (err) => {
+      if (err) throw err;
+      redisClient.del(`${email}:authCode`);
+      redisClient.del(`${email}:tempUser`);
+      res.redirect('/auth/welcome');
+    });
   } else {
     res.send("인증 코드가 일치하지 않습니다.");
   }
@@ -85,20 +76,17 @@ router.get('/login', (req, res) => {
 
 router.post('/login_process', (req, res) => {
   const { email, password } = req.body;
-  db.query(
-    'SELECT * FROM users WHERE email = ? AND password = ?',
-    [email, password],
-    (err, results) => {
-      if (err) throw err;
-      if (results.length > 0) {
-        req.session.is_logined = true;
-        req.session.nickname = results[0].name;
-        res.send(`${results[0].name} 로그인 성공`);
-      } else {
-        res.send("로그인 실패");
-      }
+
+  User.findByEmailAndPassword(email, password, (err, results) => {
+    if (err) throw err;
+    if (results.length > 0) {
+      req.session.is_logined = true;
+      req.session.nickname = results[0].name;
+      res.send(`${results[0].name} 로그인 성공`);
+    } else {
+      res.send("로그인 실패");
     }
-  );
+  });
 });
 
 module.exports = router;

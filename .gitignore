@@ -43,4 +43,8 @@ pids
 .nuxt/
 .svelte-kit/
 
+<<<<<<< HEAD
 lib/db.js
+=======
+/lib/db.js
+>>>>>>> main

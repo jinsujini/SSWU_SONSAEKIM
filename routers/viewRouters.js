@@ -6,31 +6,31 @@ router.get('/mypage', (req, res) => {
 });
 
 router.get('/learn', (req, res) => {
-    res.render('quiz/learn', { userName: '손새김'}); 
+    res.render('learn/learn', { userName: '손새김'}); 
 });
 
 router.get('/study/imitate', (req, res) => {
-    res.render('imitate'); 
+    res.render('imitate/imitate'); 
 });
 
 router.get('/study/imitate/vowel', (req, res) => {
-    res.render('vowel'); 
+    res.render('imitate/vowel'); 
 });
 
 router.get('/study/imitate/consonant', (req, res) => {
-    res.render('consonant'); 
+    res.render('imitate/consonant'); 
 });
 
 router.get('/study/imitate/vowel/result', (req, res) => {
-    res.render('vowelResult'); 
+    res.render('imitate/vowelResult'); 
 });
 
 router.get('/study/imitate/consonant/result', (req, res) => {
-    res.render('consonantResult'); 
+    res.render('imitate/consonantResult'); 
 });
 
 router.get('/study/imitate/vowel/wrong', (req, res) => {
-    res.render('quiz/imitateWrong'); 
+    res.render('imitate/imitateWrong'); 
 });
 
 router.get('/game', (req, res) => {

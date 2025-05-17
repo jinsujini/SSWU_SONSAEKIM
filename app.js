@@ -1,6 +1,7 @@
 const express = require('express');
 const cookiParser = require('cookie-parser');
 const session = require('express-session');
+const db = require('./models'); 
 
 const path = require("path");
 
@@ -52,3 +53,15 @@ app.use('/auth', authRouter);
 app.get('/', (req, res) => {
     res.render('home');
   });
+
+
+db.sequelize.sync({ alter: true })
+.then(() => {
+  console.log('DB 연결 및 테이블 생성(수정)됨');
+  app.listen(3000, () => {
+    console.log('서버 실행');
+  });
+})
+.catch(err => {
+  console.error('DB 연결 실패:', err);
+});

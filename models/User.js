@@ -1,25 +1,36 @@
-const db = require('../lib/db');
+// models/User.js
 
-const User = {
-  findByEmail: (email, callback) => {
-    db.query('SELECT * FROM users WHERE email = ?', [email], callback);
-  },
+module.exports = (sequelize, DataTypes) => {
+  const User = sequelize.define("User", {
+    user_id: {
+      type: DataTypes.BIGINT,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  }, {
+    tableName: 'users', 
+    timestamps: false,  
+  });
+  //겜 테이블이랑 관계설정
+  User.associate = (models) => {
+    User.hasMany(models.GameRecord, {
+      foreignKey: 'user_id',
+      sourceKey: 'user_id'
+    });
+  };
 
-  create: (email, name, password, callback) => {
-    db.query(
-      'INSERT INTO users (email, name, password) VALUES (?, ?, ?)',
-      [email, name, password],
-      callback
-    );
-  },
-
-  findByEmailAndPassword: (email, password, callback) => {
-    db.query(
-      'SELECT * FROM users WHERE email = ? AND password = ?',
-      [email, password],
-      callback
-    );
-  }
+  return User;
 };
-
-module.exports = User;

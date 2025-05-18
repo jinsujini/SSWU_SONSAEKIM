@@ -180,3 +180,16 @@
 .sc2 .wrap >div button:hover{
     background-color: #191919;
 }
+
+
+/*여기서부터 nouser*/
+.nouser{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+   
+}
+.nouser > *{
+    color: #000;
+}

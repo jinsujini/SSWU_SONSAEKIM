@@ -1,0 +1,23 @@
+exports.showImitateSelect = (req, res) => {
+    res.render('imitate/imitate');
+  };
+  
+  exports.showVowel = (req, res) => {
+    res.render('imitate/vowel');
+  };
+
+  exports.showConsonant = (req, res) => {
+    res.render('imitate/consonant');
+  };
+
+  exports.showVowelResult = (req, res) => {
+    res.render('imitate/vowelResult');
+  };
+
+  exports.showConsonantResult = (req, res) => {
+    res.render('imitate/consonantResult');
+  };
+
+  exports.showImitateWronqs = (req, res) => {
+    res.render('imitate/imitateWrong');
+  };

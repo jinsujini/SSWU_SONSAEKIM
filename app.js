@@ -41,6 +41,10 @@ app.use('/', viewRouter);
 const quizRouter = require('./routers/quizRouter');
 app.use('/quiz', quizRouter);
 
+// imitate 연결
+const imitateRouter = require('./routers/imitateRouter');
+app.use('/imitate', imitateRouter);
+
 //auth 연결
 const authRouter = require('./routers/auth');
 app.use('/auth', authRouter);

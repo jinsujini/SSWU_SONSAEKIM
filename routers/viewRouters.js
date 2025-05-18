@@ -1,9 +1,25 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/mypage', (req, res) => {
-    res.render('mypage'); 
+router.get('/', (req, res) => {
+    res.render('home');
+  });
+
+router.get('/gomypage', (req, res) => {
+     if (req.session.user) {
+        return res.redirect('/mypage');
+    } else {
+        return res.redirect('/nouser');
+    }
 });
+router.get('/mypage', (req, res) => {
+    res.render('mypage/mypage'); 
+});
+
+router.get('/nouser', (req, res) => {
+    res.render('mypage/nouser'); 
+});
+
 
 router.get('/learn', (req, res) => {
     res.render('learn/learn', { userName: '손새김'}); 

@@ -5,6 +5,7 @@
     "dev": "nodemon app.js"
   },
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "cache-manager": "^4.1.0",
     "cache-manager-redis-store": "^2.0.0",
     "cookie-parser": "^1.4.7",
@@ -14,7 +15,8 @@
     "express-session": "^1.18.1",
     "mysql2": "^3.14.1",
     "nodemailer": "^7.0.0",
-    "redis": "^5.0.1"
+    "redis": "^5.0.1",
+    "sequelize": "^6.37.7"
   },
   "devDependencies": {
     "@types/cache-manager": "^5.0.0",

@@ -51,7 +51,7 @@ app.use('/auth', authRouter);
 
 //home.ejs 연결
 app.get('/', (req, res) => {
-    res.render('home');
+    res.render('auth/home');
   });
 
 

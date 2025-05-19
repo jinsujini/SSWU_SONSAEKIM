@@ -49,6 +49,12 @@ app.use('/game', gameRouter);
 const authRouter = require('./routers/auth');
 app.use('/auth', authRouter);
 
+//home.ejs 연결
+app.get('/', (req, res) => {
+    res.render('auth/home');
+  });
+
+
 db.sequelize.sync({ alter: true })
 .then(() => {
   console.log('DB 연결 및 테이블 생성(수정)됨');

@@ -1,11 +1,3 @@
-body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: sans-serif;
-    background: linear-gradient(#f7fbe8, #ffeeca);
-  }
-
   .login-page {
     margin-top: 80px;
     display: flex;

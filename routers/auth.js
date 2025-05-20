@@ -8,45 +8,76 @@ const bcrypt = require('bcrypt');
 
 router.get('/verify', (req, res) => {
   const { email } = req.query;
-  res.render('verify', { email });
+  res.render('auth/verify', { email });
 });
 
 router.get('/register', (req, res) => {
-  res.render('register');
+  res.render('auth/register', {
+    name: '',
+    email: '',
+    emailError: '',
+    passwordMatchError: '',
+    passwordMatched: false,
+  });
 });
 
 router.post('/register-temp', async (req, res) => {
   const { name, email, password, password2 } = req.body;
 
-  if (!name || !email || !password || !password2) {
-    return res.send("모든 값을 입력하세요");
+  let emailError = '';
+  let passwordMatchError = '';
+  let passwordMatched = false;
+
+  const existingUser = await User.findOne({ where: { email } });
+  if (existingUser) {
+    emailError = '이미 존재하는 이메일입니다.';
   }
 
   if (password !== password2) {
-    return res.send("비밀번호가 일치하지 않습니다.");
+    passwordMatchError = '비밀번호가 일치하지 않습니다.';
+  } else {
+    passwordMatched = true;
   }
 
-  try {
-    const existingUser = await User.findOne({ where: { email } });
-    if (existingUser) {
-      return res.send("이미 존재하는 이메일입니다.");
-    }
+  if (emailError || passwordMatchError) {
+    return res.render('auth/register', {
+      name,
+      email,
+      emailError,
+      passwordMatchError,
+      passwordMatched,
+    });
+  }
 
+  const authCode = generateRandomNumber();
+
+  try {
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const code = generateRandomNumber();
-    const tempUserData = JSON.stringify({ name, email, password: hashedPassword });
+    await redisClient.setEx(`${email}:authCode`, 300, authCode);
+    await redisClient.setEx(`${email}:tempUser`, 300, JSON.stringify({ name, password: hashedPassword }));
 
-    await redisClient.set(`${email}:authCode`, code, { EX: 180 });
-    await redisClient.set(`${email}:tempUser`, tempUserData, { EX: 180 });
+    await sendEmail(email, authCode);
 
-    await sendEmail(email, code);
     res.redirect(`/auth/verify?email=${encodeURIComponent(email)}`);
   } catch (err) {
     console.error(err);
-    res.status(500).send("서버 오류 발생");
+    return res.render('auth/register', {
+      name,
+      email,
+      emailError: '오류가 발생했습니다. 다시 시도해주세요.',
+      passwordMatchError,
+      passwordMatched,
+    });
   }
 });
+
+router.get('/check-email', async (req, res) => {
+  const { email } = req.query;
+  const user = await User.findOne({ where: { email } });
+  res.json({ exists: !!user });
+});
+
 router.post('/verify', async (req, res) => {
   const { email, code: userCode } = req.body;
 
@@ -56,7 +87,10 @@ router.post('/verify', async (req, res) => {
     const tempUser = tempUserStr ? JSON.parse(tempUserStr) : null;
 
     if (!savedCode || !tempUser) {
-      return res.send("인증 시간이 만료되었습니다. 다시 시도해주세요.");
+      return res.render('auth/verify', {
+        email,
+        errorMessage: '인증 시간이 만료되었습니다. 다시 시도해주세요.',
+      });
     }
 
     if (userCode === savedCode) {
@@ -66,9 +100,13 @@ router.post('/verify', async (req, res) => {
 
       await redisClient.del(`${email}:authCode`);
       await redisClient.del(`${email}:tempUser`);
-      res.redirect('/auth/welcome');
+      return res.redirect('/auth/welcome');
     } else {
-      res.send("인증 코드가 일치하지 않습니다.");
+      return res.render('auth/verify', {
+        email,
+        code: userCode,
+        errorMessage: '인증번호가 일치하지 않습니다.',
+      });
     }
   } catch (err) {
     console.error(err);
@@ -76,12 +114,13 @@ router.post('/verify', async (req, res) => {
   }
 });
 
+
 router.get('/welcome', (req, res) => {
-  res.render('welcome');
+  res.render('auth/welcome');
 });
 
 router.get('/login', (req, res) => {
-  res.render('login');
+  res.render('auth/login', { email: '', error: null });
 });
 
 router.post('/login_process', async (req, res) => {
@@ -91,7 +130,7 @@ router.post('/login_process', async (req, res) => {
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
-      return res.send("로그인 실패: 유저 없음");
+      return res.render('auth/login', { error: '이메일 또는 비밀번호가 올바르지 않습니다.', email }); 
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
@@ -101,7 +140,7 @@ router.post('/login_process', async (req, res) => {
       req.session.nickname = user.name;
       res.send(`${user.name} 로그인 성공`);
     } else {
-      res.send("로그인 실패: 비밀번호 불일치");
+      return res.render('auth/login', { error: '이메일 또는 비밀번호가 올바르지 않습니다.', email });
     }
   } catch (err) {
     console.error(err);

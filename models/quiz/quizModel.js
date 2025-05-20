@@ -1,4 +1,4 @@
-const db = require('../../lib/db.js');
+//const db = require('../../lib/db.js');
 
 exports.getRandomQuizzes = async () => {
     return new Promise((resolve, reject) => {

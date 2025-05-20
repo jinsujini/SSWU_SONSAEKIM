@@ -97,11 +97,12 @@ router.post('/login_process', async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (isMatch) {
-      req.session.is_logined = true;
-      req.session.nickname = user.name;
+      req.session.user = {
+        user_id: user.user_id,
+        name: user.name,
+        email: user.email
+      };
       res.send(`${user.name} 로그인 성공`);
-    } else {
-      res.send("로그인 실패: 비밀번호 불일치");
     }
   } catch (err) {
     console.error(err);

@@ -4,18 +4,11 @@
   <div class="ranking-modal">
     <button class="modal-close" onclick="closeRanking()">×</button>
 
-    <p class="my-score">나의 최고 점수: <span id="myBestScore">260점</span></p>
+    <p class="my-score">나의 최고 점수: <span id="myBestScore">-</span></p>
 
     <h2 class="modal-title">순위</h2>
 
     <div class="ranking-list">
-      <% if (top3.length === 0) { %>
-        <p>아직 등록된 기록이 없습니다.</p>
-      <% } else { %>
-        <% top3.forEach((record, index) => { %>
-          <p><%= index + 1 %>등 사용자 <%= record.user_id %> <%= record.score %>점</p>
-        <% }) %>
-      <% } %>
     </div>
   </div>
 </div>
@@ -38,14 +31,8 @@
     <button class="btn">게임 방법</button>
   </div>
 </section>
-<script>
-  function openRanking() {
-    document.getElementById('rankingModal').style.display = 'flex';
-  }
 
-  function closeRanking() {
-    document.getElementById('rankingModal').style.display = 'none';
-  }
-</script>
+<script src="/js/game/start.js"></script>
+
 
 <%- include('../layouts/footer') %>

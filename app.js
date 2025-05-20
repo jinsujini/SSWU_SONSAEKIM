@@ -28,16 +28,8 @@ app.use((req, res, next) => {
     next();
 });
 
-
-app.listen(app.get('port'),()=>{
-    console.log(app.get('port'),'번 포트에서 대기 중');
-});
-
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-
-const viewRouter = require('./routers/viewRouters');
-app.use('/', viewRouter);
 
 const quizRouter = require('./routers/quizRouter');
 app.use('/quiz', quizRouter);
@@ -49,11 +41,15 @@ app.use('/game', gameRouter);
 const authRouter = require('./routers/auth');
 app.use('/auth', authRouter);
 
+const viewRouter = require('./routers/viewRouters');
+app.use('/', viewRouter);
+
 db.sequelize.sync({ alter: true })
 .then(() => {
   console.log('DB 연결 및 테이블 생성(수정)됨');
-  app.listen(3000, () => {
-    console.log('서버 실행');
+
+  app.listen(app.get('port'), () => {
+    console.log(`${app.get('port')}번 포트에서 서버 실행 중`);
   });
 })
 .catch(err => {

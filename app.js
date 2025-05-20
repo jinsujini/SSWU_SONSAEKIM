@@ -41,8 +41,11 @@ app.use('/game', gameRouter);
 const authRouter = require('./routers/auth');
 app.use('/auth', authRouter);
 
-const viewRouter = require('./routers/viewRouters');
-app.use('/', viewRouter);
+//home.ejs 연결
+app.get('/', (req, res) => {
+    res.render('auth/home');
+  });
+
 
 db.sequelize.sync({ alter: true })
 .then(() => {

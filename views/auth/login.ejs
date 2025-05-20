@@ -1,0 +1,28 @@
+<%- include('../layouts/header') %>
+<link rel="stylesheet" href="/css/auth/login.css">
+<div class="login-page">
+  <h2 class="login-title">로그인</h2>
+
+  <div class="login-box">
+    <form action="/auth/login_process" method="POST">
+      <div class="input-group email-group">
+        <label for="email">아이디</label>
+        <input type="email" name="email" id="email" value="<%= email || '' %>" required>
+      </div>
+
+      <div class="input-group password-group">
+        <label for="password">비밀번호</label>
+        <input type="password" name="password" id="password" required>
+      </div>
+
+      <p class="error-text"><%= error || '' %></p>
+
+      <div class="button-wrapper">
+        <button type="submit" class="login-btn">로그인</button>
+      </div>
+    </form>
+  </div>
+
+  <p class="find-password">비밀번호 찾기</p>
+</div>
+<%- include('../layouts/footer') %>

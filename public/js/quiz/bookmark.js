@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (res.ok) {
             if (result.status === 'added') {
-            img.src = '/assets/fill_bookmark.svg';
+            img.src = '/assets/filled_bookmark.svg';
             } else if (result.status === 'removed') {
             img.src = '/assets/empty_bookmark.svg';
             }

@@ -137,8 +137,9 @@ router.post('/login_process', async (req, res) => {
 
     if (isMatch) {
       req.session.is_logined = true;
-      req.session.nickname = user.name;
-      res.send(`${user.name} 로그인 성공`);
+      req.session.name = user.name;
+      req.session.email = user.email;
+      res.send(`${user.name} ${user.email}로그인 성공`);
     } else {
       return res.render('auth/login', { error: '이메일 또는 비밀번호가 올바르지 않습니다.', email });
     }

@@ -1,10 +1,13 @@
-//const db = require('../../lib/db.js');
+const { Quiz, sequelize } = require('../../models');
 
 exports.getRandomQuizzes = async () => {
-    return new Promise((resolve, reject) => {
-      db.query('SELECT * FROM quiz ORDER BY RAND() LIMIT 10', (err, results) => {
-        if (err) return reject(err);
-        resolve(results); 
+  try {
+    const quizzes = await Quiz.findAll({
+      order: sequelize.random(), // 랜덤 정렬
+      limit: 10
     });
-    });
-};
+    return quizzes;
+  } catch (err) {
+    throw err;
+  }
+}

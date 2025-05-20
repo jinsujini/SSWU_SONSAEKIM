@@ -19,13 +19,19 @@ fs
     }
   });
 
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
+
+const DataTypes = Sequelize.DataTypes;
+
+db.Quiz = require('./quiz/quiz')(sequelize, DataTypes);
+db.BookmarkWord = require('./quiz/bookmarkWord')(sequelize, Sequelize.DataTypes);
+db.SignWord = require('./quiz/signWord')(sequelize, Sequelize.DataTypes);
+
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
   }
 });
-
-db.sequelize = sequelize;
-db.Sequelize = Sequelize;
 
 module.exports = db;

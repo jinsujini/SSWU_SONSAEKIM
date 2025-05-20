@@ -32,5 +32,12 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
+  User.associate = (models) => {
+    User.hasMany(models.BookmarkWord, {
+      foreignKey: 'userId',
+      sourceKey: 'user_id'
+    });
+  };
+
   return User;
 };

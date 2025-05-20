@@ -33,7 +33,7 @@
     left: 50%;
     transform: translateX(-50%);
     width: 100px;
-    animation: fall 3s linear forwards;
+    animation: fall 5s linear forwards;
   }
   
   @keyframes fall {
@@ -184,7 +184,8 @@
 .modal-buttons button:hover {
   transform: scale(1.05);
 }
-/*
+
 #gameOverModal {
   display: none;
-}*/
+}
+

@@ -136,12 +136,12 @@ router.post('/login_process', async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (isMatch) {
-      req.session.is_logined = true;
-      req.session.name = user.name;
-      req.session.email = user.email;
-      res.send(`${user.name} ${user.email}로그인 성공`);
-    } else {
-      return res.render('auth/login', { error: '이메일 또는 비밀번호가 올바르지 않습니다.', email });
+      req.session.user = {
+        user_id: user.user_id,
+        name: user.name,
+        email: user.email
+      };
+      res.send(`${user.name} 로그인 성공`);
     }
   } catch (err) {
     console.error(err);

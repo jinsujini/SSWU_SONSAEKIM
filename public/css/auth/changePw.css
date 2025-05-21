@@ -1,27 +1,27 @@
-  .login-page {
+.changepw-page {
     margin-top: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  .login-title {
+  .changepw-title {
     font-size: 24px;
     margin-bottom: 24px;
     margin-left: -50%;
   }
 
-  .login-box {
+  .changepw-box {
     width: 988px;
     height: 513px;
-    background-color:rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.5);
     border-radius: 20px;
     padding: 60px;
     box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
     box-sizing: border-box;
   }
 
-  .login-box form {
+  .changepw-box form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -33,11 +33,11 @@
     margin-left: 10%;
   }
 
-  .email-group {
+  .newpw-group {
     margin-top: 70px;
   }
 
-  .password-group {
+  .confirmpw-group {
     margin-top: 41px;
   }
 
@@ -68,13 +68,13 @@
     margin: 0;
   }
 
-  .button-wrapper {
+  .btn-wrapper {
     display: flex;
     justify-content: center;
     margin-top: 65px;
   }
 
-  .login-btn {
+  .changepw-btn {
     width: 170px;
     height: 56px;
     background-color: #FFF091;
@@ -87,19 +87,6 @@
     transition: all 0.2s ease;
   }
 
-  .login-btn:hover {
+  .changepw-btn:hover {
     background-color: #ffe55c;
-  }
-
-  .find-password {
-    text-align: center;
-    margin-top: 24px;
-    font-size: 16px;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-
-  .find-password a {
-    color: black;
-    text-decoration: underline;
   }

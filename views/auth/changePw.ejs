@@ -1,0 +1,27 @@
+<%- include('../layouts/header') %>
+<link rel="stylesheet" href="/css/auth/changePw.css">
+<div class="changepw-page">
+  <h2 class="changepw-title">비밀번호 변경</h2>
+
+  <div class="changepw-box">
+    <form action="/auth/change_password" method="POST">
+      <div class="input-group newpw-group">
+        <label for="newPassword">새 비밀번호</label>
+        <input type="password" name="newPassword" id="newPassword" required>
+      </div>
+
+      <div class="input-group confirmpw-group">
+        <label for="confirmPassword">새 비밀번호<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;확인</label>
+        <input type="password" name="confirmPassword" id="confirmPassword" required>
+      </div>
+
+      <p class="error-text"></p>
+
+      <div class="btn-wrapper">
+        <button type="submit" class="changepw-btn">변경</button>
+      </div>
+    </form>
+  </div>
+</div>
+<%- include('../layouts/footer') %>

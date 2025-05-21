@@ -4,6 +4,7 @@ const { generateRandomNumber, sendEmail } = require('../lib/email.helper');
 const { User } = require('../models');
 const bcrypt = require('bcrypt');
 
+//회원가입, 로그인 관련
 exports.showVerifyPage = (req, res) => {
   const { email } = req.query;
   res.render('auth/verify', { email });
@@ -144,4 +145,17 @@ exports.loginProcess = async (req, res) => {
     console.error(err);
     res.status(500).send("서버 오류 발생");
   }
+};
+
+//비밀번호 찾기 관련
+exports.showfinPwPage = (req, res) => {
+  res.render('auth/findpw');
+};
+
+exports.showfinPwVerifyPage = (req, res) => {
+  res.render('auth/findpwverify');
+};
+
+exports.showchangePwPage = (req, res) => {
+  res.render('auth/changepw');
 };

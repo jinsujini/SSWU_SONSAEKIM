@@ -10,5 +10,8 @@ router.post('/verify', authController.verifyCode);
 router.get('/welcome', authController.showWelcomePage);
 router.get('/login', authController.showLoginPage);
 router.post('/login_process', authController.loginProcess);
+router.get('/findpw', authController.showfinPwPage);
+router.get('/findpwverify', authController.showfinPwVerifyPage);
+router.get('/changepw', authController.showchangePwPage);
 
 module.exports = router;

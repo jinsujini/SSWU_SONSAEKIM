@@ -1,0 +1,33 @@
+<%- include('../layouts/header') %>
+<link rel="stylesheet" href="/css/auth/findPwVerify.css">
+<div class="authcode-page">
+  <div class="authcode-box">
+    <form action="/auth/verify" method="POST" class="email-auth-form">
+      <h2>비밀번호 변경 이메일 인증</h2>
+      <p>
+        입력하신 이메일로<br />
+        비밀번호 변경을 위한 인증번호를 보냈습니다.<br />
+        아래에 인증번호를 입력해주세요.
+      </p>
+
+      <input type="hidden" name="email" value=""/>
+
+      <input 
+        type="text" 
+        name="code" 
+        class="code-input"
+        value="<%= typeof code !== 'undefined' ? code : '' %>"
+      />
+
+      <span class="error-text"></span>
+
+      <button type="submit" class="authcode-btn">확인</button>
+    </form>
+  </div>
+
+  <div class="find-password">
+    <a href="/auth/findpw">이메일 다시 입력</a>
+  </div>
+</div>
+
+<%- include('../layouts/footer') %>

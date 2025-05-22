@@ -43,7 +43,7 @@
 
 .sc1>.right {
     width: 200px;
-    
+
 }
 
 .study_memo {
@@ -64,7 +64,7 @@
 .study_memo .memo_list {
     display: flex;
     column-gap: 10px;
-   
+
 }
 
 .study_memo .memo_list>.item {
@@ -80,55 +80,64 @@
     border: 1px solid #000
 }
 
-.right .study_stats{
-     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+.right .study_stats {
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
     background-color: #ffffff6d;
     border-radius: 20px;
     padding: 15px 20px;
     margin: 20px 0;
     width: 200px;
 }
-.right .level{
+
+.right .level {
     height: 150px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-.right .level >p{
+
+.right .level>p {
     font-weight: bold;
 }
-.right .level .inner{
+
+.right .level .inner {
     display: flex;
-   
+
 }
-.right .level .inner img{
+
+.right .level .inner img {
     object-fit: contain;
     height: 74px;
     margin-left: -10px;
 }
-.right .calendar .grid .day{
+
+.right .calendar .grid .day {
     width: 15px;
     height: 15px;
     border-radius: 2px;
     border: 0.5px solid #483000;
     background-color: #E4E4E4;
 }
-.right .calendar .grid .checked{
+
+.right .calendar .grid .checked {
 
     background-color: #7EC276;
 }
-.right .calendar .grid{
+
+.right .calendar .grid {
     display: grid;
-    grid-template-columns: repeat(7, 1fr); 
-    gap: 5px; 
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
     width: 145px;
     margin: 0 auto;
-   
+
 }
+
 .right .calendar {
-   height: 210px;
+    height: 210px;
 }
-.right .calendar  .count{
+
+.right .calendar .count {
     display: flex;
     justify-content: space-around;
     text-align: center;
@@ -136,10 +145,11 @@
 }
 
 /*여기서부터 섹션 2 */
-.sc2 .mid_title{
+.sc2 .mid_title {
     font-size: 24px;
 }
-.sc2 .wrap{
+
+.sc2 .wrap {
     box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
     background-color: #ffffff6d;
     border-radius: 20px;
@@ -147,26 +157,30 @@
     margin: 20px 0;
     font-size: 24px;
 }
-.sc2 .wrap button{
+
+.sc2 .wrap button {
     width: 100px;
     height: 44px;
     border-radius: 10px;
     color: #fff;
     background-color: #b6b6b6;
     border: none;
-    font-family:'NanumSquareRound' ;
+    font-family: 'NanumSquareRound';
     font-size: 24px;
     font-weight: bold;
 }
-.sc2 .wrap >div {
+
+.sc2 .wrap>div {
     display: flex;
     align-items: center;
-    
+
 }
-.sc2 .wrap >div p{
+
+.sc2 .wrap>div p {
     width: 100px;
 }
-.sc2 .wrap >div input{
+
+.sc2 .wrap>div input {
     border: none;
     outline: none;
     border-radius: 10px;
@@ -174,22 +188,31 @@
     background-color: #f1f1f1;
     margin-right: 10px;
     text-align: center;
-    font-size: 24px;
-    font-weight: bold;
+    font-size: 18px;
+    font-weight: 500;
 }
-.sc2 .wrap >div button:hover{
+
+.sc2 .wrap>.email input {
+    font-size: 18px;
+    font-weight: 500;
+    padding: 0 13px;
+
+}
+
+.sc2 .wrap>div button:hover {
     background-color: #191919;
 }
 
 
 /*여기서부터 nouser*/
-.nouser{
+.nouser {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-   
+
 }
-.nouser > *{
+
+.nouser>* {
     color: #000;
 }

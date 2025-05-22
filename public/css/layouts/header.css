@@ -43,8 +43,7 @@ header>.my>a {
 
 main {
     padding-bottom: 200px;
-    height: calc(100vh - 200px);
-
+      min-height: calc(100vh - 200px);
 }
 
 @font-face {
@@ -64,5 +63,6 @@ body {
     background-attachment: fixed;
     background-size: 100% 100%;
     font-family: 'NanumSquareRound';
+    
 
 }

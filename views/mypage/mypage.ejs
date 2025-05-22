@@ -1,8 +1,12 @@
-<%- include('layouts/header') %>
-
-    <div class="center">
+<%- include('../layouts/header') %>
+    <link rel="stylesheet" href="/css/mypage/modal.css">
+    <link rel="stylesheet" href="/css/mypage/mypage.css">
+    <script src="/js/mypage.js" ></script>
+    <main class="center">
         <div class="title">
-            <strong><%= name %></strong> 님의 스터디룸
+            <strong>
+                <%= name %>
+            </strong> 님의 스터디룸
             <a href="/">로그아웃</a>
         </div>
         <!-- 학습 메모 -->
@@ -69,13 +73,13 @@
             <form class="wrap" action="/updateProfile" method="POST">
                 <div>
                     <p>이름</p>
-                    <input type="text" id="nameInput" name="name" disabled value="이름" />
+                    <input type="text" id="nameInput" name="name" disabled value="<%= name %>" />
                     <button type="button" id="nameBtn" onclick="toggleNameEdit()">변경</button>
                 </div>
 
-                <div>
+                <div class="email">
                     <p>이메일</p>
-                    <input type="email" name="email" disabled value="이메일일걸" />
+                    <input type="email" name="email" disabled value="<%= email %>" />
                     <button type="button" onclick="openEmailModal()">변경</button>
                 </div>
 
@@ -85,146 +89,62 @@
                 </div>
             </form>
         </div>
-    </div>
-
-    <!-- 이메일 변경 모달 -->
-    <div id="emailModal" class="modal" onclick="closeEmailModal()">
-        <div class="modal-content">
-            <h3>이메일 변경</h3>
-
-            <form id="emailForm" action="/updateEmail" method="POST" onsubmit="return validateEmailCode()">
-                <label>변경할 이메일</label>
-                <div class="input-row">
-                    <input type="email" id="newEmail" name="newEmail" required />
-                    <button type="button" class="sub-btn" onclick="sendVerificationCode()">인증번호 발송</button>
-                </div>
-
-                <label>인증번호</label>
-                <div class="input-row">
-                    <input type="text" id="verificationCode" name="verificationCode" required disabled />
-                    <button type="button" class="sub-btn" onclick="verifyCode()">인증하기</button>
-                </div>
-
-                <p id="emailError" class="error-message" style="display: none;">* 인증에 실패했습니다.</p>
-                <p id="emailSuccess" class="success-message" style="display: none;">* 인증에 성공했습니다.</p>
-
-                <button type="submit" class="submit-btn">변경하기</button>
-            </form>
         </div>
-    </div>
 
+        <!-- 이메일 변경 모달 -->
 
-    <!-- 비밀번호 변경 모달 -->
-    <div id="passwordModal" class="modal" onclick="closePasswordModal()">
-        <div class="modal-content">
-            <span class="close"></span>
-            <h3>비밀번호 변경</h3>
-            <form id="passwordForm" action="/updatePassword" method="POST" onsubmit="return validatePassword()">
-                <label for="currentPassword">현재 비밀번호</label>
-                <input type="password" id="currentPassword" name="currentPassword" required />
+        <div id="emailModal" class="modal" onclick="closeEmailModal()" disabled>
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <h3>이메일 변경</h3>
 
-                <label for="newPassword">새로운 비밀번호</label>
-                <input type="password" id="newPassword" name="newPassword" required />
+                <form id="emailForm" action="/updateEmail" method="POST" onsubmit="return validateEmailCode()">
+                    <label>변경할 이메일</label>
+                    <div class="input-row">
+                        <input type="email" id="newEmail" name="newEmail" required />
+                        <button type="button" class="sub-btn" onclick="sendVerificationCode()">인증번호 발송</button>
+                    </div>
 
-                <label for="confirmPassword">비밀번호 확인</label>
-                <input type="password" id="confirmPassword" name="confirmPassword" required />
+                    <label>인증번호</label>
+                    <div class="input-row">
+                        <input type="password" id="verificationCode" name="verificationCode" required />
+                        <button type="button" class="sub-btn" onclick="verifyCode()">인증하기</button>
+                    </div>
 
-                <p id="errorMessage" class="error-message" style="display: none;">* 비밀번호가 일치하지 않습니다.</p>
+                    <p id="emailError" class="error-message" style="display: none;">* 인증에 실패했습니다.</p>
+                    <p id="emailSuccess" class="success-message" style="display: none;">* 인증에 성공했습니다.</p>
 
-                <button type="submit" class="submit-btn">변경하기</button>
-            </form>
+                    <button type="submit" class="submit-btn">변경하기</button>
+                </form>
+            </div>
         </div>
-    </div>
+
+
+        <!-- 비밀번호 변경 모달 -->
+        <div id="passwordModal" class="modal" onclick="closePasswordModal()">
+            <div class="modal-content">
+                <span class="close"></span>
+                <h3>비밀번호 변경</h3>
+                <form id="passwordForm" action="/updatePassword" method="POST" onsubmit="return validatePassword()">
+                    <label for="currentPassword">현재 비밀번호</label>
+                    <input type="password" id="currentPassword" name="currentPassword" required />
+
+                    <label for="newPassword">새로운 비밀번호</label>
+                    <input type="password" id="newPassword" name="newPassword" required />
+
+                    <label for="confirmPassword">비밀번호 확인</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword" required />
+
+                    <p id="errorMessage" class="error-message" style="display: none;">* 비밀번호가 일치하지 않습니다.</p>
+
+                    <button type="submit" class="submit-btn">변경하기</button>
+                </form>
+            </div>
+    </main>
 
 
 
 
-    <%- include('layouts/footer') %>
+    <%- include('../layouts/footer') %>
 
 
-        <script>
-            // 비밀번호 모달 조작
-            function openPasswordModal() {
-                document.getElementById("passwordModal").style.display = "block";
-            }
-
-            function closePasswordModal() {
-                document.getElementById("passwordModal").style.display = "none";
-             
-            }
-
-            function validatePassword() {
-                const newPw = document.getElementById("newPassword").value;
-                const confirmPw = document.getElementById("confirmPassword").value;
-                const errorMessage = document.getElementById("errorMessage");
-
-                if (newPw !== confirmPw) {
-                    errorMessage.style.display = "block";
-                    return false;
-                }
-
-                errorMessage.style.display = "none";
-                return true;
-            }
-            window.onclick = function (event) {
-                const modal = document.getElementById("passwordModal");
-                if (event.target == modal) {
-                    closePasswordModal();
-                }
-            }
-
-            //이메일 변경 모달 조작
-            function openEmailModal() {
-                document.getElementById("emailModal").style.display = "block";
-            }
-
-            function closeEmailModal() {
-                document.getElementById("emailModal").style.display = "none";
-            }
-
-            //추후 수정해야하는 부분, 인증 확인 로직 추가
-            function sendVerificationCode() {
-                document.getElementById("verificationCode").disabled = false;
-                alert("인증번호가 전송되었습니다.");
-            }
-
-            function verifyCode() {
-                const code = document.getElementById("verificationCode").value;
-
-                if (code === "123456") {
-                    document.getElementById("emailSuccess").style.display = "block";
-                    document.getElementById("emailError").style.display = "none";
-                } else {
-                    document.getElementById("emailError").style.display = "block";
-                    document.getElementById("emailSuccess").style.display = "none";
-                }
-            }
-
-            function validateEmailCode() {
-                const successMsg = document.getElementById("emailSuccess").style.display;
-                if (successMsg !== "block") {
-                    alert("인증을 먼저 완료해주세요 ∼");
-                    return false;
-                }
-                return true;
-            }
-            // 이름 변경 버튼 조작
-            let isEditingName = false;
-
-            function toggleNameEdit() {
-                const nameInput = document.getElementById("nameInput");
-                const nameBtn = document.getElementById("nameBtn");
-
-                if (!isEditingName) {
-                    nameInput.disabled = false;
-                    nameInput.focus();
-                    nameBtn.textContent = "저장";
-                    isEditingName = true;
-                } else {
-                    nameBtn.setAttribute("type", "submit");
-                    nameBtn.click(); 
-                    
-                }
-                
-            }
-        </script>
+      

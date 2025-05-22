@@ -3,50 +3,43 @@ const router = express.Router();
 
 router.get('/', (req, res) => {
     res.render('auth/home');
-  });
+});
 
 router.get('/gomypage', (req, res) => {
-     if (req.session.user) {
+    console.log(req.session)
+    if (req.session.is_logined) {
         return res.redirect('/mypage');
     } else {
         return res.redirect('/nouser');
     }
 });
-router.get('/mypage', (req, res) => {
-    res.render('mypage/mypage'); 
-});
-
-router.get('/nouser', (req, res) => {
-    res.render('mypage/nouser'); 
-});
-
 
 router.get('/learn', (req, res) => {
-    res.render('learn/learn', { userName: '손새김'}); 
+    res.render('learn/learn', { userName: '손새김' });
 });
 
 router.get('/study/imitate', (req, res) => {
-    res.render('imitate/imitate'); 
+    res.render('imitate/imitate');
 });
 
 router.get('/study/imitate/vowel', (req, res) => {
-    res.render('imitate/vowel'); 
+    res.render('imitate/vowel');
 });
 
 router.get('/study/imitate/consonant', (req, res) => {
-    res.render('imitate/consonant'); 
+    res.render('imitate/consonant');
 });
 
 router.get('/study/imitate/vowel/result', (req, res) => {
-    res.render('imitate/vowelResult'); 
+    res.render('imitate/vowelResult');
 });
 
 router.get('/study/imitate/consonant/result', (req, res) => {
-    res.render('imitate/consonantResult'); 
+    res.render('imitate/consonantResult');
 });
 
 router.get('/study/imitate/vowel/wrong', (req, res) => {
-    res.render('imitate/imitateWrong'); 
+    res.render('imitate/imitateWrong');
 });
 
 router.get('/game', (req, res) => {

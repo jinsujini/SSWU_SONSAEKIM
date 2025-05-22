@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const redisClient = require('../configs/redis');
 const { generateRandomNumber, sendEmail } = require('../lib/email.helper');
-const { User } = require('../models'); //이거 바꿨다 언니 - 수빈 -
+const { User } = require('../models'); 
 const bcrypt = require('bcrypt');
 
 router.get('/verify', (req, res) => {

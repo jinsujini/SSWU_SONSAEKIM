@@ -12,6 +12,16 @@
     </div>
   </div>
 </div>
+<div class="overlay" id="introModal">
+  <div class="intro-modal">
+    <button class="modal-close" onclick="closeIntro()">×</button>
+    <img src="/assets/intro.png" alt="손로고" />
+    <div class="intro-box">
+      <img class="intro-hand" src="/assets/hand.svg" alt="손로고" />
+      <p class="main-intro">학습한 내용을 잘 떠올리면서 위에서 내려오는 사진을 보고<br> 올바른 자음/모음 또는 단어를 입력하세요!<br>사진이 바닥에 닿아 사라지기 전에 정답을 빠르게 입력하세요!<br>그렇지 않으면 생명이 닳아 게임이 끝나게 됩니다.</p>
+    </div>
+  </div>
+</div>
 <section class="game-box">
   <div class="title-box">
     <div class="word-card1">타</div>
@@ -28,7 +38,7 @@
 
   <div class="button-group">
     <button class="btn" onclick="location.href='/game/play'">게임 시작</button>
-    <button class="btn">게임 방법</button>
+    <button class="btn" onclick="openIntro()">게임 방법</button>
   </div>
 </section>
 

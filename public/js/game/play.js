@@ -9,22 +9,29 @@ const scoreDisplay = document.querySelector('.score');
 
 inputBox.focus();
 
+let signDataList = [];
+
 window.addEventListener('DOMContentLoaded', async () => {
   try {
-    const res = await fetch('/game/top3');
-    const top3 = await res.json();
+    const res = await fetch('/game/random-signs');
+    signDataList = await res.json();
+
+    // 기존 랭킹 불러오기
+    const rankingRes = await fetch('/game/top3');
+    const top3 = await rankingRes.json();
 
     const rankingList = document.querySelector('.ranking-list');
-    if (!rankingList) return;
+    if (rankingList) {
+      rankingList.innerHTML = '';
+      top3.forEach((record, i) => {
+        const p = document.createElement('p');
+        p.textContent = `${i + 1}등 ${record.User.name} ···· ${record.score}점`;
+        rankingList.appendChild(p);
+      });
+    }
 
-    rankingList.innerHTML = '';
-    top3.forEach((record, i) => {
-      const p = document.createElement('p');
-      p.textContent = `${i + 1}등 ${record.User.name} ···· ${record.score}점`;
-      rankingList.appendChild(p);
-    });
   } catch (err) {
-    console.error('랭킹 불러오기 실패', err);
+    console.error('초기 데이터 불러오기 실패', err);
   }
 });
 
@@ -82,13 +89,17 @@ submitBtn.addEventListener('click', () => {
 });
 
 function spawnImage() {
+  if (signDataList.length === 0) return;
+
+  const randomIndex = Math.floor(Math.random() * signDataList.length);
+  const data = signDataList[randomIndex];
+
   const img = document.createElement('img');
-  img.src = '/assets/sign1.svg';
+  img.src = data.image;  // DB에서 가져온 이미지 URL
   img.className = 'falling-img';
-  img.dataset.value = '안녕하세요';
+  img.dataset.value = data.value;  // 정답 텍스트 (description)
 
-
-  const randomX = Math.random() * 50 -25 ;
+  const randomX = Math.random() * 50 - 25;
   img.style.position = 'absolute';
   img.style.left = `${randomX}vw`;
   img.style.top = '0px';
@@ -100,7 +111,6 @@ function spawnImage() {
     const inputRect = document.querySelector('.input-box').getBoundingClientRect();
 
     if (imgRect.bottom >= inputRect.top + inputRect.height / 2) {
-      img.style.animation = 'none';
       img.remove();
       clearInterval(intervalId);
       loseLife();
@@ -113,7 +123,7 @@ function spawnImage() {
 }
 
 
-// 생명 감소
+
 function loseLife() {
   lives--;
   if (lifeBox.children.length > 0) {
@@ -125,6 +135,7 @@ function loseLife() {
   }
 }
 
-// 게임 루프 (예: 2초마다 이미지 생성)
+
+
 spawnImage();
 setInterval(spawnImage, 2000);

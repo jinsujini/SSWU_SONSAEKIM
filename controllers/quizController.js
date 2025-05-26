@@ -25,22 +25,13 @@ exports.showWrongAnswers = (req, res) => {
 
 exports.toggleBookmark = async (req, res) => {
   try {
-    const email = req.session.email;
-    const user = await User.findOne({
-      where: { email }
-    });
-    
-    if (!user) {
-      return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
-    }
-    
-    const userId = user.user_id;
-
-    const { wordId } = req.body;
+    const userId = req.session.user?.user_id;
 
     if (!userId) {
       return res.status(401).json({ message: '로그인이 필요합니다.' });
     }
+
+    const { wordId } = req.body;
 
     const existing = await BookmarkWord.findOne({
       where: { userId, wordId }

@@ -1,0 +1,87 @@
+.login-page {
+    margin-top: 80px;
+    margin-bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .login-box {
+    width: 988px;
+    height: 513px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .email-auth-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .email-auth-form h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+
+  .email-auth-form p {
+    font-size: 18px;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  .code-input {
+    width: 270px;
+    height: 80px;
+    font-size: 22px;
+    text-align: center;
+    border-radius: 30px;
+    border: none;
+    background-color: #f0f0f5;
+    margin-bottom: 12px;
+  }
+
+  .login-btn {
+    width: 125px;
+    height: 56px;
+    background-color: #FFF091;
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 18px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top:37px;
+  }
+
+  .login-btn:hover {
+    background-color: #ffe55c;
+  }
+
+  .error-message {
+    position: absolute;
+    color: red;
+    margin-top: 290px;
+    font-size: 13px;
+  }
+
+  .find-password {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 16px;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .find-password a {
+    color: black;
+    text-decoration: underline;
+  }

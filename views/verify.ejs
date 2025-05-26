@@ -1,8 +1,0 @@
-<%- include('layouts/header') %>
-<form action="/auth/verify" method="POST">
-  <input type="hidden" name="email" value="<%= email %>"/>
-  <input type="text" name="code" placeholder="인증 코드 입력" />
-  <button type="submit">확인</button>
-</form>
-
-<%- include('layouts/footer') %>

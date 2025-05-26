@@ -1,4 +1,4 @@
-header{
+header {
     display: flex;
     position: relative;
     height: 70px;
@@ -9,7 +9,8 @@ header{
     align-items: center;
     padding: 0 10px;
 }
-header > .menu > ul{
+
+header>.menu>ul {
     display: flex;
     list-style: none;
     gap: 30px;
@@ -17,7 +18,11 @@ header > .menu > ul{
     font-weight: bold;
     cursor: pointer;
 }
-header > .my{
+header>.menu>ul a{
+    color: #000;
+    text-decoration: none;
+}
+header>.my {
     background-color: #FFD700;
     width: 140px;
     height: 50px;
@@ -25,18 +30,20 @@ header > .my{
     display: flex;
     justify-content: center;
     align-items: center;
-    
+
 }
-header > .my > a{
+
+header>.my>a {
     font-size: 20px;
     font-weight: bold;
     color: #000;
     text-decoration: none;
     cursor: pointer;
 }
-main{
+
+main {
     padding-bottom: 200px;
-  
+      min-height: calc(100vh - 200px);
 }
 
 @font-face {
@@ -47,14 +54,15 @@ main{
 }
 
 /*백그라운드 이미지 그라데이션 공통*/
-body{
+body {
     padding: 0;
     margin: 0;
     position: relative;
-    background: linear-gradient(to bottom, #F7FFEB, #FFF4DC); 
+    background: linear-gradient(to bottom, #F7FFEB, #FFF4DC);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%;
-    font-family:'NanumSquareRound' ;
-}
+    font-family: 'NanumSquareRound';
+    
 
+}

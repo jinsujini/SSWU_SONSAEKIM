@@ -14,4 +14,8 @@ router.get('/result', quizController.showResult);
 // 오답 확인 페이지
 router.get('/wrong', quizController.showWrongAnswers);
 
+// 북마크 처리
+router.post('/bookmark', quizController.toggleBookmark);
+
+
 module.exports = router;

@@ -12,6 +12,11 @@ function shuffleArray(array) {
 }
 
 function renderQuiz(quiz) {
+    const bookmarkBtn = document.getElementById("bookmark-btn");
+    if (bookmarkBtn) {
+        bookmarkBtn.dataset.wordId = quiz.source_id;
+    }
+
     const buttons = document.querySelectorAll('.quiz-btn');
 
     const options = [

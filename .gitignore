@@ -43,7 +43,6 @@ pids
 .nuxt/
 .svelte-kit/
 
-
 /lib/db.js
 
 node_modules/

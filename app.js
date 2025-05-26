@@ -37,6 +37,10 @@ app.use('/', userRouters);
 const quizRouter = require('./routers/quizRouter');
 app.use('/quiz', quizRouter);
 
+// imitate 연결
+const imitateRouter = require('./routers/imitateRouter');
+app.use('/imitate', imitateRouter);
+
 const gameRouter = require('./routers/gameRouter');
 app.use('/game', gameRouter);
 

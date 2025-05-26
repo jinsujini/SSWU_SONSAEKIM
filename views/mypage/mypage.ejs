@@ -1,13 +1,13 @@
 <%- include('../layouts/header') %>
     <link rel="stylesheet" href="/css/mypage/modal.css">
     <link rel="stylesheet" href="/css/mypage/mypage.css">
-    <script src="/js/mypage.js" ></script>
+    <script src="/js/mypage.js"></script>
     <main class="center">
         <div class="title">
             <strong>
                 <%= name %>
             </strong> 님의 스터디룸
-            <a href="/">로그아웃</a>
+            <a onclick="logout()">로그아웃</a>
         </div>
         <!-- 학습 메모 -->
         <div class="sc1">
@@ -39,32 +39,49 @@
                     </div>
                 </div>
             </div>
-            <div class="right">
-                <!-- 학습 통계 -->
+            <!-- 학습 통계 -->
 
+            <div class="right">
                 <div class="mid_title">학습통계</div>
                 <div class="study_stats level">
-                    <p>현재 학습 단계 : 1단계</p>
+                    <p>현재 학습 단계 : <%= level %>단계</p>
                     <div class="inner">
-                        <img src="\assets\hand_icon\white_hand.png" alt="">
-                        <p>다음 단계까지 <br /> 앞으로 <strong>10</strong> 단어</p>
+                        <img src="/assets/hand_icon/white_hand.png" alt="">
+
+                        <p>다음 단계까지 <strong>
+                                <%= daysToNextLevel %>
+                            </strong>일</p>
+
                     </div>
                 </div>
+
                 <div class="study_stats calendar">
-
                     <p>나의 잔디</p>
-
                     <div class="grid">
-                        <% for(let i=0; i < 28; i++) { %>
-                            <div class="day <%= i < 10 ? 'checked' : '' %>"></div>
+                        <% const start=new Date(); start.setDate(start.getDate() - 27); for (let i=0; i < 28; i++) {
+                            const d=new Date(start); d.setDate(d.getDate() + i); const dateStr=d.toISOString().slice(0,
+                            10); %>
+                            <!--마우스 올리면 날짜-->
+                            <div class="day-wrapper">
+                                <div class="day <%= attendanceDates.includes(dateStr) ? 'checked' : '' %>">
+                                </div>
+                                <div class="tooltip">
+                                    <%= dateStr %>
+                                </div>
+                            </div>
                             <% } %>
                     </div>
+
+
                     <div class="count">
-                        <p><strong>전체 출석</strong><br /><br />10일</p>
-                        <p><strong>연속 출석</strong><br /><br />4일</p>
+                        <p><strong>전체 출석</strong><br /><br />
+                            <%= totalDays %>일
+                        </p>
+                        <p><strong>연속 출석</strong><br /><br />
+                            <%= continuousDays %>일
+                        </p>
                     </div>
                 </div>
-
             </div>
         </div>
         <!-- 정보변경하는 부분 -->
@@ -96,7 +113,8 @@
                     <label>변경할 이메일</label>
                     <div class="input-row">
                         <input type="email" id="newEmail" name="newEmail" required />
-                        <button type="button" class="sub-btn" id="sub-btn" onclick="sendVerificationCode()">인증번호 발송</button>
+                        <button type="button" class="sub-btn" id="sub-btn" onclick="sendVerificationCode()">인증번호
+                            발송</button>
                         <span id="timer"></span>
                     </div>
 
@@ -121,6 +139,3 @@
 
 
     <%- include('../layouts/footer') %>
-
-
-      

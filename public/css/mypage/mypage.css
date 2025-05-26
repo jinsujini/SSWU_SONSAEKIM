@@ -24,7 +24,7 @@
 
 .sc1 .mid_title {
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 700;
     width: 100px;
     height: 37px;
     background-color: #FFF091;
@@ -33,6 +33,7 @@
     align-items: center;
     display: flex;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    line-height: 100%;
 }
 
 
@@ -56,7 +57,7 @@
 }
 
 .study_memo>h3 {
-    font-size: 13px;
+    font-size: 15px;
     margin-top: 20px;
     color: #049464;
 }
@@ -115,13 +116,13 @@
     width: 15px;
     height: 15px;
     border-radius: 2px;
-    border: 0.5px solid #483000;
+    border: 0.5px solid #48300088;
     background-color: #E4E4E4;
 }
 
 .right .calendar .grid .checked {
 
-    background-color: #7EC276;
+    background-color: #72b47c;
 }
 
 .right .calendar .grid {
@@ -132,6 +133,45 @@
     margin: 0 auto;
 
 }
+.day-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip {
+  visibility: hidden;
+  background-color: #86cac1;
+  color: #fff;
+  font-size: 12px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  position: absolute;
+  z-index: 10;
+  bottom: 125%; 
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.day-wrapper:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: #86cac1 transparent transparent transparent;
+}
+
 
 .right .calendar {
     height: 210px;
@@ -141,12 +181,15 @@
     display: flex;
     justify-content: space-around;
     text-align: center;
-    font-size: 12px;
+    font-size: 14px;
+    line-height: 100%;
 }
 
 /*여기서부터 섹션 2 */
 .sc2 .mid_title {
-    font-size: 24px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 50px;
 }
 
 .sc2 .wrap {
@@ -155,7 +198,7 @@
     border-radius: 20px;
     padding: 20px 30px;
     margin: 20px 0;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .sc2 .wrap button {
@@ -166,7 +209,7 @@
     background-color: #b6b6b6;
     border: none;
     font-family: 'NanumSquareRound';
-    font-size: 24px;
+    font-size: 18px;
     font-weight: bold;
 }
 
@@ -188,12 +231,12 @@
     background-color: #f1f1f1;
     margin-right: 10px;
     text-align: center;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
 }
 
 .sc2 .wrap>.email input {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
     padding: 0 13px;
     width: 400px;

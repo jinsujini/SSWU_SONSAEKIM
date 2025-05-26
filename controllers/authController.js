@@ -149,13 +149,93 @@ exports.loginProcess = async (req, res) => {
 
 //비밀번호 찾기 관련
 exports.showfinPwPage = (req, res) => {
-  res.render('auth/findpw');
+  res.render('auth/findpw', { email: '', error: '' });
 };
 
 exports.showfinPwVerifyPage = (req, res) => {
-  res.render('auth/findpwverify');
+  const { email } = req.query;
+  res.render('auth/findpwverify', { email });
 };
 
 exports.showchangePwPage = (req, res) => {
-  res.render('auth/changepw');
+  const { email } = req.query;
+  res.render('auth/changepw', { email });
+};
+
+exports.findPwProcess = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({ where: { email } });
+
+    if (!user) {
+      return res.render('auth/findpw', {
+        email,
+        error: '존재하지 않는 이메일입니다.'
+      });
+    }
+
+    const authCode = generateRandomNumber();
+    await redisClient.setEx(`${email}:resetCode`, 300, authCode);
+    await sendEmail(email, authCode);
+
+    res.redirect(`/auth/findpwverify?email=${encodeURIComponent(email)}`);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('서버 오류 발생');
+  }
+};
+
+exports.verifyFindPwCode = async (req, res) => {
+  const { email, code: userCode } = req.body;
+
+  try {
+    const savedCode = await redisClient.get(`${email}:resetCode`);
+
+    if (!savedCode) {
+      return res.render('auth/findpwverify', {
+        email,
+        errorMessage: '인증 시간이 만료되었습니다. 다시 시도해주세요.',
+      });
+    }
+
+    if (userCode === savedCode) {
+      await redisClient.del(`${email}:resetCode`);
+      return res.redirect(`/auth/changepw?email=${encodeURIComponent(email)}`);
+    } else {
+      return res.render('auth/findpwverify', {
+        email,
+        code: userCode,
+        errorMessage: '인증번호가 일치하지 않습니다.',
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("서버 오류 발생");
+  }
+};
+
+exports.changePassword = async (req, res) => {
+  const { newPassword, confirmPassword } = req.body;
+
+  if (newPassword !== confirmPassword) {
+    return res.render('auth/changepw', {
+      errorMessage: '비밀번호가 일치하지 않습니다.'
+    });
+  }
+
+  try {
+    const { email } = req.body;
+    if (!email) {
+      return res.status(401).send('이메일 정보가 없습니다.');
+    }
+
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    await User.update({ password: hashedPassword }, { where: { email } });
+
+    return res.redirect('/auth/login');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send('비밀번호 변경 중 오류 발생');
+  }
 };

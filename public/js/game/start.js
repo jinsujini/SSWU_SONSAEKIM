@@ -44,3 +44,10 @@ window.addEventListener('DOMContentLoaded', async () => {
   function closeRanking() {
     document.getElementById('rankingModal').style.display = 'none';
   }
+  function openIntro() {
+    document.getElementById('introModal').style.display = 'flex';
+  }
+
+  function closeIntro() {
+    document.getElementById('introModal').style.display = 'none';
+  }

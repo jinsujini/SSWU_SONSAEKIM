@@ -51,12 +51,12 @@
   }
   
   .ranking {
-  position: absolute;                  
-  top: 200px;
-  left: 180px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
+    position: absolute;                  
+    top: 200px;
+    left: 180px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
     flex-direction: column;
   }
   
@@ -99,12 +99,38 @@
   .ranking-modal {
     background: white;
     padding: 10px;
-   
     position: relative;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     text-align: center;
     width: 500px;
     height: 320px;
+  }
+  .intro-modal {
+    background: white;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    width: 900px;
+    height: 720px;
+
+  }
+  .intro-box{
+    background-color: #DFDED0;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    margin: 0 auto;
+    padding: 10px;
+  }
+  .main-intro{
+    margin-left: 40px;
+    font-weight: bold;
+    line-height: 1.5;
+  }
+  .intro-hand{
+    margin-left: 20px;
   }
   
   .modal-close {

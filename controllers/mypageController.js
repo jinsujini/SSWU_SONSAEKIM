@@ -9,7 +9,7 @@ exports.renderMypage = async (req, res) => {
         const user = await User.findOne({ where: { user_id: userId } });
         if (!user) return res.redirect('/nouser');
 
-        //출석석
+        // 출석 조회
         const today = new Date();
         const startDate = new Date();
         startDate.setDate(today.getDate() - 27);
@@ -21,23 +21,23 @@ exports.renderMypage = async (req, res) => {
             },
             order: [['date', 'ASC']]
         });
-        const attendanceDates = attendanceList.map(a => a.date);
 
-        // 한국 날짜 기준
+        const attendanceDates = attendanceList.map(a => a.date);
+        const attendanceSet = new Set(attendanceDates);
+
+        // 한국 날짜 변환
         const getKoreanDateString = (date = new Date()) => {
             const koreaOffset = 9 * 60 * 60 * 1000;
             return new Date(date.getTime() + koreaOffset)
                 .toISOString()
-                .slice(0, 10); 
+                .slice(0, 10);
         };
 
+        //연속 출석 계산
         let continuous = 0;
         const todayStr = getKoreanDateString();
-        const attendanceSet = new Set(attendanceDates); 
-
         if (attendanceSet.has(todayStr)) {
             continuous = 1;
-
             for (let i = 1; i <= 27; i++) {
                 const d = new Date();
                 d.setDate(d.getDate() - i);
@@ -48,21 +48,41 @@ exports.renderMypage = async (req, res) => {
                     break;
                 }
             }
-        } else {
-            continuous = 0;
         }
 
+        const totalDays = attendanceList.length;
+        const calculatedLevel = Math.floor(totalDays / 7) + 1;
 
-        const stat = await LearningStat.findOne({ where: { user_id: userId } });
+        let stat = await LearningStat.findOne({ where: { user_id: userId } });
+
+        if (!stat) {
+            stat = await LearningStat.create({
+                user_id: userId,
+                total_study_count: totalDays,
+                level: calculatedLevel,
+                continuous_days: continuous
+            });
+        } else {
+            if (
+                stat.level !== calculatedLevel ||
+                stat.total_study_count !== totalDays ||
+                stat.continuous_days !== continuous
+            ) {
+                stat.level = calculatedLevel;
+                stat.total_study_count = totalDays;
+                stat.continuous_days = continuous;
+                await stat.save();
+            }
+        }
 
         res.render('mypage/mypage', {
             name: user.name,
             is_logined: req.session.is_logined,
             favorite: user.favorite_study,
             email: user.email,
-            level: stat?.level || 1,
-            wordsToNextLevel: 10,
-            totalDays: attendanceList.length,
+            level: stat.level,
+            totalDays,
+            daysToNextLevel: 7 - (totalDays % 7),
             continuousDays: continuous,
             attendanceDates
         });

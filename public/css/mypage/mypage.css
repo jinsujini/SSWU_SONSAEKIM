@@ -103,13 +103,15 @@
 
 .right .level .inner {
     display: flex;
+    text-align: center;
 
 }
 
 .right .level .inner img {
     object-fit: contain;
-    height: 74px;
-    margin-left: -10px;
+    width: 80px;
+    margin-top: -25px;
+   
 }
 
 .right .calendar .grid .day {

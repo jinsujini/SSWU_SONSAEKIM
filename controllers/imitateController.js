@@ -1,4 +1,4 @@
-exports.showImitateSelect = (req, res) => {
+  exports.showImitateSelect = (req, res) => {
     res.render('imitate/imitate');
   };
   
@@ -20,4 +20,8 @@ exports.showImitateSelect = (req, res) => {
 
   exports.showImitateWronqs = (req, res) => {
     res.render('imitate/imitateWrong');
+  };
+
+  exports.showImitateStart = (req, res) => {
+    res.render('imitate/start');
   };

@@ -20,4 +20,6 @@ router.get('/consonantResult', imitateController.showConsonantResult);
 // 따라하기 오답 확인 페이지
 router.get('/wrong', imitateController.showImitateWronqs);
 
+router.get('/start', imitateController.showImitateStart);
+
 module.exports = router;

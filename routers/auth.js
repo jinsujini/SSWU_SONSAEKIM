@@ -13,5 +13,8 @@ router.post('/login_process', authController.loginProcess);
 router.get('/findpw', authController.showfinPwPage);
 router.get('/findpwverify', authController.showfinPwVerifyPage);
 router.get('/changepw', authController.showchangePwPage);
+router.post('/findpw', authController.findPwProcess);
+router.post('/findpwverify', authController.verifyFindPwCode);
+router.post('/changepw', authController.changePassword);
 
 module.exports = router;

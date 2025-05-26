@@ -61,12 +61,23 @@
   .error-text {
     position: absolute;
     top: 255px; 
-    left: 160px; 
+    left: 192px; 
     color: #FF4B4B;
     font-size: 14px;
     min-height: 18px;
     margin: 0;
   }
+
+  .success-text {
+    position: absolute;
+    top: 255px; 
+    left: 192px; 
+    color: #28A745;
+    font-size: 14px;
+    min-height: 18px;
+    margin: 0;
+  }
+  
 
   .btn-wrapper {
     display: flex;

@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="/css/auth/findPwVerify.css">
 <div class="authcode-page">
   <div class="authcode-box">
-    <form action="/auth/verify" method="POST" class="email-auth-form">
+    <form action="/auth/findpwverify" method="POST" class="email-auth-form">
       <h2>비밀번호 변경 이메일 인증</h2>
       <p>
         입력하신 이메일로<br />
@@ -10,7 +10,7 @@
         아래에 인증번호를 입력해주세요.
       </p>
 
-      <input type="hidden" name="email" value=""/>
+      <input type="hidden" name="email" value="<%= email %>"/>
 
       <input 
         type="text" 
@@ -19,7 +19,9 @@
         value="<%= typeof code !== 'undefined' ? code : '' %>"
       />
 
-      <span class="error-text"></span>
+      <% if (typeof errorMessage !== 'undefined') { %>
+      <span class="error-text"><%= errorMessage %></span>
+      <% } %>
 
       <button type="submit" class="authcode-btn">확인</button>
     </form>

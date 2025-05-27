@@ -41,6 +41,10 @@ app.use('/quiz', quizRouter);
 const imitateRouter = require('./routers/imitateRouter');
 app.use('/imitate', imitateRouter);
 
+//learn 연결
+const learnRouter = require('./routers/learnRouter');
+app.use('/learn', learnRouter);
+
 const gameRouter = require('./routers/gameRouter');
 app.use('/game', gameRouter);
 

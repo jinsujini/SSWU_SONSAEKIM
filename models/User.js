@@ -21,23 +21,34 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   }, {
-    tableName: 'users', 
-    timestamps: false,  
+    tableName: 'users',
+    timestamps: false,
   });
-  //겜 테이블이랑 관계설정
+
+
+  // 테이블이랑 관계설정
   User.associate = (models) => {
     User.hasMany(models.GameRecord, {
       foreignKey: 'user_id',
       sourceKey: 'user_id'
     });
-  };
 
-  User.associate = (models) => {
+    User.hasOne(models.LearningStat, {
+      foreignKey: 'user_id',
+      sourceKey: 'user_id'
+    });
+
+    User.hasMany(models.Attendance, {
+      foreignKey: 'user_id',
+      sourceKey: 'user_id'
+    });
+    
     User.hasMany(models.BookmarkWord, {
       foreignKey: 'userId',
       sourceKey: 'user_id'
     });
   };
+
 
   return User;
 };

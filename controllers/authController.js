@@ -1,7 +1,7 @@
 require('dotenv').config();
 const redisClient = require('../configs/redis');
 const { generateRandomNumber, sendEmail } = require('../lib/email.helper');
-const { User } = require('../models');
+const { User, Attendance } = require('../models');
 const bcrypt = require('bcrypt');
 
 //회원가입, 로그인 관련
@@ -128,7 +128,7 @@ exports.loginProcess = async (req, res) => {
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
-      return res.render('auth/login', { error: '이메일 또는 비밀번호가 올바르지 않습니다.', email }); 
+      return res.render('auth/login', { error: '이메일 또는 비밀번호가 올바르지 않습니다.', email });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
@@ -139,6 +139,20 @@ exports.loginProcess = async (req, res) => {
         name: user.name,
         email: user.email
       };
+      const today = new Date().toISOString().slice(0, 10); 
+      const alreadyExists = await Attendance.findOne({
+        where: {
+          user_id: user.user_id,
+          date: today
+        }
+      });
+
+      if (!alreadyExists) {
+        await Attendance.create({
+          user_id: user.user_id,
+          date: today
+        });
+      }
       res.send(`${user.name} 로그인 성공`);
     }
   } catch (err) {

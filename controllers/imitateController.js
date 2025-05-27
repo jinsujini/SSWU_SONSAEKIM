@@ -23,5 +23,22 @@
   };
 
   exports.showImitateStart = (req, res) => {
-    res.render('imitate/start');
+    const type = req.query.type;
+
+    if((type !== 'vowel' && type !== 'consonant')){
+      return res.redirect('/imitate');
+    }
+    res.render('imitate/start', { type });
+  };
+
+  exports.redirectBasedOnType = (req, res) => {
+    const type = req.query.type;
+  
+    if (type === 'vowel') {
+      return res.redirect('/imitate/vowel');
+    } else if (type === 'consonant') {
+      return res.redirect('/imitate/consonant');
+    } else {
+      return res.redirect('/imitate');
+    }
   };

@@ -22,4 +22,6 @@ router.get('/wrong', imitateController.showImitateWronqs);
 
 router.get('/start', imitateController.showImitateStart);
 
+router.get('/redirect', imitateController.redirectBasedOnType);
+
 module.exports = router;

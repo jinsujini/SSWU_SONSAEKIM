@@ -5,8 +5,8 @@ const delay = ms => new Promise(res => setTimeout(res, ms));
 async function connectCamera({ videoId = 'camera' } = {}) {
     const video = document.getElementById(videoId);
     if (!video) {
-        console.error('video가 존재하지 않음:', err);
-        return;
+        console.error('video가 존재하지 않음:');
+        return false;
     }
 
     try {
@@ -20,15 +20,13 @@ async function connectCamera({ videoId = 'camera' } = {}) {
 
       video.srcObject = stream;
       await video.play();
-
+      
       await autoshot(video, stream);
+      return true;
 
     } catch (err) {
       console.error('카메라 연결 실패:', err);
-      video.insertAdjacentHTML(
-        'beforebegin',
-        '<p style="color:red">카메라 권한이 거부되었거나 장치를 찾을 수 없습니다.</p>'
-      );
+      return false;
     }
   }
   
@@ -53,4 +51,9 @@ async function connectCamera({ videoId = 'camera' } = {}) {
     await video.play();
   }
   
-  connectCamera({ videoId: 'camera' });
+  document.addEventListener('DOMContentLoaded', async () => {
+    const success = await connectCamera({ videoId: 'camera' });
+    if (!success) {
+      console.error('카메라 연결 실패');
+    }
+  });

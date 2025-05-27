@@ -27,6 +27,11 @@ const DataTypes = Sequelize.DataTypes;
 db.Quiz = require('./quiz/quiz')(sequelize, DataTypes);
 db.BookmarkWord = require('./quiz/bookmarkWord')(sequelize, Sequelize.DataTypes);
 db.SignWord = require('./quiz/signWord')(sequelize, Sequelize.DataTypes);
+db.SignVc = require('./quiz/signVc')(sequelize, Sequelize.DataTypes);
+db.LearningStat = require('./mypage/LearningStat')(sequelize, Sequelize.DataTypes);
+db.Attendance = require('./mypage/Attendance')(sequelize, Sequelize.DataTypes);
+
+
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {

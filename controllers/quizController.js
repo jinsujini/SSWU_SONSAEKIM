@@ -1,17 +1,28 @@
-const quizModel = require('../models/quiz/quizModel.js');
-const { User, BookmarkWord } = require('../models');
+const { User, Quiz, SignWord, SignVc, BookmarkWord } = require('../models');
 
 exports.showQuizSelect = (req, res) => {
     res.render('quiz/quizMenu');
   };
-  
+
 exports.showQuiz = async (req, res) => {
   try {
-    const quizList = await quizModel.getRandomQuizzes();
-    res.render('quiz/quizPage', { quizList });
+    const type = req.params.type; // phoneme 또는 word
+    
+    const quizList = await Quiz.findAll({
+      where: type === 'phoneme' 
+        ? { source_type: 'sign_vc' }
+        : { source_type: 'sign_word' },
+      order: Quiz.sequelize.random(),
+      limit: 10
+    });
+
+    res.render('quiz/quizPage', {
+      quizList,
+      quizTitle: type === 'phoneme' ? '모음/자음 퀴즈' : '단어/표현 퀴즈'
+    });
   } catch (err) {
-    console.error(err); 
-    res.status(500).send('퀴즈 불러오기 실패');
+    console.error(err);
+    res.status(500).send('퀴즈 로딩 실패');
   }
 };
 
@@ -25,22 +36,13 @@ exports.showWrongAnswers = (req, res) => {
 
 exports.toggleBookmark = async (req, res) => {
   try {
-    const email = req.session.email;
-    const user = await User.findOne({
-      where: { email }
-    });
-    
-    if (!user) {
-      return res.status(404).json({ message: '사용자를 찾을 수 없습니다.' });
-    }
-    
-    const userId = user.user_id;
-
-    const { wordId } = req.body;
+    const userId = req.session.user?.user_id;
 
     if (!userId) {
       return res.status(401).json({ message: '로그인이 필요합니다.' });
     }
+
+    const { wordId } = req.body;
 
     const existing = await BookmarkWord.findOne({
       where: { userId, wordId }

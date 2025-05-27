@@ -4,7 +4,8 @@
   <h2 class="changepw-title">비밀번호 변경</h2>
 
   <div class="changepw-box">
-    <form action="/auth/change_password" method="POST">
+    <form action="/auth/changepw" method="POST">
+      <input type="hidden" name="email" value="<%= email %>" />
       <div class="input-group newpw-group">
         <label for="newPassword">새 비밀번호</label>
         <input type="password" name="newPassword" id="newPassword" required>
@@ -16,7 +17,7 @@
         <input type="password" name="confirmPassword" id="confirmPassword" required>
       </div>
 
-      <p class="error-text"></p>
+      <p class="error-text" id="pw-error-msg"></p>
 
       <div class="btn-wrapper">
         <button type="submit" class="changepw-btn">변경</button>
@@ -24,4 +25,5 @@
     </form>
   </div>
 </div>
+<script src="/js/auth/changePw.js"></script>
 <%- include('../layouts/footer') %>

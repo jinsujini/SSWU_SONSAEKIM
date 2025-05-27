@@ -6,7 +6,7 @@ const quizController = require('../controllers/quizController');
 router.get('/select', quizController.showQuizSelect);
 
 // 퀴즈 문제 풀기 페이지
-router.get('/start', quizController.showQuiz);
+router.get('/start/:type', quizController.showQuiz);
 
 // 결과 페이지
 router.get('/result', quizController.showResult);

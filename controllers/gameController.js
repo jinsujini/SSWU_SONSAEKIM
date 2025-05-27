@@ -1,5 +1,30 @@
-const { GameRecord, User } = require('../models');
+const { GameRecord, User, SignWord, SignVc, sequelize } = require('../models');
 
+
+
+exports.getImages= async (req, res) => {
+  try {
+    const wordSamples = await SignWord.findAll({
+      order: sequelize.random(),
+      limit: 5
+    });
+
+    const vcSamples = await SignVc.findAll({
+      order: sequelize.random(),
+      limit: 5
+    });
+
+    const result = [...wordSamples, ...vcSamples].map((item) => ({
+      image: item.image,
+      value: item.description
+    }));
+
+    res.json(result);
+  } catch (error) {
+    console.error('랜덤 수어 이미지 불러오기 실패', error);
+    res.status(500).json({ message: '서버 오류' });
+  }
+};
 
 exports.gameStart = async (req, res) => {
   try {

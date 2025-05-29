@@ -48,6 +48,11 @@ app.use('/game', gameRouter);
 const authRouter = require('./routers/auth');
 app.use('/auth', authRouter);
 
+//수어모델 연결
+const predictRouter = require('./routers/predictRouter');
+app.use('/api', predictRouter);
+
+
 //home.ejs 연결
 app.get('/', (req, res) => {
     res.render('auth/home');

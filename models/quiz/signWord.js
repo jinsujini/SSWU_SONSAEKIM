@@ -26,12 +26,5 @@ SignWord.associate = (models) => {
     });
 };
 
-SignWord.associate = (models) => {
-    SignWord.hasMany(models.Quiz, {
-    foreignKey: 'source_id',
-    sourceKey: 'word_id'
-});
-};
-
 return SignWord;
 };

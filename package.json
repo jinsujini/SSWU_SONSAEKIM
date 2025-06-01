@@ -5,6 +5,7 @@
     "dev": "nodemon app.js"
   },
   "dependencies": {
+    "axios": "^1.9.0",
     "bcrypt": "^6.0.0",
     "cache-manager": "^4.1.0",
     "cache-manager-redis-store": "^2.0.0",

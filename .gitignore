@@ -46,3 +46,5 @@ pids
 /lib/db.js
 
 node_modules/
+
+public/uploads

@@ -12,4 +12,6 @@ router.get('/top3', gameController.getTop3);
 
 router.get('/my-best-score', gameController.getMyBestScore);
 
+router.get('/random-signs', gameController.getImages);
+
 module.exports = router;

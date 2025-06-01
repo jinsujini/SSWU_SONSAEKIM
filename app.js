@@ -58,9 +58,9 @@ app.get('/', (req, res) => {
   });
 
 
-db.sequelize.sync({ alter: true })
+db.sequelize.sync()
 .then(() => {
-  console.log('DB 연결 및 테이블 생성(수정)됨');
+  console.log('DB 연결 및 테이블 생성됨');
 
   app.listen(app.get('port'), '0.0.0.0', () => {
   console.log(`${app.get('port')}번 포트에서 서버 실행 중`);

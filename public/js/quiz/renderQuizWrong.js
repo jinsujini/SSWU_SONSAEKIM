@@ -29,7 +29,7 @@ function renderWrongAnswer(quiz, index) {
         }
     });
 
-    document.querySelector('.quiz-image').src = quiz.image;
+    document.getElementById('quiz-image').src = quiz.image;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -37,14 +37,14 @@ document.addEventListener('DOMContentLoaded', () => {
         renderWrongAnswer(wrongAnswers[0], 0);
     }
 
-    document.querySelectorAll('.nav-btn')[0].addEventListener('click', () => {
+    document.getElementById('prev-btn').addEventListener('click', () => {
         if (currentWrongIndex > 0) {
             currentWrongIndex--;
             renderWrongAnswer(wrongAnswers[currentWrongIndex], currentWrongIndex);
         }
     });
 
-    document.querySelectorAll('.nav-btn')[1].addEventListener('click', () => {
+    document.getElementById('next-btn').addEventListener('click', () => {
         if (currentWrongIndex < wrongAnswers.length - 1) {
             currentWrongIndex++;
             renderWrongAnswer(wrongAnswers[currentWrongIndex], currentWrongIndex);

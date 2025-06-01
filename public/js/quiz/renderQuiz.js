@@ -18,6 +18,8 @@ function renderQuiz(quiz) {
 
     const buttons = document.querySelectorAll('.quiz-btn');
 
+    document.getElementById("quiz-image").src = quiz.image;
+
     const options = [
         { text: quiz.option1, isAnswer: quiz.answer === 1 },
         { text: quiz.option2, isAnswer: quiz.answer === 2 },

@@ -42,14 +42,5 @@ module.exports = (sequelize, DataTypes) => {
         timestamps: false
     });
 
-    // sign_word만 기본 연결, sign_vc는 동적 처리.. 폴리모픽 연관관계
-    Quiz.associate = (models) => {
-        Quiz.belongsTo(models.SignWord, {
-        foreignKey: 'source_id',
-        targetKey: 'word_id',
-        constraints: false 
-        });
-    };
-
     return Quiz;
 };

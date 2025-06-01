@@ -16,8 +16,27 @@ exports.showQuiz = async (req, res) => {
       limit: 10
     });
 
+    const enrichedQuizList = await Promise.all(
+      quizList.map(async (quiz) => {
+        let image = '';
+
+        if (quiz.source_type === 'sign_word') {
+          const word = await SignWord.findByPk(quiz.source_id);
+          image = word?.image || '';
+        } else if (quiz.source_type === 'sign_vc') {
+          const vc = await SignVc.findByPk(quiz.source_id);
+          image = vc?.image || '';
+        }
+
+        return {
+          ...quiz.toJSON(),
+          image
+        };
+      })
+    );
+
     res.render('quiz/quizPage', {
-      quizList,
+      quizList: enrichedQuizList,
       quizTitle: type === 'phoneme' ? '모음/자음 퀴즈' : '단어/표현 퀴즈'
     });
   } catch (err) {

@@ -19,7 +19,7 @@
 
       <!-- 퀴즈 내용 -->
       <div class="learn-content">
-        <img src="" alt="수어 이미지" class="quiz-image" />
+        <img src="" alt="수어 이미지" id="quiz-image" />
         <div class="quiz-text">
           <p></p>
           <div class="quiz-options">
@@ -37,10 +37,10 @@
 
       <!-- 이동 버튼 -->
       <div class="nav-buttons">
-        <button class="nav-btn">
+        <button class="nav-btn" id="prev-btn">
           <img src="/assets/left-btn.svg" alt="이전" />
           </button>
-        <button class="nav-btn">
+        <button class="nav-btn" id="next-btn">
           <img src="/assets/right-btn.svg" alt="다음" />
         </button>
       </div>
@@ -52,7 +52,4 @@
 <script src="/js/quiz/bookmark.js"></script>
 <script src="/js/quiz/renderQuizWrong.js"></script>
 
-</main>
-</body>
-
-</html>
+<%- include('../layouts/footer') %>

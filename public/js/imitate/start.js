@@ -24,7 +24,7 @@ async function checkCameraPermission() {
       if (hasPermission) {
         // 권한 있으면 바로 다음 페이지로 이동
         const type = startBtn.dataset.type;
-        window.location.href = `/imitate/redirect?type=${type}`;
+        window.location.href = `/imitate/study?type=${type}`;
       } else {
         try {
           // 권한 요청

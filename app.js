@@ -23,10 +23,16 @@ app.use(session({
     name: 'session-cookie',
 }));
 
+//user 로그인 여부 전역 전달
 app.use((req, res, next) => {
+  res.locals.user = req.session.user || null;
+  next();
+});
+
+/*app.use((req, res, next) => {
   
     next();
-});
+});*/
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));

@@ -20,14 +20,22 @@ function renderQuiz(quiz) {
     const buttons = document.querySelectorAll('.quiz-btn');
     document.getElementById("quiz-image").src = quiz.image;
 
-    const options = [
-        { text: quiz.option1, isAnswer: quiz.answer === 1 },
-        { text: quiz.option2, isAnswer: quiz.answer === 2 },
-        { text: quiz.option3, isAnswer: quiz.answer === 3 },
-        { text: quiz.option4, isAnswer: quiz.answer === 4 }
+    const originalOptions = [
+        { text: quiz.option1, index: 1 },
+        { text: quiz.option2, index: 2 },
+        { text: quiz.option3, index: 3 },
+        { text: quiz.option4, index: 4 }
     ];
 
-    const shuffled = shuffleArray(options);
+    const shuffled = shuffleArray(originalOptions);
+
+    quiz.option1 = shuffled[0].text;
+    quiz.option2 = shuffled[1].text;
+    quiz.option3 = shuffled[2].text;
+    quiz.option4 = shuffled[3].text;
+
+    const answerIndex = shuffled.findIndex(opt => opt.index === quiz.answer) + 1;
+    quiz.answer = answerIndex;
 
     shuffled.forEach((opt, idx) => {
         const btn = buttons[idx];
@@ -38,11 +46,12 @@ function renderQuiz(quiz) {
         btn.onclick = () => {
             buttons.forEach(b => b.disabled = true);
 
-            if (opt.isAnswer) {
+            if (idx + 1 === quiz.answer) {
                 btn.classList.add('green');
                 score++;
                 correctAnswers.push({
                     ...quiz,
+                    selected: idx + 1,
                     is_relearned: true,
                     is_follow: false
                 });
@@ -50,7 +59,7 @@ function renderQuiz(quiz) {
                 btn.classList.add('red');
                 wrongAnswers.push({
                     ...quiz,
-                    selected: opt.text,
+                    selected: idx + 1,
                     is_relearned: false,
                     is_follow: false
                 });

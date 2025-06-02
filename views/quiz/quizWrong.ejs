@@ -50,6 +50,9 @@
 </div>
 
 <script src="/js/quiz/bookmark.js"></script>
+<script>
+  window.wrongAnswers = <%- typeof wrongAnswers !== 'undefined' ? JSON.stringify(wrongAnswers) : 'undefined' %>;
+</script>
 <script src="/js/quiz/renderQuizWrong.js"></script>
 
 <%- include('../layouts/footer') %>

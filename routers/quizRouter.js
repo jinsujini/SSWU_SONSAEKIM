@@ -14,7 +14,7 @@ router.post('/result/save', quizController.saveQuizResults);
 // 결과 페이지
 router.get('/result', quizController.showResult);
 
-// 오답 확인 페이지
+// 오답 확인 페이지 또는 오답 모아보기
 router.get('/wrong', quizController.showWrongAnswers);
 
 // 북마크 처리

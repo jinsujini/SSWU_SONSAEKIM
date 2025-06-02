@@ -1,4 +1,4 @@
-const { User, Quiz, SignWord, SignVc, BookmarkWord, VcWrong, WordWrong} = require('../models');
+const { User, Quiz, SignWord, SignVc, BookmarkWord, BookmarkVc, VcWrong, WordWrong} = require('../models');
 
 exports.showQuizSelect = (req, res) => {
     res.render('quiz/quizMenu');

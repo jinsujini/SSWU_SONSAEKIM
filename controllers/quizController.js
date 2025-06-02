@@ -172,6 +172,11 @@ exports.showWrongAnswers = async (req, res) => {
       limit: 10
     });
 
+    if (vcWrongs.length === 0 || wordWrongs.length === 0) {
+      return res.render('quiz/noQuiz', {
+      });
+    }
+
     const wrongAnswers = [];
 
     for (const entry of [...vcWrongs, ...wordWrongs]) {

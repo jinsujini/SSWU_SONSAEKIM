@@ -26,8 +26,13 @@
 <script src="/js/quiz/bookmark.js"></script>
 <script>
   const score = localStorage.getItem('score');
+  const total = localStorage.getItem('quizTotal');
+  
   if (score !== null) {
     document.getElementById('score-box').textContent = score;
+  }
+  if (total !== null) {
+    document.querySelector('.result-total').textContent = `/ ${total}`;
   }
 </script>
 

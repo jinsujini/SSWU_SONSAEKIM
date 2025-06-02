@@ -1,5 +1,6 @@
 let currentIndex = 0;
 let score = 0;
+let correctAnswers = [];
 let wrongAnswers = [];
 
 function shuffleArray(array) {
@@ -17,7 +18,6 @@ function renderQuiz(quiz) {
     }
 
     const buttons = document.querySelectorAll('.quiz-btn');
-
     document.getElementById("quiz-image").src = quiz.image;
 
     const options = [
@@ -41,11 +41,18 @@ function renderQuiz(quiz) {
             if (opt.isAnswer) {
                 btn.classList.add('green');
                 score++;
+                correctAnswers.push({
+                    ...quiz,
+                    is_relearned: true,
+                    is_follow: false
+                });
             } else {
                 btn.classList.add('red');
                 wrongAnswers.push({
                     ...quiz,
-                    selected: opt.text // 사용자가 선택한 오답도 저장
+                    selected: opt.text,
+                    is_relearned: false,
+                    is_follow: false
                 });
             }
 
@@ -54,19 +61,35 @@ function renderQuiz(quiz) {
                 if (currentIndex < quizList.length) {
                     renderQuiz(quizList[currentIndex]);
                 } else {
+                    const quizResults = [...correctAnswers, ...wrongAnswers];
+
+                    // 점수 및 오답 저장
                     localStorage.setItem('score', score);
                     localStorage.setItem('wrongAnswers', JSON.stringify(wrongAnswers));
-                    window.location.href = '/quiz/result';
+
+                    // 서버로 전체 푼 문제 결과 전송
+                    fetch('/quiz/result/save', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ quizResults })
+                    }).then(() => {
+                        window.location.href = '/quiz/result';
+                    }).catch(err => {
+                        console.error('결과 저장 실패:', err);
+                        window.location.href = '/quiz/result';
+                    });
                 }
             }, 1000);
         };
     });
 
-    document.querySelector('.quiz-text p').textContent = `${currentIndex + 1}. 이 수어의 의미로 옳은 선택지를 고르시오.`;
+    document.querySelector('.quiz-text p').textContent =
+        `${currentIndex + 1}. 이 수어의 의미로 옳은 선택지를 고르시오.`;
 }
 
 window.onload = () => {
     if (quizList && quizList.length > 0) {
+        localStorage.setItem('quizTotal', quizList.length);
         renderQuiz(quizList[0]);
     }
 };

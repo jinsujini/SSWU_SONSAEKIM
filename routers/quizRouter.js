@@ -8,6 +8,9 @@ router.get('/select', quizController.showQuizSelect);
 // 퀴즈 문제 풀기 페이지
 router.get('/start/:type', quizController.showQuiz);
 
+// 오답 저장
+router.post('/result/save', quizController.saveQuizResults);
+
 // 결과 페이지
 router.get('/result', quizController.showResult);
 

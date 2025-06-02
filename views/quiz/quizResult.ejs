@@ -34,6 +34,12 @@
   if (total !== null) {
     document.querySelector('.result-total').textContent = `/ ${total}`;
   }
+
+  if (score === total) {
+  const wrongBtn = document.querySelectorAll('.result-button')[0];
+  wrongBtn.disabled = true;
+  wrongBtn.style.display = 'none';
+}
 </script>
 
 <%- include('../layouts/footer') %>

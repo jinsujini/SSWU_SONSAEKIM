@@ -1,5 +1,5 @@
 let currentWrongIndex = 0;
-let wrongAnswers = JSON.parse(localStorage.getItem('wrongAnswers') || '[]');
+let wrongAnswers = window.wrongAnswers || JSON.parse(localStorage.getItem('wrongAnswers') || '[]');
 
 function renderWrongAnswer(quiz, index) {
     document.querySelector('.quiz-text p').textContent =
@@ -24,7 +24,7 @@ function renderWrongAnswer(quiz, index) {
 
         if (idx + 1 === quiz.answer) {
             btn.classList.add('green'); // 정답
-        } else if (options[idx] === quiz.selected) {
+        } else if (idx + 1 === quiz.selected) {
             btn.classList.add('red');   // 사용자가 선택한 오답
         }
     });

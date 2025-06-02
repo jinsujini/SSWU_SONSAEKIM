@@ -26,9 +26,20 @@
 <script src="/js/quiz/bookmark.js"></script>
 <script>
   const score = localStorage.getItem('score');
+  const total = localStorage.getItem('quizTotal');
+  
   if (score !== null) {
     document.getElementById('score-box').textContent = score;
   }
+  if (total !== null) {
+    document.querySelector('.result-total').textContent = `/ ${total}`;
+  }
+
+  if (score === total) {
+  const wrongBtn = document.querySelectorAll('.result-button')[0];
+  wrongBtn.disabled = true;
+  wrongBtn.style.display = 'none';
+}
 </script>
 
 <%- include('../layouts/footer') %>

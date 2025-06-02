@@ -21,6 +21,7 @@ async function connectCamera({ videoId = 'camera' } = {}) {
       video.srcObject = stream;
       await video.play();
       
+      await startCountdown();
       await autoshot(video, stream);
       return true;
 
@@ -30,11 +31,12 @@ async function connectCamera({ videoId = 'camera' } = {}) {
     }
   }
   
+
   async function autoshot(video, stream){
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
 
-    await delay(3000);
+    // await delay(3000);
     
     // 화면 캡처
     canvas.width  = video.videoWidth;
@@ -57,3 +59,16 @@ async function connectCamera({ videoId = 'camera' } = {}) {
       console.error('카메라 연결 실패');
     }
   });
+
+
+async function startCountdown(targetElementId = 'countdown') {
+  const countdown = document.getElementById(targetElementId);
+  if (!countdown) return;
+ 
+  for (let i = 3; i > 0; i--) {
+    countdown.textContent = i;
+    await delay(1000);
+  }
+
+  countdown.style.display = 'none';
+}

@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
     const SignVc = sequelize.define('SignVc', {
-        word_id: {
+        vc_id: {
         type: DataTypes.BIGINT,
         primaryKey: true,
         allowNull: false,

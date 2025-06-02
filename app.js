@@ -23,10 +23,16 @@ app.use(session({
     name: 'session-cookie',
 }));
 
+//user 로그인 여부 전역 전달
 app.use((req, res, next) => {
+  res.locals.user = req.session.user || null;
+  next();
+});
+
+/*app.use((req, res, next) => {
   
     next();
-});
+});*/
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -53,9 +59,16 @@ const authRouter = require('./routers/auth');
 app.use('/auth', authRouter);
 
 //home.ejs 연결
+const { isLoggedIn } = require('./middlewares/logincheck.js');
+//로그인 전 홈
 app.get('/', (req, res) => {
     res.render('auth/home');
   });
+
+//로그인 후 홈
+app.get('/home', isLoggedIn, (req, res) => {
+  res.render('auth/loginhome', { user: req.session.user });
+});
 
 
 db.sequelize.sync()

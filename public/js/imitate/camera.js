@@ -2,7 +2,7 @@
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
-async function connectCamera({ videoId = 'camera' } = {}) {
+async function connectCamera({ videoId = 'camera', captureDone = () => {}} = {}) {
     const video = document.getElementById(videoId);
     if (!video) {
         console.error('video가 존재하지 않음:');
@@ -20,10 +20,8 @@ async function connectCamera({ videoId = 'camera' } = {}) {
 
       video.srcObject = stream;
       await video.play();
-      
-      await startCountdown();
-      await autoshot(video, stream);
-      return true;
+
+      return { video, stream };
 
     } catch (err) {
       console.error('카메라 연결 실패:', err);
@@ -49,26 +47,21 @@ async function connectCamera({ videoId = 'camera' } = {}) {
     await delay(1500);
 
     video.poster = ''; 
-    video.srcObject = stream;
+    // video.srcObject = stream;
     await video.play();
   }
-  
-  document.addEventListener('DOMContentLoaded', async () => {
-    const success = await connectCamera({ videoId: 'camera' });
-    if (!success) {
-      console.error('카메라 연결 실패');
-    }
-  });
-
 
 async function startCountdown(targetElementId = 'countdown') {
   const countdown = document.getElementById(targetElementId);
   if (!countdown) return;
  
+  countdown.style.opacity = '1';
+  countdown.style.visibility = 'visible';
+
   for (let i = 3; i > 0; i--) {
     countdown.textContent = i;
     await delay(1000);
   }
 
-  countdown.style.display = 'none';
+  countdown.style.opacity = '0';
 }

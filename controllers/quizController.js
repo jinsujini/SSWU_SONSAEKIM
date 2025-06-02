@@ -109,9 +109,7 @@ exports.saveQuizResults = async (req, res) => {
         const existing = await WordWrong.findOne({ where });
 
         if (existing) {
-          if (result.is_relearned && !existing.is_relearned) {
-            await WordWrong.update(common, { where });
-          }
+          await WordWrong.update(common, { where });
         } else {
           await WordWrong.create({ user_id: userId, word_id: result.source_id, ...common });
         }
@@ -120,9 +118,7 @@ exports.saveQuizResults = async (req, res) => {
         const existing = await VcWrong.findOne({ where });
 
         if (existing) {
-          if (result.is_relearned && !existing.is_relearned) {
-            await VcWrong.update(common, { where });
-          }
+          await VcWrong.update(common, { where });
         } else {
           await VcWrong.create({ user_id: userId, vc_id: result.source_id, ...common });
         }

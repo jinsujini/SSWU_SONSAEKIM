@@ -6,7 +6,7 @@
  <div class="learn-container">
    <div class="learn-wrapper">
      <div class="learn-label" id="label">
-      <p>자음 따라하기</p>
+      <p><%= type === 'vowel' ? '모음 따라하기' : '자음 따라하기' %></p>
     </div>
      <div class="learn-box">
       <div class="learn-content">
@@ -14,11 +14,13 @@
                 <p>ㅓ (어)</p>
                 <div class="image-row">
                     <img src="" class="image-box" alt="이미지1">
-                    <img src="" class="image-box" alt="이미지2">
+                    <!-- <img src="" class="image-box" alt="이미지2"> -->
+                    <div class="countdown-box" id="countdown"></div>
+                    <video id="camera" class="image-box" autoplay playsinline></video>
                 </div>
             </div>
         </div>
      </div>
    </div>
  </div>
- 
+ <script src="/js/imitate/camera.js"></script>

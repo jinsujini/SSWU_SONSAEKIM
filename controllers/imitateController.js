@@ -1,25 +1,21 @@
   exports.showImitateSelect = (req, res) => {
-    res.render('imitate/imitate');
+    res.render('imitate/imitateSelect');
   };
   
-  exports.showVowel = (req, res) => {
-    res.render('imitate/vowel');
+  exports.showImitate = (req, res) => {
+    res.render('imitate/imitatePage');
   };
 
-  exports.showConsonant = (req, res) => {
-    res.render('imitate/consonant');
+  exports.showImitateResult = (req, res) => {
+    const { type } = req.query;
+
+    res.render('imitate/imitateResult', { type });
   };
 
-  exports.showVowelResult = (req, res) => {
-    res.render('imitate/vowelResult');
-  };
+  exports.showImitateWronq = (req, res) => {
+    const { type } = req.query;
 
-  exports.showConsonantResult = (req, res) => {
-    res.render('imitate/consonantResult');
-  };
-
-  exports.showImitateWronqs = (req, res) => {
-    res.render('imitate/imitateWrong');
+    res.render('imitate/imitateWrong', { type });
   };
 
   exports.showImitateStart = (req, res) => {
@@ -34,10 +30,8 @@
   exports.redirectBasedOnType = (req, res) => {
     const type = req.query.type;
   
-    if (type === 'vowel') {
-      return res.redirect('/imitate/vowel');
-    } else if (type === 'consonant') {
-      return res.redirect('/imitate/consonant');
+    if (type === 'vowel' || type === 'consonant') {
+      return res.render('imitate/imitatePage', {type});
     } else {
       return res.redirect('/imitate');
     }

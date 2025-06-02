@@ -20,5 +20,7 @@ router.get('/wrong', quizController.showWrongAnswers);
 // 북마크 처리
 router.post('/bookmark', quizController.toggleBookmark);
 
+// 퀴즈 없음
+router.get('/none', quizController.showQuizNone);
 
 module.exports = router;

@@ -50,6 +50,11 @@ const quizList = await Quiz.findAll({
   limit: 10
 });
 
+if (quizList.length === 0) {
+    return res.render('quiz/noQuiz', {
+    });
+  }
+
     const enrichedQuizList = await Promise.all(
       quizList.map(async (quiz) => {
         let image = '';
@@ -163,4 +168,8 @@ exports.toggleBookmark = async (req, res) => {
     console.error('북마크 처리 실패:', err);
     res.status(500).json({ message: '서버 오류' });
   }
+};
+
+exports.showQuizNone = (req, res) => {
+  res.render('quiz/noQuiz');
 };

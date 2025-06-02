@@ -1,25 +1,47 @@
-  exports.showImitateSelect = (req, res) => {
-    res.render('imitate/imitate');
+const {SignVc} = require('../models');
+const { Op } = require('sequelize');
+
+exports.showImitateSelect = (req, res) => {
+    res.render('imitate/imitateSelect');
   };
   
-  exports.showVowel = (req, res) => {
-    res.render('imitate/vowel');
+exports.showImitate =  async (req, res) => {
+    try {
+      const type = req.params.type;
+
+      const imitateList = await SignVc.findAll({
+        where: type === 'vowel' 
+          ? { vc_id: { [Op.lte]: 10 } }
+          : { vc_id: { [Op.gt]: 10 } },
+        order: SignVc.sequelize.random(),         
+        limit: 10
+      });
+
+      const enrichedImitateList = imitateList.map(item => ({
+        ...item.toJSON(),
+        image: item.image || '' 
+      }));
+  
+      res.render('imitate/imitatePage', {
+        enrichedImitateList,
+        type
+      });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('따라하기 로딩 실패');
+    }
   };
 
-  exports.showConsonant = (req, res) => {
-    res.render('imitate/consonant');
+  exports.showImitateResult = (req, res) => {
+    const { type } = req.query;
+
+    res.render('imitate/imitateResult', { type });
   };
 
-  exports.showVowelResult = (req, res) => {
-    res.render('imitate/vowelResult');
-  };
+  exports.showImitateWronq = (req, res) => {
+    const { type } = req.query;
 
-  exports.showConsonantResult = (req, res) => {
-    res.render('imitate/consonantResult');
-  };
-
-  exports.showImitateWronqs = (req, res) => {
-    res.render('imitate/imitateWrong');
+    res.render('imitate/imitateWrong', { type });
   };
 
   exports.showImitateStart = (req, res) => {
@@ -29,16 +51,4 @@
       return res.redirect('/imitate');
     }
     res.render('imitate/start', { type });
-  };
-
-  exports.redirectBasedOnType = (req, res) => {
-    const type = req.query.type;
-  
-    if (type === 'vowel') {
-      return res.redirect('/imitate/vowel');
-    } else if (type === 'consonant') {
-      return res.redirect('/imitate/consonant');
-    } else {
-      return res.redirect('/imitate');
-    }
   };

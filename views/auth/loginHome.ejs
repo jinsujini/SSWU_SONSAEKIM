@@ -1,0 +1,31 @@
+<%- include('../layouts/header') %>
+<div class="centered-container">
+    <img src="/public/assets/hand.svg" alt="손" class="hand-icon" />
+    <p class="greeting-text">
+      <strong><%= name %></strong>님 오늘도 손으로 새기며 배워봐요!
+    </p>
+  </div>
+<%- include('../layouts/footer') %>
+  
+<style>
+    .centered-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; 
+  text-align: center;
+}
+
+.hand-icon {
+  width: 60px; 
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.greeting-text {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+</style>

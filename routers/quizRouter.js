@@ -18,7 +18,7 @@ router.get('/result', quizController.showResult);
 router.get('/wrong', quizController.showWrongAnswers);
 
 // 북마크 처리
-router.post('/bookmark', quizController.toggleBookmark);
+router.post('/bookmark/toggle', quizController.toggleBookmark);
 
 // 퀴즈 없음
 router.get('/none', quizController.showQuizNone);

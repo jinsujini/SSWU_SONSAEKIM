@@ -5,9 +5,15 @@ function renderWrongAnswer(quiz, index) {
     document.querySelector('.quiz-text p').textContent =
         `${index + 1}. 이 수어의 의미로 옳은 선택지를 고르시오.`;
 
+    // 북마크 초기 설정
     const bookmarkBtn = document.getElementById("bookmark-btn");
+    const bookmarkImg = document.getElementById("btn-img");
     if (bookmarkBtn) {
         bookmarkBtn.dataset.wordId = quiz.source_id;
+        bookmarkBtn.dataset.sourceType = quiz.source_type;
+        bookmarkImg.src = quiz.is_bookmarked
+            ? '/assets/filled_bookmark.svg'
+            : '/assets/empty_bookmark.svg';
     }
 
     const buttons = document.querySelectorAll('.quiz-btn');

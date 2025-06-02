@@ -12,9 +12,15 @@ function shuffleArray(array) {
 }
 
 function renderQuiz(quiz) {
+    // 북마크 초기 설정
     const bookmarkBtn = document.getElementById("bookmark-btn");
+    const bookmarkImg = document.getElementById("btn-img");
     if (bookmarkBtn) {
         bookmarkBtn.dataset.wordId = quiz.source_id;
+        bookmarkBtn.dataset.sourceType = quiz.source_type;
+        bookmarkImg.src = quiz.is_bookmarked
+            ? '/assets/filled_bookmark.svg'
+            : '/assets/empty_bookmark.svg';
     }
 
     const buttons = document.querySelectorAll('.quiz-btn');

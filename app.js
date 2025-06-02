@@ -53,9 +53,16 @@ const authRouter = require('./routers/auth');
 app.use('/auth', authRouter);
 
 //home.ejs 연결
+const { isLoggedIn } = require('./middlewares/logincheck.js');
+//로그인 전 홈
 app.get('/', (req, res) => {
     res.render('auth/home');
   });
+
+//로그인 후 홈
+app.get('/home', isLoggedIn, (req, res) => {
+  res.render('auth/loginhome', { user: req.session.user });
+});
 
 
 db.sequelize.sync({ alter: true })

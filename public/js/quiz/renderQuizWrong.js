@@ -1,8 +1,8 @@
 let currentWrongIndex = 0;
 let wrongAnswers = window.wrongAnswers || JSON.parse(localStorage.getItem('wrongAnswers') || '[]');
 
-function renderWrongAnswer(quiz) {
-    const number = quiz.number || '-'; 
+function renderWrongAnswer(quiz, index) {
+    const number = quiz.number || (index + 1); 
 
     document.querySelector('.quiz-text p').textContent =
         `${number}. 이 수어의 의미로 옳은 선택지를 고르시오.`;

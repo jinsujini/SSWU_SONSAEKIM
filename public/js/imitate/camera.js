@@ -9,14 +9,14 @@ async function connectCamera({ videoId = 'camera', captureDone = () => {}} = {})
         return false;
     }
 
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: {
-            width: { ideal: 640 },
-            height: { ideal: 880 }
-          },
-        audio: false
-      });
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: {
+        width: { ideal: 640 },
+        height: { ideal: 880 }
+      },
+      audio: false
+    });
 
       video.srcObject = stream;
       await video.play();

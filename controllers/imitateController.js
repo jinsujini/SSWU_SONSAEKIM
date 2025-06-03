@@ -14,7 +14,7 @@ exports.showImitate =  async (req, res) => {
           ? { vc_id: { [Op.lte]: 10 } }
           : { vc_id: { [Op.gt]: 10 } },
         order: SignVc.sequelize.random(),         
-        limit: 2 //학습 개수 결정
+        limit: 10 //학습 개수 결정
       });
 
       const enrichedImitateList = imitateList.map(item => ({
@@ -31,6 +31,32 @@ exports.showImitate =  async (req, res) => {
       res.status(500).send('따라하기 로딩 실패');
     }
   };
+
+const { runPythonPrediction } = require('../lib/pythonCaller');
+
+exports.handlePrediction = (req, res) => {
+  const imagePath = req.file.path;
+  const correctClass = parseInt(req.body.correctClass, 10);
+
+  runPythonPrediction(imagePath, (err, predictedClass) => {
+    if (err || isNaN(predictedClass)) {
+      return res.status(500).json({ error: '예측 실패' });
+    }
+
+    res.json({
+      predictedClass,
+      isCorrect: predictedClass === correctClass
+    });
+  });
+};
+
+exports.showVowel = (req, res) => {
+  res.render('imitate/vowel');
+};
+
+exports.showConsonant = (req, res) => {
+  res.render('imitate/consonant');
+};
 
   exports.showImitateResult = (req, res) => {
     const { type } = req.query;

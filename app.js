@@ -29,11 +29,6 @@ app.use((req, res, next) => {
   next();
 });
 
-/*app.use((req, res, next) => {
-  
-    next();
-});*/
-
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -57,6 +52,11 @@ app.use('/game', gameRouter);
 //auth 연결
 const authRouter = require('./routers/auth');
 app.use('/auth', authRouter);
+
+//수어모델 연결
+const predictRouter = require('./routers/predictRouter');
+app.use('/api', predictRouter);
+
 
 //home.ejs 연결
 const { isLoggedIn } = require('./middlewares/logincheck.js');

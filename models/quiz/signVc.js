@@ -18,15 +18,19 @@ module.exports = (sequelize, DataTypes) => {
         tableName: 'sign_vc',
         timestamps: false
     });
-    /*
-    북마크 기능 다른 브랜치 파서 작업 예정
+    
     SignVc.associate = (models) => {
         SignVc.hasMany(models.BookmarkVc, {
-        foreignKey: 'vcId',
-        sourceKey: 'vc_id'
+            foreignKey: 'vc_id',
+            sourceKey: 'vc_id'
+        });
+    
+        SignVc.hasMany(models.VcWrong, {
+            foreignKey: 'vc_id',
+            sourceKey: 'vc_id'
         });
     };
-    */
+    
     
     return SignVc;
     };

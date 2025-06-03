@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         autoIncrement: true
         },
-        userId: {
+        user_id: {
         type: DataTypes.BIGINT,
         allowNull: false,
         references: {
@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         onDelete: 'CASCADE'
         },
-        vcId: {
+        vc_id: {
         type: DataTypes.BIGINT,
         allowNull: false,
         references: {

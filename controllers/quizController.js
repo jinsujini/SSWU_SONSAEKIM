@@ -1,4 +1,5 @@
 const { User, Quiz, SignWord, SignVc, BookmarkWord, BookmarkVc, VcWrong, WordWrong} = require('../models');
+const { sequelize, Sequelize } = require('../models');
 
 exports.showQuizSelect = (req, res) => {
     res.render('quiz/quizMenu');
@@ -66,7 +67,7 @@ exports.showQuizSelect = (req, res) => {
             // 북마크 여부 확인
             if (userId) {
               const bookmark = await BookmarkWord.findOne({
-                where: { userId, wordId: quiz.source_id }
+                where: { userId, word_id: quiz.source_id }
               });
               is_bookmarked = !!bookmark;
             }
@@ -77,7 +78,7 @@ exports.showQuizSelect = (req, res) => {
             // 북마크 여부 확인
             if (userId) {
               const bookmark = await BookmarkVc.findOne({
-                where: { userId, vcId: quiz.source_id }
+                where: { userId, vc_id: quiz.source_id }
               });
               is_bookmarked = !!bookmark;
             }
@@ -160,26 +161,67 @@ exports.showWrongAnswers = async (req, res) => {
     const userId = req.session.user?.user_id;
     if (!userId) return res.redirect('/login');
 
-    const vcWrongs = await VcWrong.findAll({
+    const totalCount = 10;
+    let vcCount = Math.floor(Math.random() * (totalCount + 1));
+    let wordCount = totalCount - vcCount;
+
+    let vcWrongs = await VcWrong.findAll({
       where: { user_id: userId, is_relearned: false },
       include: [SignVc],
-      limit: 10
+      order: Sequelize.literal('RAND()'),
+      limit: vcCount
     });
 
-    const wordWrongs = await WordWrong.findAll({
+    let wordWrongs = await WordWrong.findAll({
       where: { user_id: userId, is_relearned: false },
       include: [SignWord],
-      limit: 10
+      order: Sequelize.literal('RAND()'),
+      limit: wordCount
     });
 
-    if (vcWrongs.length === 0 || wordWrongs.length === 0) {
-      return res.render('quiz/noQuiz', {
-      });
+    // 부족한 만큼 보충
+    if (vcWrongs.length + wordWrongs.length < totalCount) {
+      const remaining = totalCount - (vcWrongs.length + wordWrongs.length);
+
+      if (vcWrongs.length < vcCount) {
+        // vc 부족했으면 word에서 더 가져오기
+        const extraWords = await WordWrong.findAll({
+          where: {
+            user_id: userId,
+            is_relearned: false,
+            word_wrong_id: { [Sequelize.Op.notIn]: wordWrongs.map(w => w.id) }
+          },
+          include: [SignWord],
+          order: Sequelize.literal('RAND()'),
+          limit: remaining
+        });
+        wordWrongs = wordWrongs.concat(extraWords);
+      } else {
+        // word 부족했으면 vc에서 더 가져오기
+        const extraVcs = await VcWrong.findAll({
+          where: {
+            user_id: userId,
+            is_relearned: false,
+            vc_wrong_id: { [Sequelize.Op.notIn]: vcWrongs.map(v => v.id) }
+          },
+          include: [SignVc],
+          order: Sequelize.literal('RAND()'),
+          limit: remaining
+        });
+        vcWrongs = vcWrongs.concat(extraVcs);
+      }
+    }
+
+    const combined = [...vcWrongs, ...wordWrongs];
+    const shuffled = combined.sort(() => Math.random() - 0.5);
+
+    if (shuffled.length === 0) {
+      return res.render('quiz/noQuiz');
     }
 
     const wrongAnswers = [];
 
-    for (const entry of [...vcWrongs, ...wordWrongs]) {
+    for (const entry of shuffled) {
       const isVc = !!entry.vc_id;
       const source_id = isVc ? entry.vc_id : entry.word_id;
       const source_type = isVc ? 'sign_vc' : 'sign_word';
@@ -187,14 +229,10 @@ exports.showWrongAnswers = async (req, res) => {
       // 북마크 여부 확인
       let isBookmarked = false;
       if (source_type === 'sign_word') {
-        const bookmark = await BookmarkWord.findOne({
-          where: { userId, wordId: source_id }
-        });
+        const bookmark = await BookmarkWord.findOne({ where: { userId, word_id: source_id } });
         isBookmarked = !!bookmark;
       } else {
-        const bookmark = await BookmarkVc.findOne({
-          where: { userId, vcId: source_id }
-        });
+        const bookmark = await BookmarkVc.findOne({ where: { userId, vc_id: source_id } });
         isBookmarked = !!bookmark;
       }
 
@@ -210,7 +248,7 @@ exports.showWrongAnswers = async (req, res) => {
         selected: entry.selected ?? 0,
         is_relearned: entry.is_relearned ?? false,
         is_follow: entry.is_follow ?? false,
-        is_bookmarked: isBookmarked 
+        is_bookmarked: isBookmarked
       });
     }
 
@@ -228,23 +266,23 @@ exports.toggleBookmark = async (req, res) => {
 
   try {
     if (sourceType === 'sign_word') {
-      const existing = await BookmarkWord.findOne({ where: { userId, wordId: sourceId } });
+      const existing = await BookmarkWord.findOne({ where: { userId, word_id: sourceId } });
 
       if (existing) {
-        await BookmarkWord.destroy({ where: { userId, wordId: sourceId } });
+        await BookmarkWord.destroy({ where: { userId, word_id: sourceId } });
         return res.json({ status: 'removed' });
       } else {
-        await BookmarkWord.create({ userId, wordId: sourceId });
+        await BookmarkWord.create({ userId, word_id: sourceId });
         return res.json({ status: 'added' });
       }
     } else if (sourceType === 'sign_vc') {
-      const existing = await BookmarkVc.findOne({ where: { userId, vcId: sourceId } });
+      const existing = await BookmarkVc.findOne({ where: { userId, vc_id: sourceId } });
 
       if (existing) {
-        await BookmarkVc.destroy({ where: { userId, vcId: sourceId } });
+        await BookmarkVc.destroy({ where: { userId, vc_id: sourceId } });
         return res.json({ status: 'removed' });
       } else {
-        await BookmarkVc.create({ userId, vcId: sourceId });
+        await BookmarkVc.create({ userId, vc_id: sourceId });
         return res.json({ status: 'added' });
       }
     } else {

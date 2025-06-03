@@ -1,0 +1,21 @@
+.centered-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .hand-icon {
+    width: 140px; 
+    height: auto;
+    margin-bottom: 20px;
+    margin-top: 200px;
+  }
+  
+  .greeting-text {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-top: -22px;
+  }
+  

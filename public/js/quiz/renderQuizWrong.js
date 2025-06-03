@@ -1,13 +1,21 @@
 let currentWrongIndex = 0;
-let wrongAnswers = JSON.parse(localStorage.getItem('wrongAnswers') || '[]');
+let wrongAnswers = window.wrongAnswers || JSON.parse(localStorage.getItem('wrongAnswers') || '[]');
 
 function renderWrongAnswer(quiz, index) {
-    document.querySelector('.quiz-text p').textContent =
-        `${index + 1}. 이 수어의 의미로 옳은 선택지를 고르시오.`;
+    const number = quiz.number || (index + 1); 
 
+    document.querySelector('.quiz-text p').textContent =
+        `${number}. 이 수어의 의미로 옳은 선택지를 고르시오.`;
+
+    // 북마크 초기 설정
     const bookmarkBtn = document.getElementById("bookmark-btn");
+    const bookmarkImg = document.getElementById("btn-img");
     if (bookmarkBtn) {
         bookmarkBtn.dataset.wordId = quiz.source_id;
+        bookmarkBtn.dataset.sourceType = quiz.source_type;
+        bookmarkImg.src = quiz.is_bookmarked
+            ? '/assets/filled_bookmark.svg'
+            : '/assets/empty_bookmark.svg';
     }
 
     const buttons = document.querySelectorAll('.quiz-btn');
@@ -24,12 +32,12 @@ function renderWrongAnswer(quiz, index) {
 
         if (idx + 1 === quiz.answer) {
             btn.classList.add('green'); // 정답
-        } else if (options[idx] === quiz.selected) {
+        } else if (idx + 1 === quiz.selected) {
             btn.classList.add('red');   // 사용자가 선택한 오답
         }
     });
 
-    document.querySelector('.quiz-image').src = quiz.image;
+    document.getElementById('quiz-image').src = quiz.image;
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -37,14 +45,14 @@ document.addEventListener('DOMContentLoaded', () => {
         renderWrongAnswer(wrongAnswers[0], 0);
     }
 
-    document.querySelectorAll('.nav-btn')[0].addEventListener('click', () => {
+    document.getElementById('prev-btn').addEventListener('click', () => {
         if (currentWrongIndex > 0) {
             currentWrongIndex--;
             renderWrongAnswer(wrongAnswers[currentWrongIndex], currentWrongIndex);
         }
     });
 
-    document.querySelectorAll('.nav-btn')[1].addEventListener('click', () => {
+    document.getElementById('next-btn').addEventListener('click', () => {
         if (currentWrongIndex < wrongAnswers.length - 1) {
             currentWrongIndex++;
             renderWrongAnswer(wrongAnswers[currentWrongIndex], currentWrongIndex);

@@ -2,41 +2,39 @@
 
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
-async function connectCamera({ videoId = 'camera' } = {}) {
+async function connectCamera({ videoId = 'camera', captureDone = () => {}} = {}) {
     const video = document.getElementById(videoId);
     if (!video) {
-        console.error('video가 존재하지 않음:', err);
-        return;
+        console.error('video가 존재하지 않음:');
+        return false;
     }
 
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({
-        video: {
-            width: { ideal: 640 },
-            height: { ideal: 880 }
-          },
-        audio: false
-      });
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({
+      video: {
+        width: { ideal: 640 },
+        height: { ideal: 880 }
+      },
+      audio: false
+    });
 
       video.srcObject = stream;
       await video.play();
 
-      await autoshot(video, stream);
+      return { video, stream };
 
     } catch (err) {
       console.error('카메라 연결 실패:', err);
-      video.insertAdjacentHTML(
-        'beforebegin',
-        '<p style="color:red">카메라 권한이 거부되었거나 장치를 찾을 수 없습니다.</p>'
-      );
+      return false;
     }
   }
   
+
   async function autoshot(video, stream){
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
 
-    await delay(3000);
+    // await delay(3000);
     
     // 화면 캡처
     canvas.width  = video.videoWidth;
@@ -49,8 +47,21 @@ async function connectCamera({ videoId = 'camera' } = {}) {
     await delay(1500);
 
     video.poster = ''; 
-    video.srcObject = stream;
+    // video.srcObject = stream;
     await video.play();
   }
-  
-  connectCamera({ videoId: 'camera' });
+
+async function startCountdown(targetElementId = 'countdown') {
+  const countdown = document.getElementById(targetElementId);
+  if (!countdown) return;
+ 
+  countdown.style.opacity = '1';
+  countdown.style.visibility = 'visible';
+
+  for (let i = 3; i > 0; i--) {
+    countdown.textContent = i;
+    await delay(1000);
+  }
+
+  countdown.style.opacity = '0';
+}

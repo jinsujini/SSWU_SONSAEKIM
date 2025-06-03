@@ -46,5 +46,7 @@ pids
 /lib/db.js
 
 node_modules/
-flask_server/
+
+public/uploads
 venv/
+flask_server/temp/

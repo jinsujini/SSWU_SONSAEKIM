@@ -67,7 +67,7 @@ exports.showQuizSelect = (req, res) => {
             // 북마크 여부 확인
             if (userId) {
               const bookmark = await BookmarkWord.findOne({
-                where: { userId, word_id: quiz.source_id }
+                where: { user_id: userId, word_id: quiz.source_id }
               });
               is_bookmarked = !!bookmark;
             }
@@ -78,7 +78,7 @@ exports.showQuizSelect = (req, res) => {
             // 북마크 여부 확인
             if (userId) {
               const bookmark = await BookmarkVc.findOne({
-                where: { userId, vc_id: quiz.source_id }
+                where: { user_id: userId, vc_id: quiz.source_id }
               });
               is_bookmarked = !!bookmark;
             }
@@ -229,10 +229,10 @@ exports.showWrongAnswers = async (req, res) => {
       // 북마크 여부 확인
       let isBookmarked = false;
       if (source_type === 'sign_word') {
-        const bookmark = await BookmarkWord.findOne({ where: { userId, word_id: source_id } });
+        const bookmark = await BookmarkWord.findOne({ where: { user_id: userId, word_id: source_id } });
         isBookmarked = !!bookmark;
       } else {
-        const bookmark = await BookmarkVc.findOne({ where: { userId, vc_id: source_id } });
+        const bookmark = await BookmarkVc.findOne({ where: { user_id: userId, vc_id: source_id } });
         isBookmarked = !!bookmark;
       }
 
@@ -266,23 +266,23 @@ exports.toggleBookmark = async (req, res) => {
 
   try {
     if (sourceType === 'sign_word') {
-      const existing = await BookmarkWord.findOne({ where: { userId, word_id: sourceId } });
+      const existing = await BookmarkWord.findOne({ where: { user_id: userId, word_id: sourceId } });
 
       if (existing) {
-        await BookmarkWord.destroy({ where: { userId, word_id: sourceId } });
+        await BookmarkWord.destroy({ where: { user_id: userId, word_id: sourceId } });
         return res.json({ status: 'removed' });
       } else {
-        await BookmarkWord.create({ userId, word_id: sourceId });
+        await BookmarkWord.create({ user_id: userId, word_id: sourceId });
         return res.json({ status: 'added' });
       }
     } else if (sourceType === 'sign_vc') {
-      const existing = await BookmarkVc.findOne({ where: { userId, vc_id: sourceId } });
+      const existing = await BookmarkVc.findOne({ where: { user_id: userId, vc_id: sourceId } });
 
       if (existing) {
-        await BookmarkVc.destroy({ where: { userId, vc_id: sourceId } });
+        await BookmarkVc.destroy({ where: { user_id: userId, vc_id: sourceId } });
         return res.json({ status: 'removed' });
       } else {
-        await BookmarkVc.create({ userId, vc_id: sourceId });
+        await BookmarkVc.create({ user_id: userId, vc_id: sourceId });
         return res.json({ status: 'added' });
       }
     } else {

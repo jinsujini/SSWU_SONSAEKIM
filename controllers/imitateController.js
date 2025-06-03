@@ -14,7 +14,7 @@ exports.showImitate =  async (req, res) => {
           ? { vc_id: { [Op.lte]: 10 } }
           : { vc_id: { [Op.gt]: 10 } },
         order: SignVc.sequelize.random(),         
-        limit: 2 //학습 개수 결정
+        limit: 10 //학습 개수 결정
       });
 
       const enrichedImitateList = imitateList.map(item => ({
@@ -48,10 +48,6 @@ exports.handlePrediction = (req, res) => {
       isCorrect: predictedClass === correctClass
     });
   });
-};
-
-exports.showImitateSelect = (req, res) => {
-  res.render('imitate/imitate');
 };
 
 exports.showVowel = (req, res) => {

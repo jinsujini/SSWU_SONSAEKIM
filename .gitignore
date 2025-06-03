@@ -48,3 +48,5 @@ pids
 node_modules/
 
 public/uploads
+venv/
+flask_server/temp/

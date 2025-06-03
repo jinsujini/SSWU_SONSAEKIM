@@ -24,6 +24,27 @@
     color: #aaa;
 }
 
+.countdown-box {
+    position: absolute;
+    left: 50%;
+    top: 35%;
+    transform: translateX(-50%);
+    
+    background-color: #fff091;
+    width: 155px;
+    height: 170px;
+    border-radius: 20px;
+    font-size: 90px;
+    font-weight: bold;
+    color: black;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+  }
+
 #camera {
     width: 100%;
     height: 100%;

@@ -11,13 +11,13 @@
 
 <body>
     <header>
-        <a class="logo" href="/">
+        <a class="logo" href="<%= user ? '/home' : '/' %>">
             <img src="/assets/logo.svg" alt="logo">
-        </a>
+          </a>          
         <div class="menu">
             <ul>
-                <li><a href="/">홈</a></li>
-                <li>학습하기</li>
+                <li><a href="<%= user ? '/home' : '/' %>">홈</a></li>
+                <li><a href="/learn/select">학습하기</a></li>
                 <li>게임하기</li>
             </ul>
         </div>

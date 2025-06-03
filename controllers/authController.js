@@ -139,6 +139,7 @@ exports.loginProcess = async (req, res) => {
         name: user.name,
         email: user.email
       };
+    
       const today = new Date().toISOString().slice(0, 10); 
       const alreadyExists = await Attendance.findOne({
         where: {
@@ -146,15 +147,16 @@ exports.loginProcess = async (req, res) => {
           date: today
         }
       });
-
+    
       if (!alreadyExists) {
         await Attendance.create({
           user_id: user.user_id,
           date: today
         });
       }
-      res.send(`${user.name} 로그인 성공`);
-    }
+    //로그인 성공시, 새로운 home으로 경로 닮
+      return res.redirect('/home');
+    }    
   } catch (err) {
     console.error(err);
     res.status(500).send("서버 오류 발생");

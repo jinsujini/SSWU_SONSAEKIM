@@ -5,17 +5,20 @@
 
 <div class="imitate-container">
     <div class="imitate-wrapper">
-        <div class="imitate-label">자음 따라하기 결과</div>
+        <div class="imitate-label">
+          <p><%= type === 'vowel' ? '모음 따라하기 결과' : '자음 따라하기 결과' %></p>
+        </div>
+
 <div class="imitate-box">   
     <div class="result-content">
         <div class="result-box">4</div>
         <div class="result-total">/ 10</div>
       </div>
-
+     
       <div class="result-buttons">
         <button class="result-button">오답 확인</button>
         <button class="result-button">돌아가기</button>
       </div>
-    </div> 
+    </div>  
   </div>
 </div>

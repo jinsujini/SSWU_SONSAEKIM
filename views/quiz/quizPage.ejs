@@ -8,9 +8,10 @@
             <p><%= quizTitle %></p>
         </div>
         <div class="learn-box">
-            <button type="submit" id="bookmark-btn"
-            data-word-id="">
-            <img id="btn-img" src="/assets/empty_bookmark.svg" alt="북마크" />
+            <button type="submit" id="bookmark-btn" 
+                    data-word-id="" 
+                    data-source-type="">
+                <img id="btn-img" src="/assets/empty_bookmark.svg" alt="북마크" />
             </button> 
 
         <!-- 퀴즈 내용 -->
@@ -41,7 +42,4 @@
 </script>
 <script src="/js/quiz/renderQuiz.js"></script>
 
-</main>
-</body>
-
-</html>
+<%- include('../layouts/footer') %>

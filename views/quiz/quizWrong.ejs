@@ -13,13 +13,15 @@
     <div class="learn-box">
 
       <!-- 학습메모 버튼 -->
-        <button type="submit" id="bookmark-btn">
-          <img id="btn-img" src="/assets/empty_bookmark.svg" alt="북마크" />
-        </button> 
+      <button id="bookmark-btn" 
+          data-word-id="" 
+          data-source-type="">
+      <img id="btn-img" src="/assets/empty_bookmark.svg" alt="북마크" />
+    </button>
 
       <!-- 퀴즈 내용 -->
       <div class="learn-content">
-        <img src="" alt="수어 이미지" class="quiz-image" />
+        <img src="" alt="수어 이미지" id="quiz-image" />
         <div class="quiz-text">
           <p></p>
           <div class="quiz-options">
@@ -37,10 +39,10 @@
 
       <!-- 이동 버튼 -->
       <div class="nav-buttons">
-        <button class="nav-btn">
+        <button class="nav-btn" id="prev-btn">
           <img src="/assets/left-btn.svg" alt="이전" />
           </button>
-        <button class="nav-btn">
+        <button class="nav-btn" id="next-btn">
           <img src="/assets/right-btn.svg" alt="다음" />
         </button>
       </div>
@@ -50,9 +52,9 @@
 </div>
 
 <script src="/js/quiz/bookmark.js"></script>
+<script>
+  window.wrongAnswers = <%- typeof wrongAnswers !== 'undefined' ? JSON.stringify(wrongAnswers) : 'undefined' %>;
+</script>
 <script src="/js/quiz/renderQuizWrong.js"></script>
 
-</main>
-</body>
-
-</html>
+<%- include('../layouts/footer') %>

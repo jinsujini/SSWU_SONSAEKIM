@@ -1,0 +1,37 @@
+<%- include('../layouts/header') %>
+<link rel="stylesheet" href="/css/learn/learnFrame.css">
+<link rel="stylesheet" href="/css/learn/result.css">
+
+<div class="learn-container">
+    <div class="learn-wrapper">
+        <div id="label">
+            <p>모음/자음 퀴즈 결과</p>
+        </div>
+        <div class="learn-box">
+            <div class="result-content">
+              <div class="result-box" id="score-box">0</div>
+              <div class="result-total">/ 10</div>
+          
+              <div class="result-buttons">
+                <a href="/quiz/wrong" class="result-button">오답 확인</a>
+                <a href="/quiz/select" class="result-button">돌아가기</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="/js/quiz/bookmark.js"></script>
+<script>
+  const score = localStorage.getItem('score');
+  if (score !== null) {
+    document.getElementById('score-box').textContent = score;
+  }
+</script>
+
+</main>
+</body>
+
+</html>

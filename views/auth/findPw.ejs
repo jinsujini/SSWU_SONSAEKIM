@@ -1,0 +1,21 @@
+<%- include('../layouts/header') %>
+<link rel="stylesheet" href="/css/auth/findPw.css">
+<div class="findpw-page">
+  <h2 class="findpw-title">비밀번호 찾기</h2>
+
+  <div class="findpw-box">
+    <form action="/auth/findpw" method="POST">
+      <div class="input-group email-group">
+        <label for="email">이메일</label>
+        <input type="email" name="email" id="email" value="<%= email || '' %>" required>
+      </div>
+
+      <p class="error-text"><%= error || '' %></p>
+
+      <div class="btn-wrapper">
+        <button type="submit" class="findpw-btn">찾기</button>
+      </div>
+    </form>
+  </div>
+</div>
+<%- include('../layouts/footer') %>

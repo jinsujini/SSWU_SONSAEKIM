@@ -1,0 +1,50 @@
+# Node.js 의존성
+node_modules/
+
+# 로그 파일
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# 운영 체제 파일
+.DS_Store
+Thumbs.db
+
+# 환경 설정 파일
+.env
+# .env.dev, .env.production 등도 무시
+.env.*       
+
+# 실행 중 생기는 임시 파일
+*.swp
+*.swo
+
+# 빌드 결과물
+dist/
+build/
+out/
+
+# VSCode 설정
+.vscode/
+
+# coverage 도구 (예: Jest)
+coverage/
+
+# PM2 프로세스 관리 로그
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# 기타 캐시
+.cache/
+.next/
+.nuxt/
+.svelte-kit/
+
+/lib/db.js
+
+node_modules/
+flask_server/
+venv/

@@ -1,0 +1,49 @@
+<%- include('../layouts/header') %>
+<link rel="stylesheet" href="/css/game/play.css">
+
+<section class="game-container">
+  <div class="overlay" id="gameOverModal">
+    <div class="modal-content">
+      <h2>게임 오버</h2>
+      <p>결과: <span id="final-score">160</span>점</p>
+      <div class="modal-buttons">
+        <button onclick="restartGame()">다시하기</button>
+        <button onclick="goToStart()">처음으로</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 생명 표시 -->
+  <div class="life-box">
+    <img src="/assets/hand.svg" alt="life" />
+    <img src="/assets/hand.svg" alt="life" />
+    <img src="/assets/hand.svg" alt="life" />
+  </div>
+
+  <!-- 떨어지는 이미지 -->
+  <div class="falling-container">
+  </div>
+
+  <!-- 점수 -->
+  <div class="score-box"><span class="score-text">점수</span> <span class="score">0</span></div>
+
+  <!-- 입력창 -->
+  <div class="input-box">
+    <input type="text" id="user-input" />
+    <button id="submit-btn">입력</button>
+  </div>
+
+  <!-- 순위 -->
+  <div class="ranking-box">
+    <div class="ranking-header">
+      <span class="ranking-text">#순위</span>
+    </div>
+    <div class="ranking-list">
+    </div>
+  </div>
+  
+
+</section>
+
+<script src="/js/game/play.js"></script>
+

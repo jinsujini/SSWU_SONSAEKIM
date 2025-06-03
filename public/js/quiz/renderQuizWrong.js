@@ -1,9 +1,11 @@
 let currentWrongIndex = 0;
 let wrongAnswers = window.wrongAnswers || JSON.parse(localStorage.getItem('wrongAnswers') || '[]');
 
-function renderWrongAnswer(quiz, index) {
+function renderWrongAnswer(quiz) {
+    const number = quiz.number || '-'; 
+
     document.querySelector('.quiz-text p').textContent =
-        `${index + 1}. 이 수어의 의미로 옳은 선택지를 고르시오.`;
+        `${number}. 이 수어의 의미로 옳은 선택지를 고르시오.`;
 
     // 북마크 초기 설정
     const bookmarkBtn = document.getElementById("bookmark-btn");

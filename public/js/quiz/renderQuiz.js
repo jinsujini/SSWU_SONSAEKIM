@@ -67,7 +67,8 @@ function renderQuiz(quiz) {
                     ...quiz,
                     selected: idx + 1,
                     is_relearned: false,
-                    is_follow: false
+                    is_follow: false,
+                    number: currentIndex + 1
                 });
             }
 

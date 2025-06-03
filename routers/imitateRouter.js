@@ -12,7 +12,7 @@ router.get('/study', imitateController.showImitate);
 router.get('/result', imitateController.showImitateResult);
 
 // 따라하기 오답 확인 페이지
-router.get('/wrong', imitateController.showImitateWronq);
+router.get('/wrong', imitateController.showImitateWrong);
 
 router.get('/start', imitateController.showImitateStart);
 

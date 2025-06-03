@@ -22,9 +22,9 @@
         <!-- 내용 -->
         <div class="learn-content">
             <div class="image-wrapper">
-                <p>ㅓ (어)</p>
+                <p id="wrong-description"></p>
                 <div class="image-row">
-                    <img src="" class="image-box" alt="이미지1">
+                    <img id="wrong-image" src="" class="image-box" alt="이미지1">
                     <img src="" class="image-box" alt="이미지2">
                 </div>
             </div>
@@ -32,10 +32,10 @@
 
         <!-- 페이지 이동 버튼 -->
         <div class="nav-buttons">
-            <button class="nav-btn">
+            <button id="prev-btn" button class="nav-btn">
             <img src="/assets/left-btn.svg" alt="이전" />
             </button>
-            <button class="nav-btn">
+            <button id="next-btn" button class="nav-btn">
             <img src="/assets/right-btn.svg" alt="다음" />
             </button>
         </div>
@@ -45,3 +45,4 @@
 </div>
 
 <script src="/js/quiz/bookmark.js"></script>
+<script src="/js/imitate/renderImitateWrong.js"></script>

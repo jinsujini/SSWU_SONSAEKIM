@@ -128,7 +128,7 @@ exports.loginProcess = async (req, res) => {
     const user = await User.findOne({ where: { email } });
 
     if (!user) {
-      return res.render('auth/login', { error: '이메일 또는 비밀번호가 올바르지 않습니다.', email });
+      return res.render('auth/login', { error: '유저 정보가 존재하지 않습니다.', email });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
@@ -156,6 +156,11 @@ exports.loginProcess = async (req, res) => {
       }
     //로그인 성공시, 새로운 home으로 경로 닮
       return res.redirect('/home');
+    } else{
+      return res.render('auth/login',{
+        email,
+        error: '비밀번호가 올바르지 않습니다.'
+      });
     }    
   } catch (err) {
     console.error(err);

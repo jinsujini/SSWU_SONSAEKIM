@@ -1,4 +1,5 @@
 let currentIndex = 0;
+let wrongAnswers = [];
 
 function renderImitate(imitateList) {
     const imageElement = document.getElementById("imitate-image");
@@ -7,8 +8,10 @@ function renderImitate(imitateList) {
 
     async function showNext() {
         if (currentIndex >= imitateList.length) {
-          window.location.href = '/imitate/result'; //끝나면 오답 페이지로 이동
-          return;
+            localStorage.setItem('wrongAnswers', JSON.stringify(wrongAnswers));
+
+            window.location.href = '/imitate/result'; //끝나면 오답 페이지로 이동
+            return;
         }
     
         const current = imitateList[currentIndex];
@@ -23,6 +26,18 @@ function renderImitate(imitateList) {
 
         await startCountdown();              // 카운트다운
         await autoshot(video, stream);       // 캡처
+        
+        const isCorrect = await checkAnswer(current);
+
+        if (!isCorrect) {
+            wrongAnswers.push({
+              description: current.description,
+              image: current.image,
+              source_id: current.id,
+              source_type: current.source_type
+            });
+        }
+
         currentIndex++;
         await showNext();                    // 다음 문제 호출
     }
@@ -37,6 +52,10 @@ function renderImitate(imitateList) {
     
         showNext();
       });
+    }
+    
+    async function checkAnswer(current){
+        return 0;
     }
     
     window.onload = () => {

@@ -7,7 +7,8 @@ exports.showImitateSelect = (req, res) => {
   
 exports.showImitate =  async (req, res) => {
     try {
-      const type = req.query.type;
+      const type = req.query.type; // vowel 또는 consonant
+      
 
       const imitateList = await SignVc.findAll({
         where: type === 'vowel' 

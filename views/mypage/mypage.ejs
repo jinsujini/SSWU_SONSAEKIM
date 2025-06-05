@@ -16,34 +16,36 @@
                 <div class="study_memo">
                     <h3>모음/자음</h3>
                     <div class="memo_list">
-                        <% vcBookmarks.forEach(item=> { %>
-                            <div class="item">
-                                <img src="<%= item.image %>" alt="자모 이미지" />
-                                <p>
-                                    <%= item.description %>
-                                </p>
-                            </div>
-                            <% }) %>
-                                <% if (vcBookmarks.length===0) { %>
-                                    <p class="empty">북마크가 없습니다.</p>
-                                    <% } %>
+                        <% if (vcBookmarks.length> 0) { %>
+                            <% vcBookmarks.forEach(item=> { %>
+                                <div class="item">
+                                    <img src="<%= item.image %>" alt="자모 이미지" />
+                                    <p>
+                                        <%= item.description %>
+                                    </p>
+                                </div>
+                                <% }) %>
+                                    <% } else { %>
+                                        <p class="empty">북마크가 없습니다.</p>
+                                        <% } %>
                     </div>
 
                 </div>
                 <div class="study_memo">
                     <h3>단어/문장</h3>
                     <div class="memo_list">
-                        <% wordBookmarks.forEach(item=> { %>
-                            <div class="item">
-                                <img src="<%= item.image %>" alt="단어 이미지" />
-                                <p>
-                                    <%= item.description %>
-                                </p>
-                            </div>
-                            <% }) %>
-                                <% if (wordBookmarks.length===0) { %>
-                                    <p class="empty">북마크가 없습니다.</p>
-                                    <% } %>
+                        <% if (wordBookmarks.length> 0) { %>
+                            <% wordBookmarks.forEach(item=> { %>
+                                <div class="item">
+                                    <img src="<%= item.image %>" alt="단어 이미지" />
+                                    <p>
+                                        <%= item.description %>
+                                    </p>
+                                </div>
+                                <% }) %>
+                                    <% } else { %>
+                                        <p class="empty">북마크가 없습니다.</p>
+                                        <% } %>
                     </div>
                 </div>
             </div>

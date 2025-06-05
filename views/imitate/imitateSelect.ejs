@@ -1,12 +1,14 @@
 <%- include('../layouts/header') %>
 
-<link rel="stylesheet" href="/css/learn/learnSelect.css">
+<link rel="stylesheet" href="/css/learn/learnFrame.css">
 
-<div class="imitate-container">
-    <div class="imitate-wrapper">
-        <div class="imitate-label">따라하기</div>
-<div class="imitate-box">
+<div class="learn-container">
+    <div class="learn-wrapper">
+        <div id="label">따라하기</div>
+<div class="learn-box">
         <a href="/imitate/start?type=vowel" class="imitate-btn">모음 따라하기</a>
         <a href="/imitate/start?type=consonant" class="imitate-btn">자음 따라하기</a>
     </div>
 </div>
+
+<%- include('../layouts/footer') %>

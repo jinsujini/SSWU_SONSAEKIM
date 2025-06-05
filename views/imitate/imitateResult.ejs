@@ -1,15 +1,15 @@
 <%- include('../layouts/header') %>
 
-<link rel="stylesheet" href="/css/learn/learnSelect.css">
+<link rel="stylesheet" href="/css/learn/learnFrame.css"> 
 <link rel="stylesheet" href="/css/learn/result.css">
 
-<div class="imitate-container">
-    <div class="imitate-wrapper">
-        <div class="imitate-label">
+<div class="learn-container">
+    <div class="learn">
+        <div id="label">
           <p><%= type === 'vowel' ? '모음 따라하기 결과' : '자음 따라하기 결과' %></p>
         </div>
 
-<div class="imitate-box">   
+<div class="learn-box">   
     <div class="result-content">
         <div class="result-box">4</div>
         <div class="result-total">/ 10</div>
@@ -22,3 +22,5 @@
     </div>  
   </div>
 </div>
+
+<%- include('../layouts/footer') %>

@@ -1,0 +1,187 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 200px;
+}
+
+.container .top {
+    display: flex;
+    height: 550px;
+    align-items: center;
+    margin: 120px 0;
+}
+
+.container .top img {
+    width: 470px;
+    object-fit: cover;
+    animation: handShake 5s ease-out forwards;
+
+}
+
+.container .top .second {
+    margin-left: 120px;
+}
+
+h2 {
+    font-weight: normal;
+    margin: 20px 0;
+    font-size: 28px;
+}
+
+h1 {
+
+    font-size: 38px;
+}
+
+.meet {
+    margin: 50px 0;
+    display: flex;
+}
+
+.meet img {
+    width: 220px;
+    object-fit: cover;
+}
+
+.nice img {
+    width: 360px;
+}
+
+.nice {
+    height: 500px;
+}
+
+.container a {
+    color: #000;
+    font-size: 30px;
+    margin: 250px 0;
+    font-weight: bolder;
+}
+
+.container a:hover {
+    color: #22964A;
+    font-size: 32px;
+}
+
+
+@keyframes leftHandSlide {
+    0% {
+        background-image: url('/assets/hand_icon/left_1.png');
+        transform: translateX(-100%);
+        opacity: 0.8;
+    }
+
+    19% {
+        background-image: url('/assets/hand_icon/left_1.png');
+    }
+
+    20% {
+        background-image: url('/assets/hand_icon/left_2.png');
+    }
+
+    50% {
+        background-image: url('/assets/hand_icon/left_2.png');
+        transform: translateX(-20%);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(0);
+        background-image: url('/assets/hand_icon/left_2.png');
+    }
+}
+
+@keyframes handShake {
+
+    0%,
+    100% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(15deg);
+    }
+
+    75% {
+        transform: rotate(-15deg);
+    }
+}
+
+@keyframes rightHandSlide {
+    0% {
+        background-image: url('/assets/hand_icon/right_1.png');
+        transform: translateX(150%);
+        opacity: 1;
+    }
+
+    19% {
+        background-image: url('/assets/hand_icon/right_1.png');
+
+    }
+
+    20% {
+        background-image: url('/assets/hand_icon/right_2.png');
+    }
+
+    50% {
+        background-image: url('/assets/hand_icon/right_2.png');
+        transform: translateX(20%);
+        opacity: 1;
+
+
+    }
+
+    100% {
+        transform: translateX(0);
+        background-image: url('/assets/hand_icon/right_2.png');
+    }
+}
+
+.meet .left_hand {
+    background: url('/assets/hand_icon/left_1.png') no-repeat center/contain;
+    width: 220px;
+    height: 400px;
+    animation: leftHandSlide 2s ease-out infinite;
+}
+
+.meet .right_hand {
+    background: url('/assets/hand_icon/right_1.png') no-repeat center/contain;
+    width: 220px;
+    height: 400px;
+    animation: rightHandSlide 2s ease-out infinite;
+    transform: translateX(150%);
+}
+
+@keyframes LeftUpDown {
+
+    0%,
+    100% {
+        transform: translateY(100px);
+    }
+
+    50% {
+        transform: translateY(-100px);
+    }
+}
+
+@keyframes RightUpDown {
+
+    0%,
+    100% {
+        transform: translateY(-100px);
+    }
+
+    50% {
+        transform: translateY(100px);
+    }
+}
+
+.nice .left_hand {
+    animation: LeftUpDown 1.5s ease-in-out infinite;
+}
+
+.nice .right_hand {
+    animation: RightUpDown 1.5s ease-in-out infinite;
+}

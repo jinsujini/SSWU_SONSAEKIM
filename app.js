@@ -67,7 +67,7 @@ app.get('/', (req, res) => {
 
 //로그인 후 홈
 app.get('/home', isLoggedIn, (req, res) => {
-  res.render('auth/loginhome', { user: req.session.user });
+  res.render('auth/loginHome', { user: req.session.user });
 });
 
 

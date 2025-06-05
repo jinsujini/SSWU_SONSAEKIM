@@ -16,26 +16,36 @@
                 <div class="study_memo">
                     <h3>모음/자음</h3>
                     <div class="memo_list">
-                        <div class="item">
-                            <img src="/" alt="학습 이미지" />
-                            <p>1</p>
-                        </div>
-
+                        <% if (vcBookmarks.length> 0) { %>
+                            <% vcBookmarks.forEach(item=> { %>
+                                <div class="item">
+                                    <img src="<%= item.image %>" alt="자모 이미지" />
+                                    <p>
+                                        <%= item.description %>
+                                    </p>
+                                </div>
+                                <% }) %>
+                                    <% } else { %>
+                                        <p class="empty">북마크가 없습니다.</p>
+                                        <% } %>
                     </div>
 
                 </div>
                 <div class="study_memo">
                     <h3>단어/문장</h3>
                     <div class="memo_list">
-                        <div class="item">
-                            <img src="/" alt="학습 이미지" />
-                            <p>1</p>
-                        </div>
-                        <div class="item">
-                            <img src="/" alt="학습 이미지" />
-                            <p>1</p>
-                        </div>
-
+                        <% if (wordBookmarks.length> 0) { %>
+                            <% wordBookmarks.forEach(item=> { %>
+                                <div class="item">
+                                    <img src="<%= item.image %>" alt="단어 이미지" />
+                                    <p>
+                                        <%= item.description %>
+                                    </p>
+                                </div>
+                                <% }) %>
+                                    <% } else { %>
+                                        <p class="empty">북마크가 없습니다.</p>
+                                        <% } %>
                     </div>
                 </div>
             </div>
@@ -46,10 +56,10 @@
                 <div class="study_stats level">
                     <p>현재 학습 단계 : <%= level %>단계</p>
                     <div class="inner">
-                          <img src="/assets/hand_icon/level<%= level %>.svg" alt="레벨 아이콘" />
+                        <img src="/assets/hand_icon/level<%= level %>.svg" alt="레벨 아이콘" />
 
                         <p>다음 단계까지 <strong>
-                            <br/>
+                                <br />
                                 <%= daysToNextLevel %>
                             </strong>일</p>
 

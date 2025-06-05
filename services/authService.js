@@ -119,9 +119,15 @@ exports.loginProcess = async (req, res) => {
         email: user.email,
       };
 
-      const today = new Date().toISOString().slice(0, 10);
-      const alreadyExists = await Attendance.findOne({ where: { user_id: user.user_id, date: today } });
-      if (!alreadyExists) await Attendance.create({ user_id: user.user_id, date: today });
+      const nowKST = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
+      const today = nowKST.toISOString().slice(0, 10); 
+
+      const alreadyExists = await Attendance.findOne({
+        where: { user_id: user.user_id, date: today }
+      });
+      if (!alreadyExists) {
+        await Attendance.create({ user_id: user.user_id, date: today });
+      }
 
       return res.redirect('/home');
     } else {

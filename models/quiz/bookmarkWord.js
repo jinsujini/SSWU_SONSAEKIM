@@ -25,7 +25,8 @@ const BookmarkWord = sequelize.define('BookmarkWord', {
     }
 }, {
     tableName: 'bookmark_word',
-    timestamps: false
+    timestamps: false,
+    underscored: true
 });
 
 BookmarkWord.associate = (models) => {

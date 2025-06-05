@@ -29,8 +29,8 @@ module.exports = (sequelize, DataTypes) => {
     });
     
     BookmarkVc.associate = (models) => {
-        BookmarkVc.belongsTo(models.User, { foreignKey: 'userId' });
-        BookmarkVc.belongsTo(models.SignVc, { foreignKey: 'vcId' });
+        BookmarkVc.belongsTo(models.User, { foreignKey: 'user_id' });
+        BookmarkVc.belongsTo(models.SignVc, { foreignKey: 'vc_id' });
     };
     
     return BookmarkVc;

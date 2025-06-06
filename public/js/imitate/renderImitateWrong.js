@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const wrongAnswers = JSON.parse(localStorage.getItem('wrongAnswers') || '[]');
     const descriptionEl = document.getElementById('wrong-description');
     const imageEl = document.getElementById('wrong-image');
+    const userImageEl = document.getElementById('user-image');
     const container = document.querySelector('.learn-content');
     let currentIndex = 0;
     // container.innerHTML = '';
@@ -18,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (bookmarkBtn) {
             bookmarkBtn.dataset.wordId = wrongAnswers[index].source_id;
             bookmarkBtn.dataset.sourceType = wrongAnswers[index].source_type;
-            bookmarkImg.src = quiz.is_bookmarked
+            bookmarkImg.src = wrongAnswers[index].is_bookmarked
                 ? '/assets/filled_bookmark.svg'
                 : '/assets/empty_bookmark.svg';
         }
@@ -26,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
         descriptionEl.textContent = `${index + 1}. ${item.description}`;
         
         imageEl.src = item.image;
+        userImageEl.src = item.userImage;
+        userImageEl.style.transform = 'scaleX(-1)'; 
       }
 
     renderWrong(currentIndex);

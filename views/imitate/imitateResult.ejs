@@ -11,16 +11,24 @@
 
 <div class="learn-box">   
     <div class="result-content">
-        <div class="result-box">4</div>
-        <div class="result-total">/ 10</div>
+      <div class="result-box" id="correct-count">0</div>
+      <div class="result-total">/ 10</div>
       </div>
      
       <div class="result-buttons">
-        <a href="/imitate/wrong" class="result-button">오답 확인</a>
+        <a href="/imitate/<%= type %>/wrong" class="result-button">오답 확인</a>
         <a href="/imitate/select" class="result-button">돌아가기</a>
       </div>
     </div>  
   </div>
 </div>
+
+<script>
+   const correctCount = parseInt(localStorage.getItem('correctCount')) || 0;
+   document.getElementById('correct-count').textContent = correctCount;
+
+  const wrong = JSON.parse(localStorage.getItem('wrongAnswers') || '[]');
+  console.log("오답 목록:", wrong);
+</script>
 
 <%- include('../layouts/footer') %>

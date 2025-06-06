@@ -100,11 +100,3 @@ exports.handlePrediction = (req, res) => {
     res.render('imitate/imitateWrong', { type });
   };
 
-  exports.showImitateStart = (req, res) => {
-    const type = req.query.type;
-
-    if((type !== 'vowel' && type !== 'consonant')){
-      return res.redirect('/imitate');
-    }
-    res.render('imitate/start', { type });
-  };

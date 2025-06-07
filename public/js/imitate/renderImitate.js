@@ -23,7 +23,7 @@ let wrongAnswers = [];
       const hasPermission = await checkCameraPermission();
   
       if (hasPermission) {
-        startBtn.disabled = true;
+        startBtn.style.visibility = 'hidden';
         renderImitate(imitateList, type);
       } else {
         try {

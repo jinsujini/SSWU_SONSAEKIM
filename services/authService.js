@@ -140,17 +140,17 @@ exports.loginProcess = async (req, res) => {
 };
 
 exports.showfinPwPage = (req, res) => {
-  res.render('auth/findpw', { email: '', error: '' });
+  res.render('auth/findPw', { email: '', error: '' });
 };
 
 exports.showfinPwVerifyPage = (req, res) => {
   const { email } = req.query;
-  res.render('auth/findpwverify', { email });
+  res.render('auth/findPwVerify', { email });
 };
 
 exports.showchangePwPage = (req, res) => {
   const { email } = req.query;
-  res.render('auth/changepw', { email });
+  res.render('auth/changePw', { email });
 };
 
 exports.findPwProcess = async (req, res) => {
@@ -159,7 +159,7 @@ exports.findPwProcess = async (req, res) => {
   try {
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      return res.render('auth/findpw', {
+      return res.render('auth/findPw', {
         email,
         error: '존재하지 않는 이메일입니다.',
       });
@@ -168,7 +168,7 @@ exports.findPwProcess = async (req, res) => {
     const authCode = generateRandomNumber();
     await redisClient.setEx(`${email}:resetCode`, 300, authCode);
     await sendEmail(email, authCode);
-    res.redirect(`/auth/findpwverify?email=${encodeURIComponent(email)}`);
+    res.redirect(`/auth/findPwVerify?email=${encodeURIComponent(email)}`);
   } catch (err) {
     console.error(err);
     res.status(500).send('서버 오류 발생');
@@ -181,7 +181,7 @@ exports.verifyFindPwCode = async (req, res) => {
   try {
     const savedCode = await redisClient.get(`${email}:resetCode`);
     if (!savedCode) {
-      return res.render('auth/findpwverify', {
+      return res.render('auth/findPwVerify', {
         email,
         errorMessage: '인증 시간이 만료되었습니다. 다시 시도해주세요.',
       });
@@ -191,7 +191,7 @@ exports.verifyFindPwCode = async (req, res) => {
       await redisClient.del(`${email}:resetCode`);
       return res.redirect(`/auth/changepw?email=${encodeURIComponent(email)}`);
     } else {
-      return res.render('auth/findpwverify', {
+      return res.render('auth/findPwVerify', {
         email,
         code: userCode,
         errorMessage: '인증번호가 일치하지 않습니다.',
@@ -207,7 +207,7 @@ exports.changePassword = async (req, res) => {
   const { newPassword, confirmPassword, email } = req.body;
 
   if (newPassword !== confirmPassword) {
-    return res.render('auth/changepw', {
+    return res.render('auth/changePw', {
       email,
       errorMessage: '비밀번호가 일치하지 않습니다.',
     });

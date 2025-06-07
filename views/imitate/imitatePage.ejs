@@ -5,26 +5,35 @@
 
  <div class="learn-container">
    <div class="learn-wrapper">
-     <div class="learn-label" id="label">
+     <div id="label">
       <p><%= type === 'vowel' ? '모음 따라하기' : '자음 따라하기' %></p>
     </div>
      <div class="learn-box">
       <div class="learn-content">
             <div class="image-wrapper">
-                <p id="imitate-description"></p>
-                <div class="image-row">
-                    <img id="imitate-image" src="" class="image-box" alt="이미지1">
-                    <div class="countdown-box" id="countdown"></div>
-                    <video id="camera" class="image-box" autoplay playsinline></video>
-                </div>
-            </div>
+              <p>
+                <span id="imitate-number"></span>
+                <span id="imitate-description"></span>
+              </p>
+              <div class="image-row">
+                  <img id="imitate-image" src="" class="image-box" alt="수어 이미지">
+                  <div class="countdown-box" id="countdown"></div>
+                  <video id="camera" class="image-box" autoplay playsinline></video>
+              </div>
+          </div>
         </div>
      </div>
+     <a id="startBtn" class="learn-btn">시작하기</a>
+
    </div>
  </div>
 
  <script>
   const imitateList = <%- JSON.stringify(enrichedImitateList) %>;
+</script>
+
+<script>
+  const type = "<%= type %>"; 
 </script>
 
  <script src="/js/imitate/camera.js"></script>

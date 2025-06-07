@@ -14,6 +14,4 @@ router.get('/:type/result', imitateController.showImitateResult);
 // 따라하기 오답 확인 페이지
 router.get('/:type/wrong', imitateController.showImitateWrong);
 
-router.get('/start', imitateController.showImitateStart);
-
 module.exports = router;

@@ -62,7 +62,7 @@ app.use('/api', predictRouter);
 const { isLoggedIn } = require('./middlewares/logincheck.js');
 //로그인 전 홈
 app.get('/', (req, res) => {
-    res.render('auth/home');
+    res.render('layouts/home');
   });
 
 //로그인 후 홈

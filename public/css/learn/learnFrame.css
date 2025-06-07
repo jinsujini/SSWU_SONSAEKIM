@@ -8,8 +8,6 @@
 .learn-container {
     display: flex;
     justify-content: center;  
-    margin: 80px 0;
-    overflow: hidden;
     height: 100vh;
 
 }
@@ -18,6 +16,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 100px;
 }
 
 #label {
@@ -55,23 +54,22 @@
     align-items: flex-start;
     flex-wrap: nowrap;
     padding: 20px;
-    gap: 40px;
     align-items: center;        
-    justify-content: center;  
+    justify-content: space-around;  
     height: 100%; 
+    width: 90%;
 }
 
 .learn-btn {
     background-color: #fff091;
-    padding: 16px 50px;
-    border-radius: 15px;
-    font-size: 18px;
+    border-radius: 20px;
+    font-size: 25px;
     font-weight: bold;
     color: black;
     text-decoration: none;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25); 
-    width: 80px;           
-    height: 20px;   
+    width: 253px;           
+    height: 67px;   
     line-height: 20px;      
     text-align: center;
     white-space: nowrap;
@@ -80,12 +78,6 @@
     align-items: center;
 }
 
-#startBtn {
-    margin-top: 10px;
-    font-size: 15px;
-    width: 40px;           
-    height: 5px;
-  }
 
 #bookmark-btn {
     border: none;
@@ -95,11 +87,11 @@
     position: absolute;
     top: 0;
     right: 0;
-    margin: 20px;
+    margin: 40px;
 }
 
 #btn-img {
-    width: 20px;
+    width: 36px;
     height: auto;
 }
 

@@ -3,3 +3,5 @@ scikit-learn
 numpy
 opencv-python
 mediapipe
+flask
+flask_cors

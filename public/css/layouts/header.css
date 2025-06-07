@@ -50,7 +50,7 @@ header>.my>a {
 
 main {
     padding-bottom: 200px;
-      min-height: calc(100vh - 200px);
+      min-height: 100vh;
 }
 
 @font-face {

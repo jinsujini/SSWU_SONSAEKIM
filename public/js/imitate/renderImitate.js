@@ -1,6 +1,43 @@
 let currentIndex = 0;
 let wrongAnswers = [];
 
+ async function checkCameraPermission() {
+    if (!navigator.permissions) {
+      return false;
+    }
+  
+    try {
+      const result = await navigator.permissions.query({ name: 'camera' });
+      return result.state === 'granted';
+    } catch (err) {
+      console.error('권한 상태 확인 오류:', err);
+      return false;
+    }
+  }
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    const startBtn = document.getElementById('startBtn');
+    if (!startBtn) return;
+  
+    startBtn.addEventListener('click', async () => {
+      const hasPermission = await checkCameraPermission();
+  
+      if (hasPermission) {
+         renderImitate(imitateList, type);
+      } else {
+        try {
+          // 권한 요청
+          const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+          stream.getTracks().forEach(track => track.stop()); // 권한만 확인하려고 스트림 바로 정지
+          const type = startBtn.dataset.type;
+          renderImitate(imitateList, type);
+        } catch (err) {
+          alert('카메라 권한이 필요합니다. 권한을 허용해주세요.');
+        }
+      }
+    });
+  });
+  
 function renderImitate(imitateList, type) {
     let correctCount = 0;
     const imageElement = document.getElementById("imitate-image");
@@ -105,8 +142,3 @@ function blobToBase64(blob) {
     });
 }
 
-window.onload = () => {
-    if (imitateList && imitateList.length > 0) {
-        renderImitate(imitateList, type);
-    }
-};

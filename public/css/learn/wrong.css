@@ -11,11 +11,12 @@
     height: 35px;
     width: 760px;
     border-radius: 20px 20px 0 0;
+    z-index: 100;
 }
 
 .wrong-label {
     position: absolute;
-    top: -30px;
+    bottom: 35px;
     left: 50%;
     transform: translateX(-50%);
     background-color: #FFF091;
@@ -77,4 +78,14 @@
     width: 180px;
      display: flex;
 
+}
+.wrong-tab-container .back{
+    display: flex;
+    height: 35px;
+    justify-content: baseline;
+    align-items: center;
+    margin-left: 10px;
+}
+.wrong-label .back img{
+    height: 25px;
 }

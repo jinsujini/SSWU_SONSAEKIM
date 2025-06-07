@@ -8,13 +8,18 @@
         <div class="learn-wrapper">
             <div class="wrong-tab-container">
                 <div class="wrong-label">학습 메모</div>
-                <a href="<%= backUrl %>" class="beck"></a>
+                <a href="<%= backUrl %>" class="back">
+                    <img src="/assets/back.svg" alt="">
+                </a>
             </div>
             <div class="learn-box">
-                <button type="button" id="bookmark-btn" data-source-id="<%= sourceId %>"
-                    data-source-type="<%= sourceType %>" data-is-bookmarked="<%= isBookmarked %>">
+   
+                </p>
+                <button id="bookmark-btn" data-source-id="<%= sourceId %>" data-source-type="<%= sourceType %>"
+                    data-is-bookmarked="<%= isBookmarked %>" data-word-id="">
+
                     <img id="btn-img"
-                        src="<%= isBookmarked ? '/assets/filled_bookmark.svg' : '/assets/empty_bookmark.svg' %>"
+                        src='/assets/filled_bookmark.svg'
                         alt="북마크" />
                 </button>
                 <div class="bookmark-content">

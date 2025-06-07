@@ -8,16 +8,16 @@
 .learn-container {
     display: flex;
     justify-content: center;  
-    align-items: center;
     margin: 80px 0;
     overflow: hidden;
+    height: 100vh;
+
 }
 
 .learn-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 }
 
 #label {
@@ -39,7 +39,6 @@
 .learn-box {
     position: relative;
     background-color: rgba(255, 255, 255, 0.5);
-    
     border-radius: 20px;
     box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.25);
     display: flex;
@@ -47,8 +46,8 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
-    width: 1000px; 
-    height: 600px;
+    width: 988px; 
+    height: 512px;
 }
 
 .learn-content {
@@ -65,13 +64,12 @@
 .learn-btn {
     background-color: #fff091;
     padding: 16px 50px;
-    border-radius: 20px;
+    border-radius: 15px;
     font-size: 18px;
     font-weight: bold;
     color: black;
     text-decoration: none;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
-    
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25); 
     width: 80px;           
     height: 20px;   
     line-height: 20px;      

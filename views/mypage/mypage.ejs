@@ -69,9 +69,10 @@
                 <div class="study_stats calendar">
                     <p>나의 잔디</p>
                     <div class="grid">
-                        <% const start=new Date(); start.setDate(start.getDate() - 27); for (let i=0; i < 28; i++) {
-                            const d=new Date(start); d.setDate(d.getDate() + i); const dateStr=d.toISOString().slice(0,
-                            10); %>
+                        <% const base=new Date(); base.setDate(base.getDate() - 27); for (let i=1; i < 29; i++) { const
+                            d=new Date(base.getTime() + i * 24 * 60 * 60 * 1000);
+                            const dKST=new Date(d.toLocaleString('en-US', { timeZone: 'Asia/Seoul' })); 
+                            const dateStr=dKST.toISOString().slice(0, 10); %>
                             <!--마우스 올리면 날짜-->
                             <div class="day-wrapper">
                                 <div class="day <%= attendanceDates.includes(dateStr) ? 'checked' : '' %>">
@@ -81,6 +82,7 @@
                                 </div>
                             </div>
                             <% } %>
+
                     </div>
 
 

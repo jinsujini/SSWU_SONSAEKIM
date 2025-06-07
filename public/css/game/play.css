@@ -1,136 +1,149 @@
-
 .game-container {
   position: relative;
   width: 100%;
-  height: 90vh;;
+  height: 90vh;
   overflow: hidden;
 }
-  
-  .life-box {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background-color: #DFDED0;
-    padding: 0px 10px;
-    border-radius: 50px;
-  }
-  
-  .life-box img {
-    height: 80px;
-    margin: 0 5px;
-  }
-  
-  .falling-container {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  
-  .falling-img {
-    position: absolute;
+
+.life-box {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: #DFDED0;
+  padding: 0px 10px;
+  border-radius: 50px;
+}
+
+.life-box img {
+  height: 80px;
+  margin: 0 5px;
+}
+
+.falling-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.falling-img {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  animation: fall 8s linear forwards;
+}
+
+@keyframes fall {
+  0% {
     top: -100px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100px;
-    animation: fall 5s linear forwards;
-  }
-  
-  @keyframes fall {
-    0% {
-      top: -100px;
-      opacity: 1;
-    }
-    90% {
-      opacity: 1;
-    }
-    100% {
-      top: 750px;
-      opacity: 0;
-    }
-  }
-  
-  .score-box {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    font-size: 50px;
-    border: 1px solid #000;
-    width:200px;
-   
-    padding:10px;
-    text-align:center;
-
+    opacity: 1;
   }
 
-  
-  .score-text {
-    font-size: 34px;
-    color: #444;
-    font-weight: 400;
+  90% {
+    opacity: 1;
   }
-  
-  .score {
-    font-size: 54px;
-    font-weight: bold;
-    color: #000;
+
+  100% {
+    top: 750px;
+    opacity: 0;
   }
-  
-  
-  .input-box {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 10px;
-    color: #F1F1F1;
-  }
-  
-  .input-box input {
-    width: 400px;
-    height: 70px;
-    border-radius: 20px;
-    border: none;
-    font-size: 18px;
-    text-align: center;
-  }
-  
-  .input-box button {
-    height: 70px;
-    width:100px;
-    background-color: #fff091;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size:25px;
-    box-shadow: 3px 3px 0 #ccc;
-  }
-  
-  .ranking-box {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    background: white;
-    padding: 25px;
-    border-radius: 10px;
-    line-height: 1.6;
-    box-shadow: 3px 3px 0 #ccc;
-    border: 1px solid #000;
-  }
-  
-  .ranking-header {
-    text-align: right;
-    font-weight: bold;
-    font-size: 40px;
-  }
-  
-  .ranking-list {
-    text-align: left;
-    margin-top: 5px;
-    font-size: 25px;
-  }
-  /* 전체 블러 및 배경 어둡게 */
+}
+
+.score-box {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  font-size: 50px;
+  border: 1px solid #000;
+  width: 230px;
+
+  padding: 10px;
+  text-align: center;
+
+}
+
+
+.score-text {
+  font-size: 34px;
+  color: #444;
+  font-weight: 400;
+}
+
+.score {
+  font-size: 54px;
+  font-weight: bold;
+  color: #000;
+}
+
+
+.input-box {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  color: #F1F1F1;
+}
+
+.input-box input {
+  width: 400px;
+  height: 70px;
+  border-radius: 20px;
+  border: none;
+  font-size: 18px;
+  text-align: center;
+}
+
+.input-box button {
+  height: 70px;
+  width: 100px;
+  background-color: #fff091;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 25px;
+  box-shadow: 3px 3px 0 #ccc;
+}
+
+.ranking-box {
+  position: absolute;
+  bottom: 20px;
+  width: 230px;
+  height: 180px;
+  right: 20px;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 10px;
+  line-height: 1.6;
+  box-shadow: 3px 3px 0 #ccc;
+  border: 1px solid #000;
+}
+
+.ranking-header {
+  text-align: right;
+  width: 180px;
+  font-weight: bold;
+  font-size: 35px;
+}
+
+.ranking-list {
+  text-align: left;
+  margin-top: 5px;
+  font-size: 20px;
+
+}
+
+.ranking-list p {
+  margin: 0 auto;
+}
+
+/* 전체 블러 및 배경 어둡게 */
 .overlay {
   position: fixed;
   top: 0;
@@ -150,7 +163,7 @@
   background-color: white;
   padding: 30px 50px;
   border-radius: 15px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   text-align: center;
   border: 1px solid #000;
 }
@@ -188,4 +201,3 @@
 #gameOverModal {
   display: none;
 }
-

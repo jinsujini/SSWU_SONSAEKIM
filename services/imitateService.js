@@ -13,7 +13,8 @@ async function getImitateList(type) {
 
   return imitateList.map(item => ({
     ...item.toJSON(),
-    image: item.image || ''
+    image: item.image || '',
+    source_type: 'sign_vc'
   }));
 }
 

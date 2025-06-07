@@ -1,0 +1,38 @@
+<%- include('../layouts/header') %>
+    <link rel="stylesheet" href="/css/learn/learnFrame.css">
+    <link rel="stylesheet" href="/css/learn/wrong.css"> <!--북마크 css 포함-->
+    <script src="/js/quiz/bookmark.js"></script>
+    <script src="/js/imitate/renderImitateWrong.js"></script>
+
+    <div class="learn-container">
+        <div class="learn-wrapper">
+            <div class="wrong-tab-container">
+                <div class="wrong-label">학습 메모</div>
+                <a href="<%= backUrl %>" class="back">
+                    <img src="/assets/back.svg" alt="">
+                </a>
+            </div>
+            <div class="learn-box">
+   
+                </p>
+                <button id="bookmark-btn" data-source-id="<%= sourceId %>" data-source-type="<%= sourceType %>"
+                    data-is-bookmarked="<%= isBookmarked %>" data-word-id="">
+
+                    <img id="btn-img"
+                        src='/assets/filled_bookmark.svg'
+                        alt="북마크" />
+                </button>
+                <div class="bookmark-content">
+                    <div class="img-box">
+                        <img class="bookmark-image" src="<%= image %>" alt="이미지">
+                    </div>
+
+                    <p class="bookmark-description">
+                        <%= description %>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include('../layouts/footer') %>

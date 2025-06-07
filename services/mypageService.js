@@ -72,12 +72,12 @@ exports.renderMypage = async (req, res) => {
         }
         const vcBookmarksRaw = await BookmarkVc.findAll({
             where: { user_id: userId },
-            include: [{ model: SignVc, attributes: ['image', 'description'] }]
+            include: [{ model: SignVc, attributes: ['vc_id','image', 'description'] }]
         });
 
         const wordBookmarksRaw = await BookmarkWord.findAll({
             where: { user_id: userId },
-            include: [{ model: SignWord, attributes: ['image', 'description'] }]
+            include: [{ model: SignWord, attributes: ['word_id','image', 'description'] }]
         });
         const vcBookmarks = vcBookmarksRaw.map(b => b.SignVc);
         const wordBookmarks = wordBookmarksRaw.map(b => b.SignWord);
@@ -205,4 +205,56 @@ exports.logout = (req, res) => {
         res.clearCookie('session-cookie');
         res.redirect('/');
     });
+};
+
+exports.renderVcDetail = async (req, res) => {
+    const vcId = req.params.id;
+    const userId = req.session.user?.user_id;
+    try {
+        const vcDetail = await SignVc.findOne({ where: { vc_id: vcId } });
+
+        let isBookmarked = false;
+        if (userId) {
+            const bookmark = await BookmarkVc.findOne({ where: { user_id: userId, vc_id: vcId } });
+            isBookmarked = !!bookmark;
+        }
+
+        res.render('mypage/bookmarkDetail', {
+            image: vcDetail.image,
+            description: vcDetail.description,
+            backUrl: '/mypage',
+            sourceId: vcId,
+            sourceType: 'sign_vc',
+            isBookmarked
+        });
+    } catch (err) {
+        console.error('자음/모음 조회 오류:', err);
+        res.status(500).send('서버 오류 발생');
+    }
+};
+
+exports.renderWordDetail = async (req, res) => {
+    const wordId = req.params.id;
+    const userId = req.session.user?.user_id;
+    try {
+        const wordDetail = await SignWord.findOne({ where: { word_id: wordId } });
+
+        let isBookmarked = false;
+        if (userId) {
+            const bookmark = await BookmarkWord.findOne({ where: { user_id: userId, word_id: wordId } });
+            isBookmarked = !!bookmark;
+        }
+
+        res.render('mypage/bookmarkDetail', {
+            image: wordDetail.image,
+            description: wordDetail.description,
+            backUrl: '/mypage',
+            sourceId: wordId,
+            sourceType: 'sign_word',
+            isBookmarked
+        });
+    } catch (err) {
+        console.error('단어 조회 오류:', err);
+        res.status(500).send('서버 오류 발생');
+    }
 };

@@ -8,3 +8,5 @@ exports.sendEmailCode = mypageService.sendEmailCode;
 exports.verifyEmailCode = mypageService.verifyEmailCode;
 exports.updateEmail = mypageService.updateEmail;
 exports.logout = mypageService.logout;
+exports.renderVcDetail = mypageService.renderVcDetail;
+exports.renderWordDetail = mypageService.renderWordDetail;

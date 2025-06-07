@@ -53,3 +53,28 @@
     width: 20px;
     height: auto;
 }
+.img-box{
+     width: 336px;
+     height: 336px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     border: 1px solid black;
+}
+
+.bookmark-image{
+    width: 200px;
+}
+.bookmark-content{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 600px;
+
+}
+.bookmark-content .bookmark-description{
+    font-size: 95px;
+    width: 180px;
+     display: flex;
+
+}

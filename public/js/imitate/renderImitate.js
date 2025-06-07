@@ -14,30 +14,42 @@ let wrongAnswers = [];
       return false;
     }
   }
-  
   document.addEventListener('DOMContentLoaded', () => {
     const startBtn = document.getElementById('startBtn');
-    if (!startBtn) return;
+    const learnContent = document.getElementById('learn-content');
+    const startMessage = document.getElementById('start-message');    
+
+    if (!startBtn) console.error('startBtn 요소를 찾을 수 없습니다.');
+    if (!startMessage) console.error('startMessage 요소를 찾을 수 없습니다.');
+    if (!learnContent) console.error('learnContent 요소를 찾을 수 없습니다.');
+    
+    if (!startBtn || !startMessage || !learnContent) return;
+    
   
     startBtn.addEventListener('click', async () => {
       const hasPermission = await checkCameraPermission();
   
-      if (hasPermission) {
-        startBtn.style.visibility = 'hidden';
+      const start = async () => {
+        startBtn.classList.add('none');
+        startMessage.classList.add('none');
+        learnContent.classList.remove('none');
         renderImitate(imitateList, type);
+      };
+  
+      if (hasPermission) {
+        await start();
       } else {
         try {
-          // 권한 요청
           const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
-          stream.getTracks().forEach(track => track.stop()); // 권한만 확인하려고 스트림 바로 정지
-          const type = startBtn.dataset.type;
-          renderImitate(imitateList, type);
+          stream.getTracks().forEach(track => track.stop());
+          await start();
         } catch (err) {
           alert('카메라 권한이 필요합니다. 권한을 허용해주세요.');
         }
       }
     });
   });
+  
   
 function renderImitate(imitateList, type) {
     let correctCount = 0;

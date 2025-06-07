@@ -7,12 +7,13 @@ exports.showImitateSelect = (req, res) => {
   
 exports.showImitate =  async (req, res) => {
     try {
-      const type = req.query.type;
+      const type = req.params.type; // vowel 또는 consonant
+      
 
       const imitateList = await SignVc.findAll({
         where: type === 'vowel' 
-          ? { vc_id: { [Op.lte]: 10 } }
-          : { vc_id: { [Op.gt]: 10 } },
+          ? { vc_id: { [Op.gt]: 10 } }
+          : { vc_id: { [Op.lte]: 10 } },
         order: SignVc.sequelize.random(),         
         limit: 10 //학습 개수 결정
       });
@@ -30,7 +31,7 @@ exports.showImitate =  async (req, res) => {
       console.error(err);
       res.status(500).send('따라하기 로딩 실패');
     }
-  };
+};
 
 const { runPythonPrediction } = require('../lib/pythonCaller');
 
@@ -50,18 +51,9 @@ exports.handlePrediction = (req, res) => {
   });
 };
 
-exports.showVowel = (req, res) => {
-  res.render('imitate/vowel');
-};
-
-exports.showConsonant = (req, res) => {
-  res.render('imitate/consonant');
-};
-
   exports.showImitateResult = (req, res) => {
-    const { type } = req.query;
-
-    res.render('imitate/imitateResult', { type });
+    const { type, correctCount } = req.params;
+    res.render('imitate/imitateResult', { type, correctCount });
   };
 
   exports.saveImitateResult = async (req, res) => {
@@ -104,11 +96,7 @@ exports.showConsonant = (req, res) => {
   };
 
   exports.showImitateWrong = (req, res) => {
-    const { type } = req.query;
-    const userId = req.session.user?.user_id;
-
-    if (!userId) return res.redirect('/login');
-
+    const { type } = req.params;
     res.render('imitate/imitateWrong', { type });
   };
 

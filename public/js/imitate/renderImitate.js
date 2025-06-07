@@ -23,7 +23,8 @@ let wrongAnswers = [];
       const hasPermission = await checkCameraPermission();
   
       if (hasPermission) {
-         renderImitate(imitateList, type);
+        startBtn.disabled = true;
+        renderImitate(imitateList, type);
       } else {
         try {
           // 권한 요청
@@ -55,7 +56,6 @@ function renderImitate(imitateList, type) {
     
         const current = imitateList[currentIndex];
         imitateNumberElement.textContent = `${currentIndex + 1}. `;
-
         imageElement.src = current.image;
         descriptionElement.textContent = current.description;
     
@@ -81,6 +81,8 @@ function renderImitate(imitateList, type) {
             correctCount++;
         }
 
+        await new Promise(resolve => setTimeout(resolve, 1500));
+
         currentIndex++;
         await showNext();
     }
@@ -98,6 +100,7 @@ function renderImitate(imitateList, type) {
     }
     
 async function autoshot(video) {
+    flashEffect();
     const canvas = document.createElement("canvas");
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
@@ -132,7 +135,14 @@ async function checkAnswer(current, imageBlob) {
         return false;
     }
 }
-   
+  
+function flashEffect() {
+    const flash = document.createElement('div');
+    flash.className = 'flash';
+    document.body.appendChild(flash);
+    setTimeout(() => document.body.removeChild(flash), 200);
+}
+  
 function blobToBase64(blob) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();

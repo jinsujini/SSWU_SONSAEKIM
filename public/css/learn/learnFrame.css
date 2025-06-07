@@ -76,7 +76,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 50px;
+
 }
 
 
@@ -98,4 +98,8 @@
 
 .yellow {
     background-color: #FFF091;
+}
+
+#startBtn{
+    margin-top: 50px;
 }

@@ -178,8 +178,12 @@
     width: 250px;
     height: 150px;
     text-align: center;
-    justify-content:center;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-around;
     font-weight: bold;
   }
   
-  
+    .ranking-list p{
+      margin: 0;
+    }

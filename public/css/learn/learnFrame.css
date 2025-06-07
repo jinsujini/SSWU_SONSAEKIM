@@ -8,17 +8,15 @@
 .learn-container {
     display: flex;
     justify-content: center;  
-    align-items: center;
-    height: calc(100vh - 70px);             
-    margin: 0; 
-    overflow: hidden;
+    height: 100vh;
+
 }
 
 .learn-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    margin-top: 100px;
 }
 
 #label {
@@ -40,7 +38,6 @@
 .learn-box {
     position: relative;
     background-color: rgba(255, 255, 255, 0.5);
-    padding: 40px 20px;
     border-radius: 20px;
     box-shadow: 1px 2px 8px rgba(0, 0, 0, 0.25);
     display: flex;
@@ -48,8 +45,8 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
-    width: 720px; 
-    height: 420px;
+    width: 988px; 
+    height: 512px;
 }
 
 .learn-content {
@@ -57,38 +54,31 @@
     align-items: flex-start;
     flex-wrap: nowrap;
     padding: 20px;
-    gap: 40px;
     align-items: center;        
-    justify-content: center;  
+    justify-content: space-around;  
     height: 100%; 
+    width: 90%;
 }
 
 .learn-btn {
     background-color: #fff091;
-    padding: 16px 50px;
     border-radius: 20px;
-    font-size: 18px;
+    font-size: 25px;
     font-weight: bold;
     color: black;
     text-decoration: none;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
-    
-    width: 80px;           
-    height: 20px;   
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25); 
+    width: 253px;           
+    height: 67px;   
     line-height: 20px;      
     text-align: center;
     white-space: nowrap;
     display: flex;
     justify-content: center;
     align-items: center;
+
 }
 
-#startBtn {
-    margin-top: 10px;
-    font-size: 15px;
-    width: 40px;           
-    height: 5px;
-  }
 
 #bookmark-btn {
     border: none;
@@ -98,11 +88,11 @@
     position: absolute;
     top: 0;
     right: 0;
-    margin: 20px;
+    margin: 40px;
 }
 
 #btn-img {
-    width: 20px;
+    width: 36px;
     height: auto;
 }
 
@@ -111,4 +101,8 @@
 }
 .none {
     display: none;
+}
+
+#startBtn{
+    margin-top: 50px;
 }

@@ -99,6 +99,9 @@
 .yellow {
     background-color: #FFF091;
 }
+.none {
+    display: none;
+}
 
 #startBtn{
     margin-top: 50px;

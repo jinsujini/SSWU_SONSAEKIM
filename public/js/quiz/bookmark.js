@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!bookmarkBtn || !img) return;
 
     bookmarkBtn.addEventListener('click', async () => {
-        const sourceId = bookmarkBtn.dataset.wordId;
+        const sourceId = bookmarkBtn.dataset.sourceId || bookmarkBtn.dataset.wordId;
         const sourceType = bookmarkBtn.dataset.sourceType;
 
         try {
@@ -34,3 +34,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+

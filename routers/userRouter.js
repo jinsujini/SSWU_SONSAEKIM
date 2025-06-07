@@ -11,6 +11,8 @@ router.post('/updateProfile', mypageController.updateProfile);
 router.post('/sendEmailCode', mypageController.sendEmailCode);
 router.post('/verifyEmailCode', mypageController.verifyEmailCode);
 router.post('/updateEmail', mypageController.updateEmail)
+router.get('/bookmarkDetail/vc/:id', mypageController.renderVcDetail);
+router.get('/bookmarkDetail/word/:id', mypageController.renderWordDetail);
 
 
 

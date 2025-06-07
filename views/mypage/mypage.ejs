@@ -19,12 +19,15 @@
                         <% if (vcBookmarks.length> 0) { %>
                             <% vcBookmarks.forEach(item=> { %>
                                 <div class="item">
-                                    <img src="<%= item.image %>" alt="자모 이미지" />
+                                    <a href="/bookmarkDetail/vc/<%= item.vc_id %>">
+                                        <img src="<%= item.image %>" alt="자모 이미지" />
+                                    </a>
                                     <p>
                                         <%= item.description %>
                                     </p>
                                 </div>
                                 <% }) %>
+
                                     <% } else { %>
                                         <p class="empty">북마크가 없습니다.</p>
                                         <% } %>
@@ -37,12 +40,15 @@
                         <% if (wordBookmarks.length> 0) { %>
                             <% wordBookmarks.forEach(item=> { %>
                                 <div class="item">
-                                    <img src="<%= item.image %>" alt="단어 이미지" />
+                                    <a href="/bookmarkDetail/word/<%= item.word_id %>">
+                                        <img src="<%= item.image %>" alt="단어 이미지" />
+                                    </a>
                                     <p>
                                         <%= item.description %>
                                     </p>
                                 </div>
                                 <% }) %>
+
                                     <% } else { %>
                                         <p class="empty">북마크가 없습니다.</p>
                                         <% } %>
@@ -70,9 +76,9 @@
                     <p>나의 잔디</p>
                     <div class="grid">
                         <% const base=new Date(); base.setDate(base.getDate() - 27); for (let i=1; i < 29; i++) { const
-                            d=new Date(base.getTime() + i * 24 * 60 * 60 * 1000);
-                            const dKST=new Date(d.toLocaleString('en-US', { timeZone: 'Asia/Seoul' })); 
-                            const dateStr=dKST.toISOString().slice(0, 10); %>
+                            d=new Date(base.getTime() + i * 24 * 60 * 60 * 1000); const dKST=new
+                            Date(d.toLocaleString('en-US', { timeZone: 'Asia/Seoul' })); const
+                            dateStr=dKST.toISOString().slice(0, 10); %>
                             <!--마우스 올리면 날짜-->
                             <div class="day-wrapper">
                                 <div class="day <%= attendanceDates.includes(dateStr) ? 'checked' : '' %>">

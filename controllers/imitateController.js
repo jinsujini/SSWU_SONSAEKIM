@@ -20,7 +20,8 @@ exports.showImitate =  async (req, res) => {
 
       const enrichedImitateList = imitateList.map(item => ({
         ...item.toJSON(),
-        image: item.image || '' 
+        image: item.image || '' ,
+        source_type: 'sign_vc',
       }));
   
       res.render('imitate/imitatePage', {

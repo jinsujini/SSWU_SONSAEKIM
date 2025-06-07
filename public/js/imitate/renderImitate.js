@@ -73,7 +73,7 @@ function renderImitate(imitateList, type) {
               description: current.description,
               image: current.image,
               userImage: userImageURL,
-              source_id: current.id,
+              source_id: current.vc_id,
               source_type: current.source_type
             });
         }

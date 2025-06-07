@@ -13,18 +13,19 @@ document.addEventListener('DOMContentLoaded', () => {
           return;
         }
 
+        const item = wrongAnswers[index];
+        descriptionEl.textContent = `${index + 1}. ${item.description}`;
+
         // 북마크 초기 설정
         const bookmarkBtn = document.getElementById("bookmark-btn");
         const bookmarkImg = document.getElementById("btn-img");
         if (bookmarkBtn) {
-            bookmarkBtn.dataset.wordId = wrongAnswers[index].source_id;
-            bookmarkBtn.dataset.sourceType = wrongAnswers[index].source_type;
-            bookmarkImg.src = wrongAnswers[index].is_bookmarked
+            bookmarkBtn.dataset.wordId = item.source_id;
+            bookmarkBtn.dataset.sourceType = item.source_type;
+            bookmarkImg.src = item.is_bookmarked
                 ? '/assets/filled_bookmark.svg'
                 : '/assets/empty_bookmark.svg';
         }
-        const item = wrongAnswers[index];
-        descriptionEl.textContent = `${index + 1}. ${item.description}`;
         
         imageEl.src = item.image;
         userImageEl.src = item.userImage;

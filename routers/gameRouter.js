@@ -3,7 +3,7 @@ const router = express.Router();
 const gameController = require('../controllers/gameController');
 const { isLoggedIn } = require('../middlewares/logincheck');
 
-router.get('/start', gameController.gameStart);
+router.get('/start', isLoggedIn, gameController.gameStart);
 
 router.get('/play', isLoggedIn, gameController.gamePlay);
 

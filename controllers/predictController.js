@@ -1,4 +1,4 @@
-const { runSingleImagePrediction } = require('../lib/pythonCaller'); 
+const { Prediction } = require('../lib/pythonCaller'); 
 exports.handlePrediction = (req, res) => {
   const imagePath = req.file.path;
   const correct = req.body.correctText;
@@ -8,7 +8,7 @@ exports.handlePrediction = (req, res) => {
   const CONSONANTS = ['ㄱ','ㄴ','ㄷ','ㄹ','ㅁ','ㅂ','ㅅ','ㅇ','ㅈ','ㅊ','ㅋ','ㅌ','ㅍ','ㅎ'];
   const ALLOW = mode === 'vowel' ? VOWELS : CONSONANTS;
 
-  runSingleImagePrediction(imagePath, (err, result) => {
+  Prediction(imagePath, (err, result) => {
     if (err) {
       console.error('예측 오류:', err);
       return res.status(500).json({ error: '예측 실패' });

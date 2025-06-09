@@ -131,7 +131,7 @@ async function checkAnswer(current, imageBlob) {
     formData.append('image', imageBlob);
 
     try {
-        const response = await fetch('https://sonsaekim.site:5001/flask-predict', {
+        const response = await fetch('https://sonsaekim.site/flask-predict', {
             method: 'POST',
             body: formData
         });

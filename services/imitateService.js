@@ -5,15 +5,16 @@ const { runPythonPrediction } = require('../lib/pythonCaller');
 async function getImitateList(type) {
   const imitateList = await SignVc.findAll({
     where: type === 'vowel'
-      ? { vc_id: { [Op.gt]: 10 } }
-      : { vc_id: { [Op.lte]: 10 } },
+      ? { vc_id: { [Op.gt]: 14 } }
+      : { vc_id: { [Op.lte]: 14 } },
     order: SignVc.sequelize.random(),
     limit: 10
   });
 
   return imitateList.map(item => ({
     ...item.toJSON(),
-    image: item.image || ''
+    image: item.image || '',
+    source_type: 'sign_vc'
   }));
 }
 

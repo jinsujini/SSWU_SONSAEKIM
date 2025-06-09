@@ -12,6 +12,11 @@ function shuffleArray(array) {
 }
 
 function renderQuiz(quiz) {
+
+    if (currentIndex === 0) {
+        localStorage.setItem('sourceType', quiz.source_type);
+    }
+    
     // 북마크 초기 설정
     const bookmarkBtn = document.getElementById("bookmark-btn");
     const bookmarkImg = document.getElementById("btn-img");

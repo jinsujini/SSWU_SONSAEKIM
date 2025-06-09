@@ -14,29 +14,42 @@ let wrongAnswers = [];
       return false;
     }
   }
-  
   document.addEventListener('DOMContentLoaded', () => {
     const startBtn = document.getElementById('startBtn');
-    if (!startBtn) return;
+    const learnContent = document.getElementById('learn-content');
+    const startMessage = document.getElementById('start-message');    
+
+    if (!startBtn) console.error('startBtn 요소를 찾을 수 없습니다.');
+    if (!startMessage) console.error('startMessage 요소를 찾을 수 없습니다.');
+    if (!learnContent) console.error('learnContent 요소를 찾을 수 없습니다.');
+    
+    if (!startBtn || !startMessage || !learnContent) return;
+    
   
     startBtn.addEventListener('click', async () => {
       const hasPermission = await checkCameraPermission();
   
+      const start = async () => {
+        startBtn.classList.add('none');
+        startMessage.classList.add('none');
+        learnContent.classList.remove('none');
+        renderImitate(imitateList, type);
+      };
+  
       if (hasPermission) {
-         renderImitate(imitateList, type);
+        await start();
       } else {
         try {
-          // 권한 요청
           const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
-          stream.getTracks().forEach(track => track.stop()); // 권한만 확인하려고 스트림 바로 정지
-          const type = startBtn.dataset.type;
-          renderImitate(imitateList, type);
+          stream.getTracks().forEach(track => track.stop());
+          await start();
         } catch (err) {
           alert('카메라 권한이 필요합니다. 권한을 허용해주세요.');
         }
       }
     });
   });
+  
   
 function renderImitate(imitateList, type) {
     let correctCount = 0;
@@ -55,7 +68,6 @@ function renderImitate(imitateList, type) {
     
         const current = imitateList[currentIndex];
         imitateNumberElement.textContent = `${currentIndex + 1}. `;
-
         imageElement.src = current.image;
         descriptionElement.textContent = current.description;
     
@@ -81,6 +93,8 @@ function renderImitate(imitateList, type) {
             correctCount++;
         }
 
+        await new Promise(resolve => setTimeout(resolve, 1500));
+
         currentIndex++;
         await showNext();
     }
@@ -98,6 +112,7 @@ function renderImitate(imitateList, type) {
     }
     
 async function autoshot(video) {
+    flashEffect();
     const canvas = document.createElement("canvas");
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
@@ -132,7 +147,14 @@ async function checkAnswer(current, imageBlob) {
         return false;
     }
 }
-   
+  
+function flashEffect() {
+    const flash = document.createElement('div');
+    flash.className = 'flash';
+    document.body.appendChild(flash);
+    setTimeout(() => document.body.removeChild(flash), 200);
+}
+  
 function blobToBase64(blob) {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();

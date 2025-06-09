@@ -4,13 +4,14 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    height: 100vh;
   }
   
   .hand-icon {
     width: 140px; 
     height: auto;
     margin-bottom: 20px;
-    margin-top: 200px;
+    margin-top: -100px;
   }
   
   .greeting-text {

@@ -1,5 +1,3 @@
-// public/js/camera.js
-
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
 async function connectCamera({ videoId = 'camera', captureDone = () => {}} = {}) {
@@ -34,9 +32,6 @@ async function connectCamera({ videoId = 'camera', captureDone = () => {}} = {})
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
 
-    // await delay(3000);
-    
-    // 화면 캡처
     canvas.width  = video.videoWidth;
     canvas.height = video.videoHeight;
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -47,7 +42,6 @@ async function connectCamera({ videoId = 'camera', captureDone = () => {}} = {})
     await delay(1500);
 
     video.poster = ''; 
-    // video.srcObject = stream;
     await video.play();
   }
 

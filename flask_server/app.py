@@ -7,7 +7,7 @@ from predict_image import predict_image
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/predict', methods=['POST'])
+@app.route('/flask-predict', methods=['POST'])
 def predict():
     file = request.files.get('image')
     if not file:

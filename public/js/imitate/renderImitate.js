@@ -116,7 +116,7 @@ async function checkAnswer(current, imageBlob) {
     formData.append('image', imageBlob);
 
     try {
-        const response = await fetch('http://127.0.0.1:5001/predict', {
+        const response = await fetch('http://sonsaekim.site:5001/predict', {
             method: 'POST',
             body: formData
         });

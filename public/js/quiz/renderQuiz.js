@@ -12,10 +12,6 @@ function shuffleArray(array) {
 }
 
 function renderQuiz(quiz) {
-
-    if (currentIndex === 0) {
-        localStorage.setItem('sourceType', quiz.source_type);
-    }
     
     // 북마크 초기 설정
     const bookmarkBtn = document.getElementById("bookmark-btn");
@@ -111,6 +107,9 @@ function renderQuiz(quiz) {
 window.onload = () => {
     if (quizList && quizList.length > 0) {
         localStorage.setItem('quizTotal', quizList.length);
+        localStorage.setItem('isWrongQuiz', window.isWrongQuiz);
+        const firstType = quizList[0].source_type;
+        localStorage.setItem('sourceType', firstType);
         renderQuiz(quizList[0]);
     }
 };

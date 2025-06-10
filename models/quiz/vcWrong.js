@@ -33,31 +33,6 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         defaultValue: false
     },
-    selected: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        defaultValue: 0
-    },
-    option1: {
-        type: DataTypes.STRING(100),
-        allowNull: false
-    },
-    option2: {
-        type: DataTypes.STRING(100),
-        allowNull: false
-    },
-    option3: {
-        type: DataTypes.STRING(100),
-        allowNull: false
-    },
-    option4: {
-        type: DataTypes.STRING(100),
-        allowNull: false
-    },
-    answer: {
-        type: DataTypes.INTEGER,
-        allowNull: false
-    },
     created_at: {
         type: DataTypes.DATE,
         allowNull: false,

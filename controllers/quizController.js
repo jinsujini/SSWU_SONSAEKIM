@@ -11,13 +11,10 @@ exports.showQuiz = async (req, res) => {
 
     const quizList = await quizService.getQuizList(type, userId);
 
-    if (quizList.length === 0) {
-      return res.render('quiz/noQuiz');
-    }
-
     res.render('quiz/quizPage', {
       quizList,
-      quizTitle: type === 'phoneme' ? '모음/자음 퀴즈' : '단어/표현 퀴즈'
+      quizTitle: type === 'phoneme' ? '모음/자음 퀴즈' : '단어/표현 퀴즈',
+      isWrongQuiz: false
     });
   } catch (err) {
     console.error(err);
@@ -52,13 +49,16 @@ exports.showWrongAnswers = async (req, res) => {
     if (!userId) return res.redirect('/login');
 
     try {
-      const wrongAnswers = await quizService.getWrongAnswers(userId);
+      const quizList = await quizService.getWrongAnswers(userId);
 
-      if (wrongAnswers.length === 0) {
+      if (quizList.length === 0) {
         return res.render('quiz/noQuiz');
       }
 
-      return res.render('quiz/quizWrong', { wrongAnswers });
+      return res.render('quiz/quizPage', { quizList,
+        quizTitle: '오답 재학습',
+        isWrongQuiz: true
+      });
     } catch (err) {
       console.error(err);
       res.status(500).send('틀린 문제 로딩 실패');

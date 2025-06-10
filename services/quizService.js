@@ -5,31 +5,9 @@ exports.getQuizList = async (type, userId) => {
     const { Op } = require('sequelize');
     const isPhoneme = type === 'phoneme';
 
-    let excludedIds = [];
-    if (userId) {
-        if (isPhoneme) {
-        const relearned = await VcWrong.findAll({
-            attributes: ['vc_id'],
-            where: { user_id: userId, is_relearned: true },
-            raw: true
-        });
-        excludedIds = relearned.map(r => r.vc_id);
-        } else {
-        const relearned = await WordWrong.findAll({
-            attributes: ['word_id'],
-            where: { user_id: userId, is_relearned: true },
-            raw: true
-        });
-        excludedIds = relearned.map(r => r.word_id);
-        }
-    }
-
     const quizList = await Quiz.findAll({
         where: {
-        source_type: isPhoneme ? 'sign_vc' : 'sign_word',
-        source_id: {
-            [Op.notIn]: excludedIds.length > 0 ? excludedIds : [0],
-        }
+            source_type: isPhoneme ? 'sign_vc' : 'sign_word',
         },
         order: Quiz.sequelize.random(),
         limit: 10
@@ -37,34 +15,34 @@ exports.getQuizList = async (type, userId) => {
 
     const enrichedQuizList = await Promise.all(
         quizList.map(async (quiz) => {
-        let image = '';
-        let is_bookmarked = false;
+            let image = '';
+            let is_bookmarked = false;
 
-        if (quiz.source_type === 'sign_word') {
-            const word = await SignWord.findByPk(quiz.source_id);
-            image = word?.image || '';
-            if (userId) {
-            const bookmark = await BookmarkWord.findOne({
-                where: { user_id: userId, word_id: quiz.source_id }
-            });
-            is_bookmarked = !!bookmark;
+            if (quiz.source_type === 'sign_word') {
+                const word = await SignWord.findByPk(quiz.source_id);
+                image = word?.image || '';
+                if (userId) {
+                    const bookmark = await BookmarkWord.findOne({
+                        where: { user_id: userId, word_id: quiz.source_id }
+                    });
+                    is_bookmarked = !!bookmark;
+                }
+            } else if (quiz.source_type === 'sign_vc') {
+                const vc = await SignVc.findByPk(quiz.source_id);
+                image = vc?.image || '';
+                if (userId) {
+                    const bookmark = await BookmarkVc.findOne({
+                        where: { user_id: userId, vc_id: quiz.source_id }
+                    });
+                    is_bookmarked = !!bookmark;
+                }
             }
-        } else if (quiz.source_type === 'sign_vc') {
-            const vc = await SignVc.findByPk(quiz.source_id);
-            image = vc?.image || '';
-            if (userId) {
-            const bookmark = await BookmarkVc.findOne({
-                where: { user_id: userId, vc_id: quiz.source_id }
-            });
-            is_bookmarked = !!bookmark;
-            }
-        }
 
-        return {
-            ...quiz.toJSON(),
-            image,
-            is_bookmarked
-        };
+            return {
+                ...quiz.toJSON(),
+                image,
+                is_bookmarked
+            };
         })
     );
 
@@ -74,35 +52,39 @@ exports.getQuizList = async (type, userId) => {
 exports.saveQuizResults = async (userId, quizResults) => {
     for (const result of quizResults) {
         const common = {
-        is_follow: result.is_follow ?? false,
-        is_relearned: result.is_relearned ?? false,
-        selected: typeof result.selected === 'number' ? result.selected : 0,
-        option1: result.option1,
-        option2: result.option2,
-        option3: result.option3,
-        option4: result.option4,
-        answer: result.answer,
-        created_at: new Date()
+            is_follow: result.is_follow ?? false,
+            is_relearned: result.is_relearned ?? false,
+            created_at: new Date()
         };
 
         if (result.source_type === 'sign_word') {
-        const where = { user_id: userId, word_id: result.source_id };
-        const existing = await WordWrong.findOne({ where });
+            const where = { user_id: userId, word_id: result.source_id };
+            const existing = await WordWrong.findOne({ where });
 
-        if (existing) {
-            await WordWrong.update(common, { where });
-        } else {
-            await WordWrong.create({ user_id: userId, word_id: result.source_id, ...common });
-        }
+            if (existing) {
+                if (
+                    existing.is_relearned !== common.is_relearned ||
+                    existing.is_follow !== common.is_follow
+                ) {
+                    await WordWrong.update(common, { where });
+                }
+            } else {
+                await WordWrong.create({ user_id: userId, word_id: result.source_id, ...common });
+            }
         } else if (result.source_type === 'sign_vc') {
-        const where = { user_id: userId, vc_id: result.source_id };
-        const existing = await VcWrong.findOne({ where });
+            const where = { user_id: userId, vc_id: result.source_id };
+            const existing = await VcWrong.findOne({ where });
 
-        if (existing) {
-            await VcWrong.update(common, { where });
-        } else {
-            await VcWrong.create({ user_id: userId, vc_id: result.source_id, ...common });
-        }
+            if (existing) {
+                if (
+                    existing.is_relearned !== common.is_relearned ||
+                    existing.is_follow !== common.is_follow
+                ) {
+                    await VcWrong.update(common, { where });
+                }
+            } else {
+                await VcWrong.create({ user_id: userId, vc_id: result.source_id, ...common });
+            }
         }
     }
 };
@@ -114,84 +96,107 @@ exports.getWrongAnswers = async (userId) => {
 
     let vcWrongs = await VcWrong.findAll({
         where: { user_id: userId, is_relearned: false },
-        include: [SignVc],
         order: Sequelize.literal('RAND()'),
         limit: vcCount
     });
+    const vcSourceIds = vcWrongs.map(v => v.vc_id);
 
     let wordWrongs = await WordWrong.findAll({
         where: { user_id: userId, is_relearned: false },
-        include: [SignWord],
         order: Sequelize.literal('RAND()'),
         limit: wordCount
     });
+    const wordSourceIds = wordWrongs.map(w => w.word_id);
 
-    if (vcWrongs.length + wordWrongs.length < totalCount) {
-        const remaining = totalCount - (vcWrongs.length + wordWrongs.length);
+    if (vcSourceIds.length + wordSourceIds.length < totalCount) {
+        const remaining = totalCount - (vcSourceIds.length + wordSourceIds.length);
 
-        if (vcWrongs.length < vcCount) {
-        const extraWords = await WordWrong.findAll({
-            where: {
-            user_id: userId,
-            is_relearned: false,
-            word_wrong_id: { [Sequelize.Op.notIn]: wordWrongs.map(w => w.id) }
-            },
-            include: [SignWord],
-            order: Sequelize.literal('RAND()'),
-            limit: remaining
-        });
-        wordWrongs = wordWrongs.concat(extraWords);
+        if (vcSourceIds.length < vcCount) {
+            const extraWords = await WordWrong.findAll({
+                where: {
+                    user_id: userId,
+                    is_relearned: false,
+                    word_wrong_id: { [Sequelize.Op.notIn]: wordWrongs.map(w => w.id) }
+                },
+                order: Sequelize.literal('RAND()'),
+                limit: remaining
+            });
+            wordWrongs = wordWrongs.concat(extraWords);
+            wordSourceIds.push(...extraWords.map(w => w.word_id));
         } else {
-        const extraVcs = await VcWrong.findAll({
-            where: {
-            user_id: userId,
-            is_relearned: false,
-            vc_wrong_id: { [Sequelize.Op.notIn]: vcWrongs.map(v => v.id) }
-            },
-            include: [SignVc],
-            order: Sequelize.literal('RAND()'),
-            limit: remaining
-        });
-        vcWrongs = vcWrongs.concat(extraVcs);
+            const extraVcs = await VcWrong.findAll({
+                where: {
+                    user_id: userId,
+                    is_relearned: false,
+                    vc_wrong_id: { [Sequelize.Op.notIn]: vcWrongs.map(v => v.id) }
+                },
+                order: Sequelize.literal('RAND()'),
+                limit: remaining
+            });
+            vcWrongs = vcWrongs.concat(extraVcs);
+            vcSourceIds.push(...extraVcs.map(v => v.vc_id));
         }
     }
 
-    const combined = [...vcWrongs, ...wordWrongs];
-    const shuffled = combined.sort(() => Math.random() - 0.5);
+    const vcQuizList = await Quiz.findAll({
+        where: {
+            source_type: 'sign_vc',
+            source_id: {
+                [Sequelize.Op.in]: vcSourceIds
+            }
+        },
+        order: Quiz.sequelize.random(),
+        limit: vcSourceIds.length
+    });
 
-    const wrongAnswers = [];
+    const wordQuizList = await Quiz.findAll({
+        where: {
+            source_type: 'sign_word',
+            source_id: {
+                [Sequelize.Op.in]: wordSourceIds
+            }
+        },
+        order: Quiz.sequelize.random(),
+        limit: wordSourceIds.length
+    });
 
-    for (const entry of shuffled) {
-        const isVc = !!entry.vc_id;
-        const source_id = isVc ? entry.vc_id : entry.word_id;
-        const source_type = isVc ? 'sign_vc' : 'sign_word';
+    let quizList = [...vcQuizList, ...wordQuizList].sort(() => Math.random() - 0.5);
 
-        let isBookmarked = false;
-        if (source_type === 'sign_word') {
-        const bookmark = await BookmarkWord.findOne({ where: { user_id: userId, word_id: source_id } });
-        isBookmarked = !!bookmark;
-        } else {
-        const bookmark = await BookmarkVc.findOne({ where: { user_id: userId, vc_id: source_id } });
-        isBookmarked = !!bookmark;
-        }
+    const enrichedQuizList = await Promise.all(
+        quizList.map(async (quiz) => {
+            let image = '';
+            let is_bookmarked = false;
 
-        wrongAnswers.push({
-        source_id,
-        source_type,
-        image: isVc ? entry.SignVc?.image || '' : entry.SignWord?.image || '',
-        option1: entry.option1,
-        option2: entry.option2,
-        option3: entry.option3,
-        option4: entry.option4,
-        answer: entry.answer,
-        selected: entry.selected ?? 0,
-        is_relearned: entry.is_relearned ?? false,
-        is_follow: entry.is_follow ?? false,
-        is_bookmarked: isBookmarked
-        });
-    }
+            if (quiz.source_type === 'sign_word') {
+                const word = await SignWord.findByPk(quiz.source_id);
+                image = word?.image || '';
+                if (userId) {
+                    const bookmark = await BookmarkWord.findOne({
+                        where: { user_id: userId, word_id: quiz.source_id }
+                    });
+                    is_bookmarked = !!bookmark;
+                }
+            } else if (quiz.source_type === 'sign_vc') {
+                const vc = await SignVc.findByPk(quiz.source_id);
+                image = vc?.image || '';
+                if (userId) {
+                    const bookmark = await BookmarkVc.findOne({
+                        where: { user_id: userId, vc_id: quiz.source_id }
+                    });
+                    is_bookmarked = !!bookmark;
+                }
+            }
 
-    return wrongAnswers;
+
+            return {
+                ...quiz.toJSON(),
+                image,
+                is_bookmarked
+            };
+        })
+    );
+
+    return enrichedQuizList;
 };
 
 exports.toggleBookmark = async (userId, sourceType, sourceId) => {

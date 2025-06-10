@@ -42,6 +42,7 @@
 <script src="/js/quiz/bookmark.js"></script>
 <script>
     const quizList = <%- JSON.stringify(quizList) %>;
+    window.isWrongQuiz = <%= typeof isWrongQuiz !== 'undefined' && isWrongQuiz ? 'true' : 'false' %>;
 </script>
 <script src="/js/quiz/renderQuiz.js"></script>
 

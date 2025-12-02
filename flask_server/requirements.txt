@@ -1,7 +1,7 @@
-tensorflow
-scikit-learn
-numpy
-opencv-python
-mediapipe
+#requirements.txt
 flask
 flask_cors
+numpy
+scikit-learn
+mediapipe
+opencv-python-headless

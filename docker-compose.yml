@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-    image: s0obang/sswu_sonsaekim-node
+    image: s0obang/sswu_sonsaekim-node:${BUILD_NUMBER}
     container_name: sswu_sonsaekim-node
     ports:
       - "3000:3000"
@@ -15,7 +15,7 @@ services:
     build:
       context: ./flask_server
       dockerfile: ./Dockerfile
-    image: s0obang/sswu_sonsaekim-flask
+    image: s0obang/sswu_sonsaekim-flask:${BUILD_NUMBER}
     container_name: sswu_sonsaekim-flask
     ports:
       - "5000:5000"

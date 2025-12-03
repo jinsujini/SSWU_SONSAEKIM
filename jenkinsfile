@@ -1,0 +1,54 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_LOGIN = credentials('dockerhub-login')
+    }
+
+    stages {
+        stage('CI Gate') { //feature 브랜치에 푸시했을때는 CI없고, PR 만들었을때만 생기게 하려고 추가했어요
+            when {
+                anyOf {
+                    changeRequest() 
+                    branch 'main'
+                }
+            }
+            steps {
+                echo "CI allowed"
+            }
+        }
+
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('Docker Login') {
+            steps {
+                sh """
+                    echo "$DOCKER_LOGIN_PSW" | docker login -u "$DOCKER_LOGIN_USR" --password-stdin
+                """
+            }
+        }
+
+        stage('Build Images') {
+            steps {
+                sh "BUILD_NUMBER=${env.BUILD_NUMBER} docker compose build"
+            }
+        }
+
+        stage('Push Images') {
+            steps {
+                sh "BUILD_NUMBER=${env.BUILD_NUMBER} docker compose push"
+            }
+        }
+
+    post {
+        success { echo "SUCCESS" }
+        failure { echo "FAILED" }
+        }
+    }
+}
+
+

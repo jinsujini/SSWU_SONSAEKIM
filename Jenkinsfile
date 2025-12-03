@@ -43,11 +43,10 @@ pipeline {
                 sh "BUILD_NUMBER=${env.BUILD_NUMBER} docker compose push"
             }
         }
-
+    }
     post {
         success { echo "SUCCESS" }
         failure { echo "FAILED" }
-        }
     }
 }
 

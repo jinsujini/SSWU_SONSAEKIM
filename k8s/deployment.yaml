@@ -38,3 +38,89 @@ spec:
   - port: 5000
     targetPort: 5000
     name: http
+
+# Node.js 서버 배포 설정
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node
+  labels:
+    app: node
+spec:
+  replicas: 2 # 레플리카 2로 설정 (트래픽 분산)
+  selector:
+    matchLabels:
+      app: node
+  template:
+    metadata:
+      labels:
+        app: node
+    spec:
+      containers:
+      - name: node
+        image: docker.io/s0obang/sswu_sonsaekim-node:__VERSION__
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+        env:
+        - name: NODEMAILER_USER
+          valueFrom:
+            secretKeyRef:
+              name: node-app-secret
+              key: NODEMAILER_USER
+        - name: NODEMAILER_PASS
+          valueFrom:
+            secretKeyRef:
+              name: node-app-secret
+              key: NODEMAILER_PASS
+        - name: DB_USER
+          valueFrom:
+            secretKeyRef:
+              name: node-app-secret
+              key: DB_USER
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: node-app-secret
+              key: DB_PASS
+        - name: DB_NAME
+          valueFrom:
+            secretKeyRef:
+              name: node-app-secret
+              key: DB_NAME
+        - name: DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: node-app-secret
+              key: DB_HOST
+        - name: SESSION_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: node-app-secret
+              key: SESSION_SECRET 
+
+        - name: REDIS_HOST
+          value: "redis"
+        - name: REDIS_PORT
+          value: "6379"
+
+        - name: DB_PORT
+          value: "3306"
+
+        - name: FLASK_NAME
+          value: "flask"
+
+# Node.js 서버 외부 접근용 서비스
+apiVersion: v1
+kind: Service
+metadata:
+  name: node
+spec:
+  type: LoadBalancer
+  selector:
+    app: node
+  sessionAffinity: ClientIP
+  ports:
+  - port: 80
+    targetPort: 3000
+    name: http

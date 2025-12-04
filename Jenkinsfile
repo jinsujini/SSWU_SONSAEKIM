@@ -43,7 +43,48 @@ pipeline {
                 sh "BUILD_NUMBER=${env.BUILD_NUMBER} docker compose push"
             }
         }
+        stage('Inline Secret into Deployment') {
+            steps {
+                withCredentials([file(credentialsId: 'k8s-secret-file', variable: 'SECRET_FILE')]) {
+                    sh """
+                        echo 'Appending secret to deployment.yaml'
+
+                        echo "\\n---" >> k8s/deployment.yaml
+
+                        cat "$SECRET_FILE" >> k8s/deployment.yaml
+                    """
+                }
+            }
+        }
+        stage('Render Deployment') {
+            steps {
+                sh """
+                    sed -i "s#sswu_sonsaekim-flask:.*#sswu_sonsaekim-flask:${BUILD_NUMBER}#g" k8s/deployment.yaml
+                    sed -i "s#sswu_sonsaekim-node:.*#sswu_sonsaekim-node:${BUILD_NUMBER}#g" k8s/deployment.yaml
+                """
+            }
+        }
+
+        stage('Deploy to GKE') {
+            when {
+                branch 'main'
+            }
+            steps {
+                step([
+                    $class: 'KubernetesEngineBuilder',
+                    projectId: env.PROJECT_ID,
+                    clusterName: env.CLUSTER_NAME,
+                    location: env.LOCATION,
+
+                    manifestPattern: 'k8s/deployment.yaml',
+
+                    credentialsId: env.CREDENTIALS_ID,
+                    verifyDeployments: true
+                ])
+            }
+        }
     }
+
     post {
         success { echo "SUCCESS" }
         failure { echo "FAILED" }

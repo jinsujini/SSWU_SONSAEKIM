@@ -3,6 +3,10 @@ pipeline {
 
     environment {
         DOCKER_LOGIN = credentials('dockerhub-login')
+        CREDENTIALS_ID = '2b8ffc9d-989a-47d3-a15f-1d34486232b0'
+        PROJECT_ID = 'dulcet-clock-477102-m7'
+        CLUSTER_NAME = 'kube'
+        LOCATION = 'us-central1-a'
     }
 
     stages {

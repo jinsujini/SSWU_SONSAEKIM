@@ -1,27 +1,43 @@
 const express = require('express');
-const cookiParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const db = require('./models'); 
-
 const path = require("path");
-
+const RedisStore = require('connect-redis').default;
+const { createClient } = require('redis');
 const app = express();
-app.set('port',process.env.PORT || 3000);
 
-app.use('/',express.static(path.join(__dirname, 'public')));
+app.set('port', process.env.PORT || 3000);
 app.use(express.json());
-app.use(express.urlencoded({ extended: false}));
-app.use(cookiParser('mySecretKey'));
-app.use(session({
+app.use(express.urlencoded({ extended: true }));
+const redisClient = createClient({
+  socket: {
+    host: process.env.REDIS_HOST || "redis",  
+    port: process.env.REDIS_PORT || 6379
+  },
+});
+
+redisClient.connect().catch(console.error);
+
+app.set('trust proxy', 1);
+
+app.use(cookieParser(process.env.SESSION_SECRET || 'mySecretKey'));
+
+app.use(
+  session({
+    store: new RedisStore({ client: redisClient }),
+    secret: process.env.SESSION_SECRET || 'mySecretKey',
     resave: false,
     saveUninitialized: false,
-    secret: 'mySecretKey',
-    cookie: {
-        httpOnly: true,
-        secure: false,
-    },
     name: 'session-cookie',
-}));
+    cookie: {
+      httpOnly: true,
+      secure: false,           
+      maxAge: 1000 * 60 * 60,   
+    },
+  })
+);
+app.use('/', express.static(path.join(__dirname, 'public')));
 
 //user 로그인 여부 전역 전달
 app.use((req, res, next) => {
@@ -57,9 +73,9 @@ app.use('/auth', authRouter);
 const predictRouter = require('./routers/predictRouter');
 app.use('/api', predictRouter);
 
-
 //home.ejs 연결
 const { isLoggedIn } = require('./middlewares/logincheck.js');
+
 //로그인 전 홈
 app.get('/', (req, res) => {
     res.render('layouts/home');

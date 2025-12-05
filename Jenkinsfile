@@ -1,5 +1,11 @@
 pipeline {
     agent any
+    when { //feature 브랜치에 푸시했을때는 CI없고, PR 만들었을때만 생기게 하려고 추가했어요
+        anyOf {
+            changeRequest() 
+            branch 'main'
+        }
+    }
 
     environment {
         DOCKER_LOGIN = credentials('dockerhub-login')
@@ -10,13 +16,7 @@ pipeline {
     }
 
     stages {
-        stage('CI Gate') { //feature 브랜치에 푸시했을때는 CI없고, PR 만들었을때만 생기게 하려고 추가했어요
-            when {
-                anyOf {
-                    changeRequest() 
-                    branch 'main'
-                }
-            }
+        stage('CI Gate') {
             steps {
                 echo "CI allowed"
             }

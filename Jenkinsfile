@@ -1,11 +1,5 @@
 pipeline {
     agent any
-    when { //feature 브랜치에 푸시했을때는 CI없고, PR 만들었을때만 생기게 하려고 추가했어요
-        anyOf {
-            changeRequest() 
-            branch 'main'
-        }
-    }
 
     environment {
         DOCKER_LOGIN = credentials('dockerhub-login')
@@ -16,19 +10,25 @@ pipeline {
     }
 
     stages {
-        stage('CI Gate') {
-            steps {
-                echo "CI allowed"
-            }
-        }
-
         stage('Checkout') {
+            when {
+                anyOf {
+                    changeRequest() 
+                    branch 'main'
+                }
+            }
             steps {
                 checkout scm
             }
         }
 
         stage('Docker Login') {
+            when {
+                anyOf {
+                    changeRequest() 
+                    branch 'main'
+                }
+            }
             steps {
                 sh """
                     echo "$DOCKER_LOGIN_PSW" | docker login -u "$DOCKER_LOGIN_USR" --password-stdin
@@ -37,17 +37,35 @@ pipeline {
         }
 
         stage('Build Images') {
+            when {
+                anyOf {
+                    changeRequest() 
+                    branch 'main'
+                }
+            }
             steps {
                 sh "BUILD_NUMBER=${env.BUILD_NUMBER} docker compose build"
             }
         }
 
         stage('Push Images') {
+            when {
+                anyOf {
+                    changeRequest() 
+                    branch 'main'
+                }
+            }
             steps {
                 sh "BUILD_NUMBER=${env.BUILD_NUMBER} docker compose push"
             }
         }
         stage('Inline Secret into Deployment') {
+            when {
+                anyOf {
+                    changeRequest() 
+                    branch 'main'
+                }
+            }
             steps {
                 withCredentials([file(credentialsId: 'k8s-secret-file', variable: 'SECRET_FILE')]) {
                     sh """
@@ -61,6 +79,12 @@ pipeline {
             }
         }
         stage('Render Deployment') {
+            when {
+                anyOf {
+                    changeRequest() 
+                    branch 'main'
+                }
+            }
             steps {
                 sh """
                     sed -i "s#sswu_sonsaekim-flask:.*#sswu_sonsaekim-flask:${BUILD_NUMBER}#g" k8s/deployment.yaml
